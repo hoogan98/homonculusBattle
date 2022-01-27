@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class DrawParts : MonoBehaviour
 {
-    public GameObject Bone;
-    public GameObject Joint;
-    public GameObject Muscle;
-    public GameObject Brain;
-    public Camera GameCam;
+    public GameObject bonePref;
+    public GameObject joint;
+    public GameObject muscle;
+    public GameObject brain;
+    public Camera gameCam;
     public Text drawModeLabel;
     public float muscleStrengthMax;
     public float muscleStrengthMin;
@@ -17,12 +17,13 @@ public class DrawParts : MonoBehaviour
     public float boneSizeMax;
     public bool isP1;
     public bool isActive;
+    public List<KeyCode> controlKeys;
 
-    private bool DeleteMode = false;
-    private Vector3 startPoint;
-    private GameObject newBone;
-    private float boneRatio;
-    private List<GameObject> drawnParts;
+    private bool _deleteMode = false;
+    private Vector3 _startPoint;
+    private GameObject _newBone;
+    private float _boneRatio;
+    private List<GameObject> _drawnParts;
     private enum DrawMode
     {
         Brain = 0,
@@ -30,56 +31,57 @@ public class DrawParts : MonoBehaviour
         Muscle = 2,
         KeyBind = 3
     };
-    private DrawMode drawmode;
-    private bool hasBrain;
+
+    private Dictionary<DrawMode, string> _drawText;
+    private DrawMode _drawMode;
+    private bool _hasBrain;
+    private Part _drawingPart;
 
     //muscle stuff
-    private bool drawingMuscle;
-    private GameObject muscleFirstBone;
-    private GameObject newMuscle;
-    private float muscleRatio;
-    private float muscleStrength;
+    private bool _drawingMuscle;
+    private GameObject _muscleFirstBone;
+    private GameObject _newMuscle;
+    private float _muscleRatio;
+    private float _muscleStrength;
 
     //bone parts
-    private Transform boneTrans;
-    private Renderer boneRend;
-    private Transform newBoneTrans;
-    private Rigidbody2D newBoneRig;
-    private Renderer newBoneRend;
-    private Vector3 lastAngle;
-
+    private Transform _boneTrans;
+    private Renderer _boneRend;
+    private Transform _newBoneTrans;
+    
     //key binding stuff
-    private List<KeyCode> mapKeys;
-    private int currentKey;
-    private List<string> mapKeysText;
+    private int _currentKey;
 
-    // Start is called before the first frame update
     void Start()
     {
-        this.hasBrain = false;
-        this.drawmode = DrawMode.Brain;
-        this.drawModeLabel.text = "Draw Object: Brain";
-        this.boneTrans = Bone.GetComponent<Transform>();
-        this.boneRend = Bone.GetComponent<Renderer>();
-        this.newBone = null;
-        this.boneRatio = boneTrans.localScale.x / boneRend.bounds.size.x;
-        this.muscleRatio = this.Muscle.GetComponent<Transform>().localScale.x / this.Muscle.GetComponent<Renderer>().bounds.size.x;
-        this.drawnParts = new List<GameObject>();
-        this.drawingMuscle = false;
-        this.newMuscle = null;
-        if (isP1)
+        _hasBrain = false;
+        _drawText = new Dictionary<DrawMode, string>
         {
-            this.mapKeys = new List<KeyCode>() { KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.RightArrow };
-            this.mapKeysText = new List<string>() { "Up Arrow", "Left Arrow", "Down Arrow", "Right Arrow" };
-        }
-        else
-        {
-            this.mapKeys = new List<KeyCode>() { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
-            this.mapKeysText = new List<string>() { "W", "A", "S", "D" };
-        }
-        this.currentKey = 0;
+            {DrawMode.Brain, "Draw Object: Brain"},
+            {DrawMode.Bone, "Draw Object: Bone"},
+            {DrawMode.Muscle, "Draw Object: Muscle"},
+            {DrawMode.KeyBind, "Set Muscle Keys: " + controlKeys[_currentKey]}
+        };
+        SetDrawing(DrawMode.Brain);
+        
+        //fix line
+        
+        _newBone = null;
+        _boneRatio = bonePref.GetComponent<Transform>().localScale.x / bonePref.GetComponent<Renderer>().bounds.size.x;
+        this._muscleRatio = this.muscle.GetComponent<Transform>().localScale.x / this.muscle.GetComponent<Renderer>().bounds.size.x;
+        this._drawnParts = new List<GameObject>();
+        this._drawingMuscle = false;
+        this._newMuscle = null;
+        
+        this._currentKey = 0;
 
-        this.muscleStrength = 2.5f;
+        this._muscleStrength = 2.5f;
+    }
+
+    private void SetDrawing(DrawMode mode)
+    {
+        _drawMode = mode;
+        drawModeLabel.text = _drawText[mode];
     }
 
     void Update()
@@ -91,41 +93,41 @@ public class DrawParts : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (this.newBone != null)
+            if (this._newBone != null)
             {
-                Destroy(this.newBone);
-                this.newBone = null;
+                Destroy(this._newBone);
+                this._newBone = null;
             }
-            if (this.newMuscle != null)
+            if (this._newMuscle != null)
             {
-                Destroy(this.newMuscle);
-                this.newMuscle = null;
+                Destroy(this._newMuscle);
+                this._newMuscle = null;
             }
-            if (this.drawmode == DrawMode.Muscle)
+            if (this._drawMode == DrawMode.Muscle)
             {
-                this.drawmode = DrawMode.KeyBind;
-                this.drawModeLabel.text = "Set Muscle Keys: " + this.mapKeysText[this.currentKey];
+                this._drawMode = DrawMode.KeyBind;
+                this.drawModeLabel.text = "Set Muscle Keys: " + controlKeys[this._currentKey];
             }
-            else if (this.drawmode == DrawMode.Brain)
+            else if (this._drawMode == DrawMode.Brain)
             {
-                this.drawmode = DrawMode.Bone;
+                this._drawMode = DrawMode.Bone;
                 this.drawModeLabel.text = "Draw Object: Bone";
             }
-            else if (this.drawmode == DrawMode.Bone)
+            else if (this._drawMode == DrawMode.Bone)
             {
-                this.drawmode = DrawMode.Muscle;
+                this._drawMode = DrawMode.Muscle;
                 this.drawModeLabel.text = "Draw Object: Muscle";
             }
-            else if (this.drawmode == DrawMode.KeyBind)
+            else if (this._drawMode == DrawMode.KeyBind)
             {
-                if (this.hasBrain == false)
+                if (this._hasBrain == false)
                 {
-                    this.drawmode = DrawMode.Brain;
+                    this._drawMode = DrawMode.Brain;
                     this.drawModeLabel.text = "Draw Object: Brain";
                 }
                 else
                 {
-                    this.drawmode = DrawMode.Bone;
+                    this._drawMode = DrawMode.Bone;
                     this.drawModeLabel.text = "Draw Object: Bone";
                 }
             }
@@ -133,15 +135,15 @@ public class DrawParts : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            DeleteMode = true;
+            _deleteMode = true;
         } else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            DeleteMode = false;
+            _deleteMode = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && DeleteMode)
+        if (Input.GetMouseButtonDown(0) && _deleteMode)
         {
-            Vector3 mousePos = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
 
@@ -157,7 +159,7 @@ public class DrawParts : MonoBehaviour
                 }
                 if (current.collider.gameObject.CompareTag("Brain"))
                 {
-                    this.hasBrain = false;
+                    this._hasBrain = false;
                     hit = current;
                     break;
                 }
@@ -167,111 +169,109 @@ public class DrawParts : MonoBehaviour
             {
                 Destroy(hit.collider.gameObject);
             }
-            DeleteMode = false;
+            _deleteMode = false;
         }
-        else if (newBone != null)
+        else if (_newBone != null)
         {
-            FollowMouseAnchor(this.newBone, this.startPoint, this.boneRatio);
+            FollowMouseAnchor(this._newBone, this._startPoint, this._boneRatio);
 
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                if (this.newBone.transform.localScale.y <= this.boneSizeMin)
+                if (this._newBone.transform.localScale.y <= this.boneSizeMin)
                 {
                     return;
                 }
 
-                Vector3 t = this.newBone.transform.localScale;
-                this.newBone.transform.localScale = new Vector3(t.x, t.y - this.boneSizeMin, t.z);
+                Vector3 t = this._newBone.transform.localScale;
+                this._newBone.transform.localScale = new Vector3(t.x, t.y - this.boneSizeMin, t.z);
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                if (this.newBone.transform.localScale.y >= this.boneSizeMax)
+                if (this._newBone.transform.localScale.y >= this.boneSizeMax)
                 {
                     return;
                 }
 
-                Vector3 t = this.newBone.transform.localScale;
-                this.newBone.transform.localScale = new Vector3(t.x, t.y + this.boneSizeMin, t.z);
+                Vector3 t = this._newBone.transform.localScale;
+                this._newBone.transform.localScale = new Vector3(t.x, t.y + this.boneSizeMin, t.z);
             }
         }
-        else if (this.newMuscle != null)
+        else if (this._newMuscle != null)
         {
-            FollowMouseAnchor(this.newMuscle, this.startPoint, this.muscleRatio);
+            FollowMouseAnchor(this._newMuscle, this._startPoint, this._muscleRatio);
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                if (this.newMuscle.transform.localScale.y <= this.muscleStrengthMin)
+                if (this._newMuscle.transform.localScale.y <= this.muscleStrengthMin)
                 {
                     return;
                 }
                 
-                Vector3 t = this.newMuscle.transform.localScale;
-                this.newMuscle.transform.localScale = new Vector3(t.x, t.y - this.muscleStrengthMin, t.z);
+                Vector3 t = this._newMuscle.transform.localScale;
+                this._newMuscle.transform.localScale = new Vector3(t.x, t.y - this.muscleStrengthMin, t.z);
 
-                this.muscleStrength = t.y - this.muscleStrengthMin + 1.5f;
+                this._muscleStrength = t.y - this.muscleStrengthMin + 1.5f;
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                if (this.newMuscle.transform.localScale.y >= this.muscleStrengthMax)
+                if (this._newMuscle.transform.localScale.y >= this.muscleStrengthMax)
                 {
                     return;
                 }
 
-                Vector3 t = this.newMuscle.transform.localScale;
-                this.newMuscle.transform.localScale = new Vector3(t.x, t.y + this.muscleStrengthMin, t.z);
+                Vector3 t = this._newMuscle.transform.localScale;
+                this._newMuscle.transform.localScale = new Vector3(t.x, t.y + this.muscleStrengthMin, t.z);
 
-                this.muscleStrength = t.y + this.muscleStrengthMin + 1.5f;
+                this._muscleStrength = t.y + this.muscleStrengthMin + 1.5f;
             }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && this.drawmode == DrawMode.KeyBind)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && this._drawMode == DrawMode.KeyBind)
         {
-            this.currentKey++;
-            if (this.currentKey >= this.mapKeys.Count)
+            this._currentKey++;
+            if (this._currentKey >= controlKeys.Count)
             {
-                this.currentKey = 0;
+                this._currentKey = 0;
             }
 
-            this.drawModeLabel.text = "Set Muscle Keys: " + this.mapKeysText[this.currentKey];
+            this.drawModeLabel.text = "Set Muscle Keys: " + controlKeys[this._currentKey];
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && this.drawmode == DrawMode.KeyBind)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && this._drawMode == DrawMode.KeyBind)
         {
-            this.currentKey--;
-            if (this.currentKey < 0)
+            this._currentKey--;
+            if (this._currentKey < 0)
             {
-                this.currentKey = this.mapKeys.Count - 1;
+                this._currentKey = controlKeys.Count - 1;
             }
 
-            this.drawModeLabel.text = "Set Muscle Keys: " + this.mapKeysText[this.currentKey];
+            this.drawModeLabel.text = "Set Muscle Keys: " + controlKeys[this._currentKey];
         }
     }
 
     private void OnMouseDown()
     {
-        if (DeleteMode || !this.isActive)
+        if (_deleteMode || !this.isActive)
         {
             return;
         }
 
         //skelly bois rise up
-        if (this.drawmode == DrawMode.Bone)
+        if (this._drawMode == DrawMode.Bone)
         {
-            startPoint = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            _startPoint = gameCam.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector2 start = new Vector2(startPoint.x + (this.boneRend.bounds.size.x / 2), startPoint.y);
-            this.newBone = Object.Instantiate(Bone);
+            Vector2 start = new Vector2(_startPoint.x + (this._boneRend.bounds.size.x / 2), _startPoint.y);
+            this._newBone = Object.Instantiate(bonePref);
 
-            this.newBoneTrans = newBone.GetComponent<Transform>();
-            this.newBoneRig = newBone.GetComponent<Rigidbody2D>();
-            this.newBoneRend = newBone.GetComponent<Renderer>();
+            this._newBoneTrans = _newBone.GetComponent<Transform>();
 
-            this.newBoneTrans.position = start;
+            this._newBoneTrans.position = start;
         }
 
         //bign boiy muscle tiem
-        else if (this.drawmode == DrawMode.Muscle)
+        else if (this._drawMode == DrawMode.Muscle)
         {
-            Vector3 mousePos = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
@@ -287,73 +287,73 @@ public class DrawParts : MonoBehaviour
 
             int len = hits.Count;
 
-            if (this.drawingMuscle == false)
+            if (this._drawingMuscle == false)
             {
                 if (len > 0)
                 {
                     GameObject firstHit = hits[0].collider.gameObject;
-                    this.drawingMuscle = true;
+                    this._drawingMuscle = true;
 
-                    Vector2 start = new Vector2(mousePos.x + (this.Muscle.GetComponent<Renderer>().bounds.size.x / 2), mousePos.y);
-                    this.newMuscle = Object.Instantiate(Muscle);
+                    Vector2 start = new Vector2(mousePos.x + (this.muscle.GetComponent<Renderer>().bounds.size.x / 2), mousePos.y);
+                    this._newMuscle = Object.Instantiate(muscle);
 
-                    this.drawnParts.Add(this.newMuscle);
+                    this._drawnParts.Add(this._newMuscle);
 
-                    this.muscleFirstBone = firstHit;
-                    this.startPoint = mousePos;
+                    this._muscleFirstBone = firstHit;
+                    this._startPoint = mousePos;
                 }
             }
             else
             {
-                if (len > 0 && this.newMuscle != null)
+                if (len > 0 && this._newMuscle != null)
                 {
                     GameObject nextHit = hits[0].collider.gameObject;
-                    SpringJoint2D newSpring = this.muscleFirstBone.AddComponent<SpringJoint2D>();
-                    Vector2 oldPoint = new Vector2(this.startPoint.x, this.startPoint.y);
-                    newSpring.anchor = this.muscleFirstBone.transform.InverseTransformPoint(oldPoint);
+                    SpringJoint2D newSpring = this._muscleFirstBone.AddComponent<SpringJoint2D>();
+                    Vector2 oldPoint = new Vector2(this._startPoint.x, this._startPoint.y);
+                    newSpring.anchor = this._muscleFirstBone.transform.InverseTransformPoint(oldPoint);
                     newSpring.connectedBody = nextHit.GetComponent<Rigidbody2D>();
                     newSpring.connectedAnchor = nextHit.transform.InverseTransformPoint(mousePos2D);
                     newSpring.autoConfigureDistance = false;
                     newSpring.enableCollision = true;
 
                     //joints so the muslcess obey you
-                    GameObject joint1 = CreateBasicJointAtPoint(this.startPoint, this.muscleFirstBone);
+                    GameObject joint1 = CreateBasicJointAtPoint(this._startPoint, this._muscleFirstBone);
                     GameObject joint2 = CreateBasicJointAtPoint(mousePos, nextHit);
 
                     newSpring.distance = Vector3.Distance(joint1.transform.position, joint2.transform.position);
 
-                    MuscleBehavior nScript = this.newMuscle.GetComponent<MuscleBehavior>();
+                    MuscleBehavior nScript = this._newMuscle.GetComponent<MuscleBehavior>();
                     nScript.anchorJoint = joint1;
                     nScript.connectedAnchorJoint = joint2;
-                    nScript.muscleScale = this.muscleRatio;
+                    nScript.muscleScale = this._muscleRatio;
                     nScript.spring = newSpring;
-                    nScript.SetSpringStrength(this.muscleStrength);
+                    nScript.SetSpringStrength(this._muscleStrength);
 
                     //keep a reference to the original joint holder
                     nextHit.GetComponent<DamageCheck>().connectedMuscles.Add(nScript);
 
-                    this.muscleFirstBone = null;
-                    this.drawingMuscle = false;
-                    this.newMuscle = null;
+                    this._muscleFirstBone = null;
+                    this._drawingMuscle = false;
+                    this._newMuscle = null;
                 }
-                else if (this.newMuscle != null)
+                else if (this._newMuscle != null)
                 {
-                    Destroy(this.newMuscle);
-                    this.muscleFirstBone = null;
-                    this.drawingMuscle = false;
+                    Destroy(this._newMuscle);
+                    this._muscleFirstBone = null;
+                    this._drawingMuscle = false;
                 }
                 else
                 {
-                    this.muscleFirstBone = null;
-                    this.drawingMuscle = false;
+                    this._muscleFirstBone = null;
+                    this._drawingMuscle = false;
                 }
             }
         }
 
         //muscle groups
-        else if (this.drawmode == DrawMode.KeyBind)
+        else if (this._drawMode == DrawMode.KeyBind)
         {
-            Vector3 mousePos = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
@@ -374,45 +374,45 @@ public class DrawParts : MonoBehaviour
                 for (int i = 0; i < len; i++)
                 {
                     MuscleBehavior nScript = hits[i].collider.gameObject.GetComponent<MuscleBehavior>();
-                    nScript.SetFlexKey(this.mapKeys[this.currentKey]);
+                    nScript.SetFlexKey(controlKeys[this._currentKey]);
                 }
             }
         }
 
         //oh yeah this is big brain time
-        else if (this.drawmode == DrawMode.Brain && !this.hasBrain)
+        else if (this._drawMode == DrawMode.Brain && !this._hasBrain)
         {
-            Vector3 mousePos = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            GameObject brain = Instantiate(this.Brain, mousePos2D, new Quaternion(0, 0, 0, 0));
-            this.drawnParts.Add(brain);
+            GameObject brain = Instantiate(this.brain, mousePos2D, new Quaternion(0, 0, 0, 0));
+            this._drawnParts.Add(brain);
 
-            this.GameCam.GetComponent<WinCheck>().AssignBrain(this.isP1, brain);
+            this.gameCam.GetComponent<WinCheck>().AssignBrain(this.isP1, brain);
 
-            this.hasBrain = true;
+            this._hasBrain = true;
         }
         
     }
 
     private void OnMouseUp()
     {
-        if (DeleteMode || !this.isActive)
+        if (_deleteMode || !this.isActive)
         {
             return;
         }
 
         //mr bones
-        if (this.newBone != null && this.drawmode == DrawMode.Bone)
+        if (this._newBone != null && this._drawMode == DrawMode.Bone)
         {
-            if (this.newBoneTrans.lossyScale.x == 0)
+            if (this._newBoneTrans.lossyScale.x == 0)
             {
-                Destroy(this.newBone);
+                Destroy(this._newBone);
             }
-            this.drawnParts.Add(this.newBone);
-            this.newBoneTrans.position = new Vector3(this.newBoneTrans.position.x, this.newBoneTrans.position.y, 1);
-            this.newBone.GetComponent<DamageCheck>().boneScale = this.boneRend.bounds.size.x;
-            this.newBone = null;
+            this._drawnParts.Add(this._newBone);
+            this._newBoneTrans.position = new Vector3(this._newBoneTrans.position.x, this._newBoneTrans.position.y, 1);
+            this._newBone.GetComponent<DamageCheck>().boneScale = this._boneRend.bounds.size.x;
+            this._newBone = null;
         }
 
         
@@ -428,7 +428,7 @@ public class DrawParts : MonoBehaviour
         //joint shstuff
         if (Input.GetMouseButtonDown(1))
         {
-            Vector3 mousePos = GameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
@@ -459,14 +459,14 @@ public class DrawParts : MonoBehaviour
     //only give part-looking permissions to those who ask nicely
     public List<GameObject> GetParts()
     {
-        return this.drawnParts;
+        return this._drawnParts;
     }
 
     //slap down a little jointy boi at the point and that parent be his dad
     //return him if you wanna reference him
     private GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
-        GameObject newJoint = Instantiate(Joint, origin, parent.transform.rotation, parent.transform);
+        GameObject newJoint = Instantiate(joint, origin, parent.transform.rotation, parent.transform);
         newJoint.transform.position = new Vector3(origin.x, origin.y, -1);
         Vector3 newScale = new Vector3(newJoint.transform.localScale.x / parent.transform.localScale.x, 1, 1);
         newJoint.transform.localScale = newScale;
@@ -485,7 +485,7 @@ public class DrawParts : MonoBehaviour
 
     private GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent)
     {
-        GameObject newJoint = Instantiate(Joint, origin, parent.transform.rotation, parent.transform);
+        GameObject newJoint = Instantiate(joint, origin, parent.transform.rotation, parent.transform);
         newJoint.transform.position = new Vector3(origin.x, origin.y, -1);
         Vector3 newScale = new Vector3(newJoint.transform.localScale.x / parent.transform.localScale.x, 1, 1);
         newJoint.transform.localScale = newScale;
@@ -497,7 +497,7 @@ public class DrawParts : MonoBehaviour
     //  because that bad boi could be zero or negative and fractions hate that shite
     private void FollowMouseAnchor(GameObject follower, Vector3 anchor, float rendererScaleRatio)
     {
-        Vector3 mousePos = this.GameCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = this.gameCam.ScreenToWorldPoint(Input.mousePosition);
         Transform followerTrans = follower.GetComponent<Transform>();
 
         Vector2 direction = mousePos - followerTrans.position;
