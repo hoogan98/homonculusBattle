@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class Muscle : Part
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float strength = 2.5f;
 }
