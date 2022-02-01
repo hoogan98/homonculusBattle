@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Joint : Part
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void StartDraw()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DrawingBehavior()
     {
-        
+        throw new System.NotImplementedException();
     }
 }

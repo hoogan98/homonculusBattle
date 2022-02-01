@@ -36,7 +36,7 @@ public class DrawParts : MonoBehaviour
     private Dictionary<DrawMode, GameObject> _drawPartMap;
     private DrawMode _drawMode;
     private bool _hasBrain;
-    private Part _drawingPartPref;
+    private GameObject _drawingPartPref;
     private Part _drawingPart;
 
     //muscle stuff
@@ -82,7 +82,7 @@ public class DrawParts : MonoBehaviour
     {
         _drawMode = mode;
         drawModeLabel.text = _drawText[mode];
-        _drawingPartPref = _drawPartMap[mode].GetComponent<Part>();
+        _drawingPartPref = _drawPartMap[mode];
     }
 
     void Update()
@@ -121,91 +121,40 @@ public class DrawParts : MonoBehaviour
         {
             DeleteParts();
         }
-        
-        //fix line
-        else if (_newBone != null)
+
+        if (_drawingPart != null)
         {
-            FollowMouseAnchor(this._newBone, this._startPoint, this._boneRatio);
-
-
+            _drawingPart.DrawingBehavior();
+        } else if (_drawMode == DrawMode.KeyBind)
+        {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                if (this._newBone.transform.localScale.y <= this.boneSizeMin)
+                _currentKey++;
+                if (_currentKey >= controlKeys.Count)
                 {
-                    return;
+                    _currentKey = 0;
                 }
 
-                Vector3 t = this._newBone.transform.localScale;
-                this._newBone.transform.localScale = new Vector3(t.x, t.y - this.boneSizeMin, t.z);
+                drawModeLabel.text = "Set Muscle Keys: " + controlKeys[_currentKey];
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                if (this._newBone.transform.localScale.y >= this.boneSizeMax)
+                _currentKey--;
+                if (_currentKey < 0)
                 {
-                    return;
+                    _currentKey = controlKeys.Count - 1;
                 }
 
-                Vector3 t = this._newBone.transform.localScale;
-                this._newBone.transform.localScale = new Vector3(t.x, t.y + this.boneSizeMin, t.z);
+                drawModeLabel.text = "Set Muscle Keys: " + controlKeys[_currentKey];
             }
-        }
-        else if (this._newMuscle != null)
-        {
-            FollowMouseAnchor(this._newMuscle, this._startPoint, this._muscleRatio);
-
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-            {
-                if (this._newMuscle.transform.localScale.y <= this.muscleStrengthMin)
-                {
-                    return;
-                }
-                
-                Vector3 t = this._newMuscle.transform.localScale;
-                this._newMuscle.transform.localScale = new Vector3(t.x, t.y - this.muscleStrengthMin, t.z);
-
-                this._muscleStrength = t.y - this.muscleStrengthMin + 1.5f;
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-            {
-                if (this._newMuscle.transform.localScale.y >= this.muscleStrengthMax)
-                {
-                    return;
-                }
-
-                Vector3 t = this._newMuscle.transform.localScale;
-                this._newMuscle.transform.localScale = new Vector3(t.x, t.y + this.muscleStrengthMin, t.z);
-
-                this._muscleStrength = t.y + this.muscleStrengthMin + 1.5f;
-            }
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && this._drawMode == DrawMode.KeyBind)
-        {
-            this._currentKey++;
-            if (this._currentKey >= controlKeys.Count)
-            {
-                this._currentKey = 0;
-            }
-
-            this.drawModeLabel.text = "Set Muscle Keys: " + controlKeys[this._currentKey];
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && this._drawMode == DrawMode.KeyBind)
-        {
-            this._currentKey--;
-            if (this._currentKey < 0)
-            {
-                this._currentKey = controlKeys.Count - 1;
-            }
-
-            this.drawModeLabel.text = "Set Muscle Keys: " + controlKeys[this._currentKey];
         }
     }
 
     private void DeleteParts()
     {
-        Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-
+        
         RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
         RaycastHit2D hit = new RaycastHit2D();
 
@@ -227,18 +176,10 @@ public class DrawParts : MonoBehaviour
             return;
         }
 
-        //skelly bois rise up
-        if (this._drawMode == DrawMode.Bone)
-        {
-            _startPoint = gameCam.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector2 start = new Vector2(_startPoint.x + (this._boneRend.bounds.size.x / 2), _startPoint.y);
-            this._newBone = Object.Instantiate(bonePref);
-
-            this._newBoneTrans = _newBone.GetComponent<Transform>();
-
-            this._newBoneTrans.position = start;
-        }
+        _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
+        _drawingPart.StartDraw();
+        
+        //fix line
 
         //bign boiy muscle tiem
         else if (this._drawMode == DrawMode.Muscle)
@@ -463,27 +404,5 @@ public class DrawParts : MonoBehaviour
         newJoint.transform.localScale = newScale;
 
         return newJoint;
-    }
-
-    //left edge on the anchor, right edge on the mouse position. requires a ratio for the the renderer distance and the scale beforehand
-    //  because that bad boi could be zero or negative and fractions hate that shite
-    private void FollowMouseAnchor(GameObject follower, Vector3 anchor, float rendererScaleRatio)
-    {
-        Vector3 mousePos = this.gameCam.ScreenToWorldPoint(Input.mousePosition);
-        Transform followerTrans = follower.GetComponent<Transform>();
-
-        Vector2 direction = mousePos - followerTrans.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        followerTrans.rotation = rotation;
-
-        float mouseDisX = Vector3.Distance(mousePos, anchor);
-        float newScale = mouseDisX * rendererScaleRatio;
-        Vector3 modScale = followerTrans.localScale;
-        modScale.x = newScale;
-        followerTrans.localScale = modScale;
-
-        Vector2 newPos = (anchor + mousePos) * 0.5f;
-        followerTrans.position = newPos;
     }
 }

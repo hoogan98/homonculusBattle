@@ -1101,9 +1101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonePref: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4,
     type: 3}
-  joint: {fileID: 3960184402078090984, guid: b6ec45885fc48e94684ffd68d2bcbf7e, type: 3}
-  muscle: {fileID: 2471828664909899896, guid: dc8bb17b845be1042abffc5daa74792f, type: 3}
-  brain: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0, type: 3}
+  jointPref: {fileID: 0}
+  musclePref: {fileID: 0}
+  brainPref: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0,
+    type: 3}
   gameCam: {fileID: 519420031}
   drawModeLabel: {fileID: 318354403}
   muscleStrengthMax: 4
@@ -1286,9 +1287,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonePref: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4,
     type: 3}
-  joint: {fileID: 0}
-  muscle: {fileID: 0}
-  brain: {fileID: 0}
+  jointPref: {fileID: 0}
+  musclePref: {fileID: 0}
+  brainPref: {fileID: 0}
   gameCam: {fileID: 0}
   drawModeLabel: {fileID: 314771728}
   muscleStrengthMax: 4
