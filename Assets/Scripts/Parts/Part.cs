@@ -15,7 +15,7 @@ public abstract class Part : MonoBehaviour
         ratio = GetComponent<Transform>().localScale.x / GetComponent<Renderer>().bounds.size.x;
     }
 
-    public abstract void StartDraw();
+    public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
 
     protected void FollowMouseAnchor(Vector3 anchor)

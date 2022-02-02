@@ -85,6 +85,11 @@ public class DrawParts : MonoBehaviour
         _drawingPartPref = _drawPartMap[mode];
     }
 
+    public void RemovePart(Part p)
+    {
+        _drawnParts.Remove(p.gameObject);
+    }
+
     void Update()
     {
         if (!isActive)
@@ -96,6 +101,7 @@ public class DrawParts : MonoBehaviour
         {
             if (_drawingPart != null)
             {
+                _drawnParts.Remove(_drawingPart.gameObject);
                 Destroy(_drawingPart.gameObject);
                 _drawingPart = null;
             }
@@ -164,6 +170,8 @@ public class DrawParts : MonoBehaviour
             {
                 _hasBrain = false;
             }
+
+            _drawnParts.Remove(current.collider.gameObject);
                 
             Destroy(hit.collider.gameObject);
         }
@@ -177,94 +185,14 @@ public class DrawParts : MonoBehaviour
         }
 
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
-        _drawingPart.StartDraw();
+        _drawingPart.StartDraw(this);
+        _drawnParts.Add(_drawingPart.gameObject);
         
         //fix line
-
-        //bign boiy muscle tiem
-        else if (this._drawMode == DrawMode.Muscle)
-        {
-            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-            RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
-            List<RaycastHit2D> hits = new List<RaycastHit2D>();
-
-            foreach (RaycastHit2D hit in allHits)
-            {
-                if (hit.collider.gameObject.CompareTag("Bone") || hit.collider.gameObject.CompareTag("Brain"))
-                {
-                    hits.Add(hit);
-                }
-            }
-
-            int len = hits.Count;
-
-            if (this._drawingMuscle == false)
-            {
-                if (len > 0)
-                {
-                    GameObject firstHit = hits[0].collider.gameObject;
-                    this._drawingMuscle = true;
-
-                    // Vector2 start = new Vector2(mousePos.x + (this.muscle.GetComponent<Renderer>().bounds.size.x / 2), mousePos.y);
-                    // this._newMuscle = Object.Instantiate(muscle);
-
-                    this._drawnParts.Add(this._newMuscle);
-
-                    this._muscleFirstBone = firstHit;
-                    this._startPoint = mousePos;
-                }
-            }
-            else
-            {
-                if (len > 0 && this._newMuscle != null)
-                {
-                    GameObject nextHit = hits[0].collider.gameObject;
-                    SpringJoint2D newSpring = this._muscleFirstBone.AddComponent<SpringJoint2D>();
-                    Vector2 oldPoint = new Vector2(this._startPoint.x, this._startPoint.y);
-                    newSpring.anchor = this._muscleFirstBone.transform.InverseTransformPoint(oldPoint);
-                    newSpring.connectedBody = nextHit.GetComponent<Rigidbody2D>();
-                    newSpring.connectedAnchor = nextHit.transform.InverseTransformPoint(mousePos2D);
-                    newSpring.autoConfigureDistance = false;
-                    newSpring.enableCollision = true;
-
-                    //joints so the muslcess obey you
-                    GameObject joint1 = CreateBasicJointAtPoint(this._startPoint, this._muscleFirstBone);
-                    GameObject joint2 = CreateBasicJointAtPoint(mousePos, nextHit);
-
-                    newSpring.distance = Vector3.Distance(joint1.transform.position, joint2.transform.position);
-
-                    MuscleBehavior nScript = this._newMuscle.GetComponent<MuscleBehavior>();
-                    nScript.anchorJoint = joint1;
-                    nScript.connectedAnchorJoint = joint2;
-                    nScript.muscleScale = this._muscleRatio;
-                    nScript.spring = newSpring;
-                    nScript.SetSpringStrength(this._muscleStrength);
-
-                    //keep a reference to the original joint holder
-                    nextHit.GetComponent<DamageCheck>().connectedMuscles.Add(nScript);
-
-                    this._muscleFirstBone = null;
-                    this._drawingMuscle = false;
-                    this._newMuscle = null;
-                }
-                else if (this._newMuscle != null)
-                {
-                    Destroy(this._newMuscle);
-                    this._muscleFirstBone = null;
-                    this._drawingMuscle = false;
-                }
-                else
-                {
-                    this._muscleFirstBone = null;
-                    this._drawingMuscle = false;
-                }
-            }
-        }
+        //be sure to delete musclebehavior file
 
         //muscle groups
-        else if (this._drawMode == DrawMode.KeyBind)
+         if (this._drawMode == DrawMode.KeyBind)
         {
             Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
@@ -377,7 +305,7 @@ public class DrawParts : MonoBehaviour
 
     //slap down a little jointy boi at the point and that parent be his dad
     //return him if you wanna reference him
-    private GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
+    public GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
         GameObject newJoint = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
         newJoint.transform.position = new Vector3(origin.x, origin.y, -1);
@@ -396,7 +324,7 @@ public class DrawParts : MonoBehaviour
         return newJoint;
     }
 
-    private GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent)
+    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent)
     {
         GameObject newJoint = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
         newJoint.transform.position = new Vector3(origin.x, origin.y, -1);

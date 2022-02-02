@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamageCheck : MonoBehaviour
 {
     public float baseHealth;
-    public List<MuscleBehavior> connectedMuscles;
+    public List<Muscle> connectedMuscles;
     public List<JointData> connectedJoints;
     public float boneScale;
     public float minBoneX;
@@ -161,19 +161,19 @@ public class DamageCheck : MonoBehaviour
         }
 
         //you are not the father of this muscle
-        foreach (MuscleBehavior mb in this.connectedMuscles)
+        foreach (Muscle m in connectedMuscles)
         {
-            if (mb == null)
+            if (m == null)
             {
                 continue;
             }
 
-            SpringJoint2D spring = mb.spring;
+            SpringJoint2D spring = m.spring;
 
-            GameObject parentBone = ClosestObject(bone1, bone2, mb.connectedAnchorJoint.transform.position);
+            GameObject parentBone = ClosestObject(bone1, bone2, m.connectedAnchorJoint.transform.position);
 
             spring.connectedBody = parentBone.GetComponent<Rigidbody2D>();
-            spring.connectedAnchor = parentBone.transform.InverseTransformPoint(mb.connectedAnchorJoint.transform.position);
+            spring.connectedAnchor = parentBone.transform.InverseTransformPoint(m.connectedAnchorJoint.transform.position);
         }
 
         //update the spring joints in a broken boi

@@ -6,7 +6,7 @@ public class Bone : Part
 {
     private Vector3 _drawAnchor;
 
-    public override void StartDraw()
+    public override void StartDraw(DrawParts handler)
     {
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

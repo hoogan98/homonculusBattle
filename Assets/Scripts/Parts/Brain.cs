@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Brain : Part
 {
-    public override void StartDraw()
+    public override void StartDraw(DrawParts handler)
     {
         throw new System.NotImplementedException();
     }
