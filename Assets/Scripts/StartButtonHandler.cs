@@ -42,7 +42,7 @@ public class StartButtonHandler : MonoBehaviour
             }
             else
             {
-                part.GetComponent<MuscleBehavior>().StartGame();
+                part.GetComponent<Muscle>().StartGame();
             }
             
             Destroy(part.GetComponent<DrawingBehavior>());
@@ -60,7 +60,7 @@ public class StartButtonHandler : MonoBehaviour
             }
             else
             {
-                part.GetComponent<MuscleBehavior>().StartGame();
+                part.GetComponent<Muscle>().StartGame();
             }
             Destroy(part.GetComponent<DrawingBehavior>());
         }

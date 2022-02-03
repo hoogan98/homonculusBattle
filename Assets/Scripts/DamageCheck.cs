@@ -6,7 +6,7 @@ public class DamageCheck : MonoBehaviour
 {
     public float baseHealth;
     public List<Muscle> connectedMuscles;
-    public List<JointData> connectedJoints;
+    public List<Joint> connectedJoints;
     public float boneScale;
     public float minBoneX;
 
@@ -67,7 +67,7 @@ public class DamageCheck : MonoBehaviour
         float offset = this.transform.lossyScale.x * this.boneScale;
         offset = offset / 4;
         Transform oldTrans = this.gameObject.transform;
-        JointData[] oldJointData = this.gameObject.GetComponentsInChildren<JointData>();
+        Joint[] oldJoints = this.gameObject.GetComponentsInChildren<Joint>();
         SpringJoint2D[] oldSprings = this.gameObject.GetComponents<SpringJoint2D>();
 
         GameObject bone1 = Instantiate(this.gameObject, oldTrans.position, oldTrans.rotation);
@@ -120,41 +120,41 @@ public class DamageCheck : MonoBehaviour
 
 
         //assign the joint babies to foster bones
-        foreach (JointData jd in oldJointData)
+        foreach (Joint j in oldJoints)
         {
-            GameObject joint = jd.gameObject;
+            GameObject joint = j.gameObject;
 
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
 
             joint.transform.parent = parentBone.transform;
 
-            if (jd.hinge != null)
+            if (j.hinge != null)
             {
-                HingeJoint2D hinge = jd.hinge;
+                HingeJoint2D hinge = j.hinge;
 
                 HingeJoint2D newHinge = parentBone.AddComponent<HingeJoint2D>();
                 newHinge.connectedBody = hinge.connectedBody;
                 newHinge.connectedAnchor = hinge.connectedAnchor;
                 newHinge.anchor = parentBone.transform.InverseTransformPoint(joint.transform.position);
 
-                jd.hinge = newHinge;
+                j.hinge = newHinge;
             }
         }
 
         //missing your mr bones after joint transfer? gotta update here
-        foreach (JointData jd in this.connectedJoints)
+        foreach (Joint j in connectedJoints)
         {
-            if (jd == null)
+            if (j == null)
             {
                 continue;
             }
-            GameObject joint = jd.gameObject;
+            GameObject joint = j.gameObject;
 
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
 
-            if (jd.hinge != null)
+            if (j.hinge != null)
             {
-                HingeJoint2D hinge = jd.hinge;
+                HingeJoint2D hinge = j.hinge;
                 hinge.connectedBody = parentBone.GetComponent<Rigidbody2D>();
                 hinge.connectedAnchor = parentBone.transform.InverseTransformPoint(joint.transform.position);
             }
@@ -196,7 +196,7 @@ public class DamageCheck : MonoBehaviour
     //split up them muscless
     private void MuscleSplit()
     {
-        MuscleBehavior mb = this.GetComponent<MuscleBehavior>();
+        Muscle mb = GetComponent<Muscle>();
 
         if (mb == null)
         {

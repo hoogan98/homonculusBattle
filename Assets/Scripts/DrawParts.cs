@@ -11,18 +11,12 @@ public class DrawParts : MonoBehaviour
     public GameObject brainPref;
     public Camera gameCam;
     public Text drawModeLabel;
-    public float muscleStrengthMax;
-    public float muscleStrengthMin;
-    public float boneSizeMin;
-    public float boneSizeMax;
     public bool isP1;
     public bool isActive;
     public List<KeyCode> controlKeys;
+    public bool hasBrain;
 
     private bool _deleteMode = false;
-    private Vector3 _startPoint;
-    private GameObject _newBone;
-    private float _boneRatio;
     private List<GameObject> _drawnParts;
     private enum DrawMode
     {
@@ -35,28 +29,15 @@ public class DrawParts : MonoBehaviour
     private Dictionary<DrawMode, string> _drawText;
     private Dictionary<DrawMode, GameObject> _drawPartMap;
     private DrawMode _drawMode;
-    private bool _hasBrain;
     private GameObject _drawingPartPref;
     private Part _drawingPart;
 
-    //muscle stuff
-    private bool _drawingMuscle;
-    private GameObject _muscleFirstBone;
-    private GameObject _newMuscle;
-    private float _muscleRatio;
-    private float _muscleStrength;
-
-    //bone parts
-    private Transform _boneTrans;
-    private Renderer _boneRend;
-    private Transform _newBoneTrans;
-    
     //key binding stuff
     private int _currentKey;
 
     void Start()
     {
-        _hasBrain = false;
+        hasBrain = false;
         _drawText = new Dictionary<DrawMode, string>
         {
             {DrawMode.Brain, "Draw Object: Brain"},
@@ -88,6 +69,7 @@ public class DrawParts : MonoBehaviour
     public void RemovePart(Part p)
     {
         _drawnParts.Remove(p.gameObject);
+        Destroy(p.gameObject);
     }
 
     void Update()
@@ -168,7 +150,7 @@ public class DrawParts : MonoBehaviour
         {
             if (current.collider.gameObject.CompareTag("Brain"))
             {
-                _hasBrain = false;
+                hasBrain = false;
             }
 
             _drawnParts.Remove(current.collider.gameObject);
@@ -183,21 +165,12 @@ public class DrawParts : MonoBehaviour
         {
             return;
         }
-
-        _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
-        _drawingPart.StartDraw(this);
-        _drawnParts.Add(_drawingPart.gameObject);
         
-        //fix line
-        //be sure to delete musclebehavior file
-
-        //muscle groups
-         if (this._drawMode == DrawMode.KeyBind)
+        if (_drawMode == DrawMode.KeyBind)
         {
             Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
+            RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
             foreach (RaycastHit2D hit in allHits)
@@ -214,54 +187,47 @@ public class DrawParts : MonoBehaviour
             {
                 for (int i = 0; i < len; i++)
                 {
-                    MuscleBehavior nScript = hits[i].collider.gameObject.GetComponent<MuscleBehavior>();
-                    nScript.SetFlexKey(controlKeys[this._currentKey]);
+                    Muscle nScript = hits[i].collider.gameObject.GetComponent<Muscle>();
+                    nScript.SetFlexKey(controlKeys[_currentKey]);
                 }
             }
+
+            return;
         }
 
-        //oh yeah this is big brain time
-        else if (this._drawMode == DrawMode.Brain && !this._hasBrain)
-        {
-            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+        _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
+        _drawnParts.Add(_drawingPart.gameObject);
+        _drawingPart.StartDraw(this);
+    }
 
-            GameObject brain = Instantiate(this.brainPref, mousePos2D, new Quaternion(0, 0, 0, 0));
-            this._drawnParts.Add(brain);
+    public void SetBrain(GameObject brain)
+    {
+        Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain);
 
-            this.gameCam.GetComponent<WinCheck>().AssignBrain(this.isP1, brain);
-
-            this._hasBrain = true;
-        }
-        
+        hasBrain = true;
     }
 
     private void OnMouseUp()
     {
-        if (_deleteMode || !this.isActive)
+        if (_deleteMode || !isActive)
         {
             return;
         }
-
-        //mr bones
-        if (this._newBone != null && this._drawMode == DrawMode.Bone)
-        {
-            if (this._newBoneTrans.lossyScale.x == 0)
-            {
-                Destroy(this._newBone);
-            }
-            this._drawnParts.Add(this._newBone);
-            this._newBoneTrans.position = new Vector3(this._newBoneTrans.position.x, this._newBoneTrans.position.y, 1);
-            this._newBone.GetComponent<DamageCheck>().boneScale = this._boneRend.bounds.size.x;
-            this._newBone = null;
-        }
-
         
+        if (_drawingPart != null && _drawMode == DrawMode.Bone)
+        {
+            _drawingPart.FinishDraw(this);
+        }
+    }
+
+    public void EndDraw()
+    {
+        _drawingPart = null;
     }
 
     private void OnMouseOver()
     {
-        if (!this.isActive)
+        if (!isActive)
         {
             return;
         }
@@ -269,10 +235,9 @@ public class DrawParts : MonoBehaviour
         //joint shstuff
         if (Input.GetMouseButtonDown(1))
         {
-            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
+            RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
             foreach (RaycastHit2D hit in allHits)
@@ -289,48 +254,42 @@ public class DrawParts : MonoBehaviour
             {
                 for (int i = 0; i < (len - 1); i++)
                 {
-                    
-
                     CreateJointAtPoint(mousePos, hits[i].collider.gameObject, hits[i + 1].collider.gameObject);
                 }
             }
         }
     }
 
-    //only give part-looking permissions to those who ask nicely
     public List<GameObject> GetParts()
     {
-        return this._drawnParts;
+        return _drawnParts;
     }
 
     //slap down a little jointy boi at the point and that parent be his dad
     //return him if you wanna reference him
     public GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
-        GameObject newJoint = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
-        newJoint.transform.position = new Vector3(origin.x, origin.y, -1);
-        Vector3 newScale = new Vector3(newJoint.transform.localScale.x / parent.transform.localScale.x, 1, 1);
-        newJoint.transform.localScale = newScale;
+        GameObject newJointGo = CreateBasicJointAtPoint(origin, parent);
 
         HingeJoint2D newHinge = parent.AddComponent<HingeJoint2D>();
         newHinge.connectedBody = other.GetComponent<Rigidbody2D>();
         newHinge.anchor = parent.transform.InverseTransformPoint(origin);
 
-        JointData newDat = newJoint.GetComponent<JointData>();
-        newDat.hinge = newHinge;
+        Joint newJoint = newJointGo.GetComponent<Joint>();
+        newJoint.hinge = newHinge;
 
-        other.transform.gameObject.GetComponent<DamageCheck>().connectedJoints.Add(newDat);
+        other.transform.gameObject.GetComponent<DamageCheck>().connectedJoints.Add(newJoint);
 
-        return newJoint;
+        return newJointGo;
     }
 
     public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent)
     {
-        GameObject newJoint = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
-        newJoint.transform.position = new Vector3(origin.x, origin.y, -1);
-        Vector3 newScale = new Vector3(newJoint.transform.localScale.x / parent.transform.localScale.x, 1, 1);
-        newJoint.transform.localScale = newScale;
+        GameObject newJointGo = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
+        newJointGo.transform.position = new Vector3(origin.x, origin.y, -1);
+        Vector3 newScale = new Vector3(newJointGo.transform.localScale.x / parent.transform.localScale.x, 1, 1);
+        newJointGo.transform.localScale = newScale;
 
-        return newJoint;
+        return newJointGo;
     }
 }

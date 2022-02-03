@@ -109,7 +109,7 @@ public class TimerButtonHandler : MonoBehaviour
             }
             else
             {
-                part.GetComponent<MuscleBehavior>().StartGame();
+                part.GetComponent<Muscle>().StartGame();
             }
 
             Destroy(part.GetComponent<DrawingBehavior>());
@@ -128,7 +128,7 @@ public class TimerButtonHandler : MonoBehaviour
             }
             else
             {
-                part.GetComponent<MuscleBehavior>().StartGame();
+                part.GetComponent<Muscle>().StartGame();
             }
 
             part.GetComponent<BoxCollider2D>().isTrigger = false;

@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Joint : Part
 {
+    
+    public HingeJoint2D hinge;
+    
     public override void StartDraw(DrawParts handler)
     {
         throw new System.NotImplementedException();
     }
 
     public override void DrawingBehavior()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void FinishDraw(DrawParts drawingHandler)
     {
         throw new System.NotImplementedException();
     }

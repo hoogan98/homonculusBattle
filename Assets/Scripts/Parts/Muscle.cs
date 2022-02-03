@@ -141,13 +141,19 @@ public class Muscle : Part
 
         int len = hits.Count;
 
-        if (!_placedMuscle && hits.Count > 0)
+        if (!(hits.Count > 0))
+        {
+            handler.RemovePart(this);
+            return;
+        }
+
+        if (!_placedMuscle)
         {
             _firstBone = hits[0].collider.gameObject;
             _placedMuscle = true;
             _startPoint = mousePos;
         }
-        else if (len > 0 && _placedMuscle)
+        else
         {
             GameObject nextHit = hits[0].collider.gameObject;
             SpringJoint2D newSpring = _firstBone.AddComponent<SpringJoint2D>();
@@ -172,11 +178,8 @@ public class Muscle : Part
             nextHit.GetComponent<DamageCheck>().connectedMuscles.Add(this);
             
             _placedMuscle = false;
-        }
-        else
-        {
-            handler.RemovePart(this);
-            Destroy(gameObject);
+            
+            handler.EndDraw();
         }
     }
 
@@ -187,7 +190,12 @@ public class Muscle : Part
 
         strength = transform.localScale.y / strengthRatio;
     }
-    
+
+    public override void FinishDraw(DrawParts drawingHandler)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void SetSpringStrength()
     {
         if (strength < 0.5)

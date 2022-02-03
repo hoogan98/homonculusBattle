@@ -20,4 +20,16 @@ public class Bone : Part
         FollowMouseAnchor(_drawAnchor);
         EditSize();
     }
+
+    public override void FinishDraw(DrawParts drawingHandler)
+    {
+        if (transform.lossyScale.x == 0)
+        {
+            drawingHandler.RemovePart(this);
+        }
+        transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+        GetComponent<DamageCheck>().boneScale = GetComponent<Renderer>().bounds.size.x;
+        
+        drawingHandler.EndDraw();
+    }
 }

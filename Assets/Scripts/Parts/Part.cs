@@ -17,6 +17,7 @@ public abstract class Part : MonoBehaviour
 
     public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
+    public abstract void FinishDraw(DrawParts drawingHandler);
 
     protected void FollowMouseAnchor(Vector3 anchor)
     {
