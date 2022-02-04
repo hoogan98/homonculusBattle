@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1696674970383126477}
   - component: {fileID: 4228672886202432998}
-  - component: {fileID: 9044933562418633823}
   - component: {fileID: 5672350057210795624}
   - component: {fileID: 7733224855874819290}
   - component: {fileID: -4125739796822942187}
+  - component: {fileID: 8163151378762862577}
   m_Layer: 0
   m_Name: Brain
   m_TagString: Brain
@@ -49,6 +49,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -60,6 +62,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -83,23 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9044933562418633823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2710713444361540116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e5ad7b00a155744b071355546cd229, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHealth: 4
-  connectedMuscles: []
-  connectedJoints: []
-  boneScale: 0
-  minBoneX: 0
 --- !u!61 &5672350057210795624
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,3 +145,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e584feb290685e94c8b42845cf444e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8163151378762862577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710713444361540116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfdfcf2cc7381d498c3a23ad2f3dc26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ratio: 0
+  sizeMin: 1
+  sizeMax: 1
+  connectedJoints: []
+  connectedMuscles: []
+  baseHealth: 10

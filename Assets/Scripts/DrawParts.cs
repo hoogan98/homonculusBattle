@@ -9,7 +9,6 @@ public class DrawParts : MonoBehaviour
     public GameObject jointPref;
     public GameObject musclePref;
     public GameObject brainPref;
-    public Camera gameCam;
     public Text drawModeLabel;
     public bool isP1;
     public bool isActive;
@@ -89,7 +88,7 @@ public class DrawParts : MonoBehaviour
             }
             
             _drawMode++;
-            if (_drawMode.CompareTo(_drawPartMap.Keys.Count) > 0)
+            if ((int)_drawMode > _drawPartMap.Keys.Count)
             {
                 _drawMode = 0;
             }
@@ -168,7 +167,7 @@ public class DrawParts : MonoBehaviour
         
         if (_drawMode == DrawMode.KeyBind)
         {
-            Vector3 mousePos = gameCam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
@@ -275,10 +274,10 @@ public class DrawParts : MonoBehaviour
         newHinge.connectedBody = other.GetComponent<Rigidbody2D>();
         newHinge.anchor = parent.transform.InverseTransformPoint(origin);
 
-        Joint newJoint = newJointGo.GetComponent<Joint>();
-        newJoint.hinge = newHinge;
+        MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
+        newMyJoint.hinge = newHinge;
 
-        other.transform.gameObject.GetComponent<DamageCheck>().connectedJoints.Add(newJoint);
+        other.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
 
         return newJointGo;
     }

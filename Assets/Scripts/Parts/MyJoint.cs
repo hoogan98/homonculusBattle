@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Joint : Part
+public class MyJoint : Part
 {
     
     public HingeJoint2D hinge;

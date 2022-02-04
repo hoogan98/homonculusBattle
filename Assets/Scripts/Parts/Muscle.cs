@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Muscle : Part
 {
-    public float strength = 2.5f;
+    public float strength;
     public float strengthRatio;
     public GameObject anchorJoint;
     public GameObject connectedAnchorJoint;
@@ -26,8 +26,6 @@ public class Muscle : Part
     public override void Start()
     {
         base.Start();
-        // float sizeMin = 0.1f;
-        // float sizeMax = 4f;
         _placedMuscle = false;
         _hasKey = false;
         _started = false;
@@ -175,7 +173,7 @@ public class Muscle : Part
             SetSpringStrength();
 
             //keep a reference to the original joint holder
-            nextHit.GetComponent<DamageCheck>().connectedMuscles.Add(this);
+            nextHit.GetComponent<Part>().connectedMuscles.Add(this);
             
             _placedMuscle = false;
             
@@ -230,5 +228,19 @@ public class Muscle : Part
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();
         //this.spring.breakForce = springHealth * this.healthScale;
+    }
+
+    public override void Break()
+    {
+
+        Destroy(spring);
+        Destroy(GetComponent<BoxCollider2D>());
+        HingeJoint2D newHinge = gameObject.AddComponent<HingeJoint2D>();
+        newHinge.anchor = transform.InverseTransformPoint(anchorJoint.transform.position);
+        newHinge.connectedAnchor = anchorJoint.transform.parent.transform.InverseTransformPoint(anchorJoint.transform.position);
+        newHinge.connectedBody = anchorJoint.transform.parent.gameObject.GetComponent<Rigidbody2D>();
+
+        GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+        Destroy(this);
     }
 }

@@ -13,91 +13,89 @@ public class TimerButtonHandler : MonoBehaviour
     public Text p2DrawText;
     public float gravity;
 
-    private Button startButton;
-
-    private bool p1Done;
-    private bool ready;
-    private bool startTime;
-    private float time;
+    private Button _startButton;
+    private bool _p1Done;
+    private bool _ready;
+    private bool _startTime;
+    private float _time;
 
     void Start()
     {
-        startButton = this.GetComponent<Button>();
-        startButton.onClick.AddListener(() => OnButtonHit());
+        _startButton = GetComponent<Button>();
+        _startButton.onClick.AddListener(() => OnButtonHit());
 
-        p1Done = false;
-        startTime = false;
-        this.ready = false;
-
-        this.time = 0;
+        _p1Done = false;
+        _startTime = false;
+        _ready = false; 
+        _time = 0;
     }
 
     void OnButtonHit()
     {
-        if (!startTime) 
-        {
-            this.p1DrawZone.GetComponent<DrawParts>().isActive = true;
+        if (!_startTime) 
+        { 
+            p1DrawZone.GetComponent<DrawParts>().isActive = true;
 
-            this.startTime = true;
+            _startTime = true;
         }
-        else if (!p1Done)
+        else if (!_p1Done)
         {
-            this.p1DrawZone.GetComponent<DrawParts>().isActive = false;
+            p1DrawZone.GetComponent<DrawParts>().isActive = false;
 
-            this.p1Done = true;
+            _p1Done = true;
         }
-        else if (!this.ready)
+        else if (!_ready)
         {
-            this.p2DrawZone.GetComponent<DrawParts>().isActive = true;
+            p2DrawZone.GetComponent<DrawParts>().isActive = true;
 
-            this.ready = true;
+            _ready = true;
         }
         else
         {
-            this.StartGame();
+            StartGame();
         }
     }
 
     void Update()
     {
-        if (!this.startTime)
+        if (!_startTime)
         {
             return;
         }
 
-        if (!p1Done)
+        if (!_p1Done)
         {
-            this.time += Time.deltaTime;
-            this.startButton.GetComponentInChildren<Text>().text = this.time.ToString() + " seconds";
+            _time += Time.deltaTime;
+            _startButton.GetComponentInChildren<Text>().text = _time + " seconds";
         }
-        else if (!this.ready)
+        else if (!_ready)
         {
-            this.startButton.GetComponentInChildren<Text>().text = "Ready?";
+            _startButton.GetComponentInChildren<Text>().text = "Ready?";
         }
         else
         {
-            this.time -= Time.deltaTime;
-            this.startButton.GetComponentInChildren<Text>().text = this.time.ToString() + " seconds";
-            if (this.time <= 0)
+            _time -= Time.deltaTime;
+            _startButton.GetComponentInChildren<Text>().text = _time + " seconds";
+            if (_time <= 0)
             {
-                this.StartGame();
+                StartGame();
             }
         }
     }
 
     private void StartGame()
     {
-        if (this.p1DrawZone == null || this.p2DrawZone == null)
+        if (p1DrawZone == null || p2DrawZone == null)
         {
             return;
         }
 
-        this.gameCam.GetComponent<WinCheck>().StartGame();
+        Camera.main.GetComponent<WinCheck>().StartGame();
 
-        List<GameObject> p1Parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
-        List<GameObject> p2Parts = p2DrawZone.GetComponent<DrawParts>().GetParts();
+        List<GameObject> parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
+        parts.AddRange(p2DrawZone.GetComponent<DrawParts>().GetParts());
 
-        foreach (GameObject part in p1Parts)
+        foreach (GameObject part in parts)
         {
             if (part == null)
             {
@@ -114,26 +112,7 @@ public class TimerButtonHandler : MonoBehaviour
 
             Destroy(part.GetComponent<DrawingBehavior>());
             part.GetComponent<BoxCollider2D>().isTrigger = false;
-            part.GetComponent<DamageCheck>().StartGame();
-        }
-        foreach (GameObject part in p2Parts)
-        {
-            if (part == null)
-            {
-                continue;
-            }
-            if (!part.CompareTag("Muscle"))
-            {
-                part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-            }
-            else
-            {
-                part.GetComponent<Muscle>().StartGame();
-            }
-
-            part.GetComponent<BoxCollider2D>().isTrigger = false;
-            Destroy(part.GetComponent<DrawingBehavior>());
-            part.GetComponent<DamageCheck>().StartGame();
+            part.GetComponent<Part>().StartGame();
         }
 
         Destroy(p1DrawZone);
@@ -141,6 +120,6 @@ public class TimerButtonHandler : MonoBehaviour
         Destroy(p1DrawText);
         Destroy(p2DrawText);
         Destroy(barriers);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

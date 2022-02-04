@@ -12,24 +12,24 @@ public class StartButtonHandler : MonoBehaviour
     public Text p2DrawText;
     public float gravity;
 
-    private Button startButton;
+    private Button _startButton;
 
     void Start()
     {
-        startButton = this.GetComponent<Button>();
-        startButton.onClick.AddListener(() => OnButtonHit());
+        _startButton = GetComponent<Button>();
+        _startButton.onClick.AddListener(() => OnButtonHit());
     }
 
     public void OnButtonHit()
     {
-        if (this.p1DrawZone == null || this.p2DrawZone == null)
+        if (p1DrawZone == null || p2DrawZone == null)
         {
             return;
         }
-        List<GameObject> p1Parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
-        List<GameObject> p2Parts = p2DrawZone.GetComponent<DrawParts>().GetParts();
+        List<GameObject> parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
+        parts.AddRange(p2DrawZone.GetComponent<DrawParts>().GetParts());
 
-        foreach (GameObject part in p1Parts)
+        foreach (GameObject part in parts)
         {
             if (part == null)
             {
@@ -47,29 +47,12 @@ public class StartButtonHandler : MonoBehaviour
             
             Destroy(part.GetComponent<DrawingBehavior>());
         }
-        foreach (GameObject part in p2Parts)
-        {
-            if (part == null)
-            {
-                continue;
-            }
-            if (!part.CompareTag("Muscle"))
-            {
-                part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-                part.GetComponent<BoxCollider2D>().isTrigger = false;
-            }
-            else
-            {
-                part.GetComponent<Muscle>().StartGame();
-            }
-            Destroy(part.GetComponent<DrawingBehavior>());
-        }
 
         Destroy(p1DrawZone);
         Destroy(p2DrawZone);
         Destroy(p1DrawText);
         Destroy(p2DrawText);
         Destroy(barriers);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

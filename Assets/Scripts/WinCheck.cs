@@ -12,30 +12,30 @@ public class WinCheck : MonoBehaviour
     public Button againButton;
     public Text winText;
 
-    private bool started;
+    private bool _started;
 
     private void Start()
     {
-        this.started = false;
+        _started = false;
     }
 
     void Update()
     {
-        if (!this.started)
+        if (!_started)
         {
             return;
         }
 
-        if (this.p1Brain == null)
+        if (p1Brain == null)
         {
-            this.winText.text = "P2 Wins";
+            winText.text = "P2 Wins";
             Destroy(this);
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
         }
-        if (this.p2Brain == null)
+        if (p2Brain == null)
         {
-            this.winText.text = "P1 Wins";
+            winText.text = "P1 Wins";
             Destroy(this);
             Instantiate(menuButton, canvas.transform);
             Instantiate(againButton, canvas.transform);
@@ -46,16 +46,16 @@ public class WinCheck : MonoBehaviour
     {
         if (isp1)
         {
-            this.p1Brain = Brain;
+            p1Brain = Brain;
         }
         else
         {
-            this.p2Brain = Brain;
+            p2Brain = Brain;
         }
     }
 
     public void StartGame()
     {
-        this.started = true;
+        _started = true;
     }
 }

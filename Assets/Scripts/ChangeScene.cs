@@ -11,7 +11,7 @@ public class ChangeScene : MonoBehaviour
 
     void Start()
     {
-        startButton = this.GetComponent<Button>();
+        startButton = GetComponent<Button>();
         startButton.onClick.AddListener(() => OnButtonHit());
     }
 
