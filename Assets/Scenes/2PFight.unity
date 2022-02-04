@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 1692560832}
+  m_LightingSettings: {fileID: 684999996}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1099,18 +1099,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e220a6b942e5a04fa59012363b51cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bone: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4, type: 3}
-  Joint: {fileID: 3960184402078090984, guid: b6ec45885fc48e94684ffd68d2bcbf7e, type: 3}
-  Muscle: {fileID: 2471828664909899896, guid: dc8bb17b845be1042abffc5daa74792f, type: 3}
-  Brain: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0, type: 3}
-  GameCam: {fileID: 519420031}
+  bonePref: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4,
+    type: 3}
+  jointPref: {fileID: 3960184402078090984, guid: b6ec45885fc48e94684ffd68d2bcbf7e,
+    type: 3}
+  musclePref: {fileID: 2471828664909899896, guid: dc8bb17b845be1042abffc5daa74792f,
+    type: 3}
+  brainPref: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0,
+    type: 3}
   drawModeLabel: {fileID: 318354403}
-  muscleStrengthMax: 4
-  muscleStrengthMin: 0.1
-  boneSizeMin: 0.1
-  boneSizeMax: 4
   isP1: 1
   isActive: 0
+  controlKeys: 11010000120100001301000014010000
+  hasBrain: 0
+--- !u!850595691 &684999996
+LightingSettings:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Settings.lighting
+  serializedVersion: 3
+  m_GIWorkflowMode: 1
+  m_EnableBakedLightmaps: 0
+  m_EnableRealtimeLightmaps: 0
+  m_RealtimeEnvironmentLighting: 1
+  m_BounceScale: 1
+  m_AlbedoBoost: 1
+  m_IndirectOutputScale: 1
+  m_UsingShadowmask: 1
+  m_BakeBackend: 0
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 40
+  m_Padding: 2
+  m_TextureCompression: 1
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_MixedBakeMode: 2
+  m_LightmapsBakeMode: 1
+  m_FilterMode: 1
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+  m_ExportTrainingData: 0
+  m_TrainingDataDestination: TrainingData
+  m_RealtimeResolution: 2
+  m_ForceWhiteAlbedo: 0
+  m_ForceUpdates: 0
+  m_FinalGather: 0
+  m_FinalGatherRayCount: 256
+  m_FinalGatherFiltering: 1
+  m_PVRCulling: 1
+  m_PVRSampling: 1
+  m_PVRDirectSampleCount: 32
+  m_PVRSampleCount: 500
+  m_PVREnvironmentSampleCount: 500
+  m_PVREnvironmentReferencePointCount: 2048
+  m_LightProbeSampleCountMultiplier: 4
+  m_PVRBounces: 2
+  m_PVRMinBounces: 2
+  m_PVREnvironmentMIS: 0
+  m_PVRFilteringMode: 2
+  m_PVRDenoiserTypeDirect: 0
+  m_PVRDenoiserTypeIndirect: 0
+  m_PVRDenoiserTypeAO: 0
+  m_PVRFilterTypeDirect: 0
+  m_PVRFilterTypeIndirect: 0
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 1
+  m_PVRFilteringGaussRadiusIndirect: 5
+  m_PVRFilteringGaussRadiusAO: 2
+  m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+  m_PVRFilteringAtrousPositionSigmaIndirect: 2
+  m_PVRFilteringAtrousPositionSigmaAO: 1
 --- !u!1 &704669564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,18 +1283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e220a6b942e5a04fa59012363b51cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bone: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4, type: 3}
-  Joint: {fileID: 3960184402078090984, guid: b6ec45885fc48e94684ffd68d2bcbf7e, type: 3}
-  Muscle: {fileID: 2471828664909899896, guid: dc8bb17b845be1042abffc5daa74792f, type: 3}
-  Brain: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0, type: 3}
-  GameCam: {fileID: 519420031}
+  bonePref: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4,
+    type: 3}
+  jointPref: {fileID: 0}
+  musclePref: {fileID: 0}
+  brainPref: {fileID: 0}
   drawModeLabel: {fileID: 314771728}
-  muscleStrengthMax: 4
-  muscleStrengthMin: 0.1
-  boneSizeMin: 0.1
-  boneSizeMax: 4
   isP1: 0
   isActive: 0
+  controlKeys: 77000000610000007300000064000000
+  hasBrain: 0
 --- !u!61 &1124768833
 BoxCollider2D:
   m_ObjectHideFlags: 0

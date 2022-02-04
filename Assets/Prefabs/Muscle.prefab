@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2008081716986885887}
   - component: {fileID: 7165048170196336548}
-  - component: {fileID: 5352327861815614458}
   - component: {fileID: -3973631154580319243}
   - component: {fileID: -1172970840704386860}
   - component: {fileID: -4253175429989004913}
-  - component: {fileID: -1508936689066872058}
+  - component: {fileID: 5169543960104273957}
   m_Layer: 0
   m_Name: Muscle
   m_TagString: Muscle
@@ -50,6 +49,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -61,6 +62,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -84,23 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5352327861815614458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2471828664909899896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d2340ce2bc10b49be0762fe810b88e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anchorJoint: {fileID: 0}
-  connectedAnchorJoint: {fileID: 0}
-  muscleScale: 0
-  spring: {fileID: 0}
-  healthScale: 30
 --- !u!61 &-3973631154580319243
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,7 +145,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-1508936689066872058
+--- !u!114 &5169543960104273957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,11 +154,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2471828664909899896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e5ad7b00a155744b071355546cd229, type: 3}
+  m_Script: {fileID: 11500000, guid: 249b15d07c279084cbf56b625f50420e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 15
-  connectedMuscles: []
+  ratio: 0
+  sizeMin: 0.1
+  sizeMax: 4
   connectedJoints: []
-  boneScale: 0
-  minBoneX: 0
+  connectedMuscles: []
+  baseHealth: 10
+  strength: 2.5
+  strengthRatio: 1
+  anchorJoint: {fileID: 0}
+  connectedAnchorJoint: {fileID: 0}
+  spring: {fileID: 0}
+  healthScale: 1
