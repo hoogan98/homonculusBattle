@@ -1101,19 +1101,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonePref: {fileID: 3694555032006087983, guid: 1a94cf0f8b27b314cb7d4ce9790268f4,
     type: 3}
-  jointPref: {fileID: 0}
-  musclePref: {fileID: 0}
+  jointPref: {fileID: 3960184402078090984, guid: b6ec45885fc48e94684ffd68d2bcbf7e,
+    type: 3}
+  musclePref: {fileID: 2471828664909899896, guid: dc8bb17b845be1042abffc5daa74792f,
+    type: 3}
   brainPref: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0,
     type: 3}
-  gameCam: {fileID: 519420031}
   drawModeLabel: {fileID: 318354403}
-  muscleStrengthMax: 4
-  muscleStrengthMin: 0.1
-  boneSizeMin: 0.1
-  boneSizeMax: 4
   isP1: 1
   isActive: 0
   controlKeys: 11010000120100001301000014010000
+  hasBrain: 0
 --- !u!850595691 &684999996
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1290,15 +1288,11 @@ MonoBehaviour:
   jointPref: {fileID: 0}
   musclePref: {fileID: 0}
   brainPref: {fileID: 0}
-  gameCam: {fileID: 0}
   drawModeLabel: {fileID: 314771728}
-  muscleStrengthMax: 4
-  muscleStrengthMin: 0.1
-  boneSizeMin: 0.1
-  boneSizeMax: 4
   isP1: 0
   isActive: 0
   controlKeys: 77000000610000007300000064000000
+  hasBrain: 0
 --- !u!61 &1124768833
 BoxCollider2D:
   m_ObjectHideFlags: 0
