@@ -29,7 +29,6 @@ public class Bone : Part
     {
         if (transform.lossyScale.x == 0)
         {
-            Debug.Log("x is zero");
             drawingHandler.RemovePart(this);
         }
 
