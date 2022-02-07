@@ -122,8 +122,9 @@ public class Muscle : Part
         }
     }
 
-    public override void StartDraw(DrawParts handler)
+    public override void StartDraw(DrawParts handler, float r)
     {
+        ratio = r;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
@@ -214,8 +215,9 @@ public class Muscle : Part
         _flexKey = key;
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
+        base.StartGame();
         //bug where halfway through drawing muscle on startup it stays
         if (anchorJoint == null || connectedAnchorJoint == null || spring == null)
         {

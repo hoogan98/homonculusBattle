@@ -7,9 +7,11 @@ public class MyJoint : Part
     
     public HingeJoint2D hinge;
     
-    public override void StartDraw(DrawParts handler)
+    public override void StartDraw(DrawParts handler, float r)
     {
-        throw new System.NotImplementedException();
+        ratio = r;
+        Vector2 mousePos = Input.mousePosition;
+        transform.position = new Vector3(mousePos.x, mousePos.y, -1);
     }
 
     public override void DrawingBehavior()
