@@ -218,7 +218,7 @@ public class DrawParts : MonoBehaviour
             return;
         }
 
-        if (_drawingPart != null && _drawMode == DrawMode.Bone)
+        if (_drawingPart != null)
         {
             _drawingPart.FinishDraw(this);
         }

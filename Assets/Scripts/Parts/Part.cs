@@ -72,6 +72,24 @@ public abstract class Part : MonoBehaviour
         transform.position = (Vector3)new Vector3(newPos.x, newPos.y, 1);
     }
 
+    protected List<RaycastHit2D> GetBonesAndBrainOverMouse()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+
+        foreach (RaycastHit2D hit in allHits)
+        {
+            if (hit.collider.gameObject.CompareTag("Bone") || hit.collider.gameObject.CompareTag("Brain"))
+            {
+                hits.Add(hit);
+            }
+        }
+
+        return hits;
+    }
+
     protected void EditSize()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)

@@ -30,6 +30,5 @@ public class Brain : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
-        throw new System.NotImplementedException();
     }
 }
