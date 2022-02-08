@@ -89,7 +89,7 @@ public class DrawParts : MonoBehaviour
             }
 
             _drawMode++;
-            if ((int)_drawMode > _drawPartMap.Keys.Count)
+            if ((int)_drawMode > _drawPartMap.Keys.Count - 1)
             {
                 _drawMode = 0;
             }
