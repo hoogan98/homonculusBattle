@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,8 +84,7 @@ public class DrawParts : MonoBehaviour
         {
             if (_drawingPart != null)
             {
-                _drawnParts.Remove(_drawingPart.gameObject);
-                Destroy(_drawingPart.gameObject);
+                RemovePart(_drawingPart);
                 _drawingPart = null;
             }
 
@@ -146,18 +146,20 @@ public class DrawParts : MonoBehaviour
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
-        RaycastHit2D hit = new RaycastHit2D();
 
         foreach (RaycastHit2D current in hits)
         {
+            if (current.collider.gameObject.CompareTag("DrawZone"))
+            {
+                continue;
+            }
+            
             if (current.collider.gameObject.CompareTag("Brain"))
             {
                 hasBrain = false;
             }
 
-            _drawnParts.Remove(current.collider.gameObject);
-
-            Destroy(hit.collider.gameObject);
+            RemovePart(current.collider.gameObject.GetComponent<Part>());
         }
     }
 

@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 649962642}
   m_Layer: 0
   m_Name: p1DrawZone
-  m_TagString: Untagged
+  m_TagString: DrawZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1328,7 +1328,7 @@ GameObject:
   - component: {fileID: 1124768832}
   m_Layer: 0
   m_Name: p2DrawZone
-  m_TagString: Untagged
+  m_TagString: DrawZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
