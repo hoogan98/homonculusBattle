@@ -15,7 +15,7 @@ public class Brain : Part
         
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+        transform.position = new Vector3(mousePos.x, mousePos.y, 2);
         transform.rotation = Quaternion.identity;
 
         handler.SetBrain(gameObject);

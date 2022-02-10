@@ -11,7 +11,7 @@ public class MyJoint : Part
     {
         ratio = r;
         Vector2 mousePos = Input.mousePosition;
-        transform.position = new Vector3(mousePos.x, mousePos.y, -1);
+        transform.position = new Vector3(mousePos.x, mousePos.y, -2);
     }
 
     public override void DrawingBehavior()
