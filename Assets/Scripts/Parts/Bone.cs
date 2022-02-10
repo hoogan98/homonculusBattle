@@ -32,7 +32,7 @@ public class Bone : Part
             drawingHandler.RemovePart(this);
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 2);
         GetComponent<Part>().ratio = GetComponent<Renderer>().bounds.size.x;
 
         drawingHandler.EndDraw();
