@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Brain : Part
 {
-    public override void StartDraw(DrawParts handler)
+    public override void StartDraw(DrawParts handler, float r)
     {
+        ratio = r;
         if (handler.hasBrain)
         {
             handler.RemovePart(this);
@@ -14,7 +15,7 @@ public class Brain : Part
         
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.position = mousePos;
+        transform.position = new Vector3(mousePos.x, mousePos.y, 0);
         transform.rotation = Quaternion.identity;
 
         handler.SetBrain(gameObject);
@@ -29,6 +30,5 @@ public class Brain : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
-        throw new System.NotImplementedException();
     }
 }

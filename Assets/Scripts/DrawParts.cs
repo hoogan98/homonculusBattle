@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +16,9 @@ public class DrawParts : MonoBehaviour
     public List<KeyCode> controlKeys;
     public bool hasBrain;
 
-    private bool _deleteMode = false;
+    private bool _deleteMode;
     private List<GameObject> _drawnParts;
+
     private enum DrawMode
     {
         Brain = 0,
@@ -39,22 +41,22 @@ public class DrawParts : MonoBehaviour
         hasBrain = false;
         _drawText = new Dictionary<DrawMode, string>
         {
-            {DrawMode.Brain, "Draw Object: Brain"},
-            {DrawMode.Bone, "Draw Object: Bone"},
-            {DrawMode.Muscle, "Draw Object: Muscle"},
-            {DrawMode.KeyBind, "Set Muscle Keys: " + controlKeys[_currentKey]}
+            { DrawMode.Brain, "Draw Object: Brain" },
+            { DrawMode.Bone, "Draw Object: Bone" },
+            { DrawMode.Muscle, "Draw Object: Muscle" },
+            { DrawMode.KeyBind, "Set Muscle Keys: " + controlKeys[_currentKey] }
         };
         _drawPartMap = new Dictionary<DrawMode, GameObject>
         {
-            {DrawMode.Brain, brainPref},
-            {DrawMode.Bone, bonePref},
-            {DrawMode.Muscle, musclePref},
-            {DrawMode.KeyBind, null}
+            { DrawMode.Brain, brainPref },
+            { DrawMode.Bone, bonePref },
+            { DrawMode.Muscle, musclePref },
+            { DrawMode.KeyBind, null }
         };
         SetDrawing(DrawMode.Brain);
-        
+
         _drawnParts = new List<GameObject>();
-        
+
         _currentKey = 0;
     }
 
@@ -82,24 +84,24 @@ public class DrawParts : MonoBehaviour
         {
             if (_drawingPart != null)
             {
-                _drawnParts.Remove(_drawingPart.gameObject);
-                Destroy(_drawingPart.gameObject);
+                RemovePart(_drawingPart);
                 _drawingPart = null;
             }
-            
+
             _drawMode++;
-            if ((int)_drawMode > _drawPartMap.Keys.Count)
+            if ((int)_drawMode > _drawPartMap.Keys.Count - 1)
             {
                 _drawMode = 0;
             }
-            
+
             SetDrawing(_drawMode);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             _deleteMode = true;
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _deleteMode = false;
         }
@@ -112,12 +114,13 @@ public class DrawParts : MonoBehaviour
         if (_drawingPart != null)
         {
             _drawingPart.DrawingBehavior();
-        } else if (_drawMode == DrawMode.KeyBind)
+        }
+        else if (_drawMode == DrawMode.KeyBind)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 _currentKey++;
-                if (_currentKey >= controlKeys.Count)
+                if (_currentKey >= controlKeys.Count - 1)
                 {
                     _currentKey = 0;
                 }
@@ -141,30 +144,32 @@ public class DrawParts : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-        
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
-        RaycastHit2D hit = new RaycastHit2D();
 
         foreach (RaycastHit2D current in hits)
         {
+            if (current.collider.gameObject.CompareTag("DrawZone"))
+            {
+                continue;
+            }
+            
             if (current.collider.gameObject.CompareTag("Brain"))
             {
                 hasBrain = false;
             }
 
-            _drawnParts.Remove(current.collider.gameObject);
-                
-            Destroy(hit.collider.gameObject);
+            RemovePart(current.collider.gameObject.GetComponent<Part>());
         }
     }
 
     private void OnMouseDown()
     {
-        if (_deleteMode || !this.isActive)
+        if (_deleteMode || !isActive)
         {
             return;
         }
-        
+
         if (_drawMode == DrawMode.KeyBind)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -196,7 +201,9 @@ public class DrawParts : MonoBehaviour
 
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
-        _drawingPart.StartDraw(this);
+        float ratio = _drawingPartPref.GetComponent<Transform>().localScale.x /
+                      _drawingPartPref.GetComponent<Renderer>().bounds.size.x;
+        _drawingPart.StartDraw(this, ratio);
     }
 
     public void SetBrain(GameObject brain)
@@ -212,8 +219,8 @@ public class DrawParts : MonoBehaviour
         {
             return;
         }
-        
-        if (_drawingPart != null && _drawMode == DrawMode.Bone)
+
+        if (_drawingPart != null)
         {
             _drawingPart.FinishDraw(this);
         }

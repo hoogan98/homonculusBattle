@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,12 @@ public class Bone : Part
 
     private Vector3 _drawAnchor;
 
-    public override void StartDraw(DrawParts handler)
+    public override void StartDraw(DrawParts handler, float r)
     {
+        ratio = r;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 start = new Vector2(_drawAnchor.x + (GetComponent<Renderer>().bounds.size.x / 2), _drawAnchor.y);
+        Vector3 start = new Vector3(_drawAnchor.x + (GetComponent<Renderer>().bounds.size.x / 2), _drawAnchor.y, 1);
 
         transform.position = start;
     }

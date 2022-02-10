@@ -14,12 +14,11 @@ public abstract class Part : MonoBehaviour
 
     public virtual void Start()
     {
-        ratio = GetComponent<Transform>().localScale.x / GetComponent<Renderer>().bounds.size.x;
         connectedJoints = new List<MyJoint>();
         connectedMuscles = new List<Muscle>();
     }
     
-    public void StartGame()
+    public virtual void StartGame()
     {
         baseHealth *= gameObject.transform.lossyScale.y;
     }
@@ -50,7 +49,7 @@ public abstract class Part : MonoBehaviour
         }
     }
 
-    public abstract void StartDraw(DrawParts drawingHandler);
+    public abstract void StartDraw(DrawParts drawingHandler, float ratio);
     public abstract void DrawingBehavior();
     public abstract void FinishDraw(DrawParts drawingHandler);
 
@@ -58,7 +57,7 @@ public abstract class Part : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 direction = mousePos - transform.position;
+        Vector3 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rotation;
@@ -70,7 +69,25 @@ public abstract class Part : MonoBehaviour
         transform.localScale = modScale;
 
         Vector2 newPos = (Vector2)((anchor + mousePos) * 0.5f);
-        transform.position = (Vector3)newPos;
+        transform.position = (Vector3)new Vector3(newPos.x, newPos.y, 1);
+    }
+
+    protected List<RaycastHit2D> GetBonesAndBrainOverMouse()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        RaycastHit2D[] allHits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity);
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+
+        foreach (RaycastHit2D hit in allHits)
+        {
+            if (hit.collider.gameObject.CompareTag("Bone") || hit.collider.gameObject.CompareTag("Brain"))
+            {
+                hits.Add(hit);
+            }
+        }
+
+        return hits;
     }
 
     protected void EditSize()

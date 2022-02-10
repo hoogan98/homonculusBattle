@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 8135241956195311273}
   - component: {fileID: 6088477237299629902}
   - component: {fileID: 5302949789375305329}
-  - component: {fileID: -4646032499997676711}
   m_Layer: 5
   m_Name: AgainButton
   m_TagString: Untagged
