@@ -175,6 +175,8 @@ public class Muscle : Part
 
         //keep a reference to the original joint holder
         nextHit.GetComponent<Part>().connectedMuscles.Add(this);
+        
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
 
         handler.EndDraw();
     }
