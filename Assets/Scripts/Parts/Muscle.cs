@@ -5,13 +5,11 @@ using UnityEngine;
 public class Muscle : Part
 {
     public float strength;
-    public float strengthRatio;
+    public float yStrengthScale;
     public GameObject anchorJoint;
     public GameObject connectedAnchorJoint;
     public SpringJoint2D spring;
-
-    public float healthScale;
-    //muscleratio is just part's ratio
+    public float yHealthScale;
 
     private float _springStrength;
     private float _springStrengthDefault;
@@ -75,6 +73,7 @@ public class Muscle : Part
         {
             spring.frequency = _springStrength;
             spring.distance /= 2;
+            Debug.Log("flexing");
             // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
             // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
             //                                 connectedAnchorJoint.transform.position);
@@ -141,7 +140,7 @@ public class Muscle : Part
         FollowMouseAnchor(_drawAnchor);
         EditSize();
 
-        strength = transform.localScale.y / strengthRatio;
+        strength = transform.localScale.y * yStrengthScale;
     }
 
     public override void FinishDraw(DrawParts handler)
@@ -177,6 +176,8 @@ public class Muscle : Part
         nextHit.GetComponent<Part>().connectedMuscles.Add(this);
         
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+
+        baseHealth += transform.lossyScale.y * yHealthScale;
 
         handler.EndDraw();
     }
