@@ -1110,7 +1110,7 @@ MonoBehaviour:
   drawModeLabel: {fileID: 318354403}
   isP1: 1
   isActive: 0
-  controlKeys: 11010000120100001301000014010000
+  controlKeys: 110100001201000013010000140100002f0100005c000000
   hasBrain: 0
 --- !u!850595691 &684999996
 LightingSettings:
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   drawModeLabel: {fileID: 314771728}
   isP1: 0
   isActive: 0
-  controlKeys: 77000000610000007300000064000000
+  controlKeys: 770000006100000073000000640000003001000009000000
   hasBrain: 0
 --- !u!61 &1124768833
 BoxCollider2D:
