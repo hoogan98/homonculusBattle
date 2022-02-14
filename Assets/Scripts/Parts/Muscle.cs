@@ -73,7 +73,6 @@ public class Muscle : Part
         {
             spring.frequency = _springStrength;
             spring.distance /= 2;
-            Debug.Log("flexing");
             // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
             // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
             //                                 connectedAnchorJoint.transform.position);
@@ -214,6 +213,7 @@ public class Muscle : Part
 
         _started = true;
         spring.frequency = _springStrengthDefault;
+        spring.breakForce = baseHealth * yHealthScale;
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();
         //this.spring.breakForce = springHealth * this.healthScale;

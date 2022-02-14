@@ -168,4 +168,4 @@ MonoBehaviour:
   anchorJoint: {fileID: 0}
   connectedAnchorJoint: {fileID: 0}
   spring: {fileID: 0}
-  yHealthScale: 1
+  yHealthScale: 10
