@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bone : Part
 {
     public float minX;
+    public float yHealthScale;
 
     private Vector3 _drawAnchor;
 
@@ -33,7 +34,9 @@ public class Bone : Part
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 2);
-        GetComponent<Part>().ratio = GetComponent<Renderer>().bounds.size.x;
+        ratio = GetComponent<Renderer>().bounds.size.x;
+
+        baseHealth += yHealthScale * transform.lossyScale.y;
 
         drawingHandler.EndDraw();
     }

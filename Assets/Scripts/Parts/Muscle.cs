@@ -5,13 +5,11 @@ using UnityEngine;
 public class Muscle : Part
 {
     public float strength;
-    public float strengthRatio;
+    public float yStrengthScale;
     public GameObject anchorJoint;
     public GameObject connectedAnchorJoint;
     public SpringJoint2D spring;
-
-    public float healthScale;
-    //muscleratio is just part's ratio
+    public float yHealthScale;
 
     private float _springStrength;
     private float _springStrengthDefault;
@@ -87,6 +85,16 @@ public class Muscle : Part
             spring.distance *= 2;
             spring.frequency = _springStrengthDefault;
         }
+        
+        CheckBreak();
+    }
+
+    private void CheckBreak()
+    {
+        if (baseHealth < spring.reactionForce.magnitude)
+        {
+            Break();
+        }
     }
 
     private void FindNewJoint()
@@ -141,7 +149,7 @@ public class Muscle : Part
         FollowMouseAnchor(_drawAnchor);
         EditSize();
 
-        strength = transform.localScale.y / strengthRatio;
+        strength = transform.localScale.y * yStrengthScale;
     }
 
     public override void FinishDraw(DrawParts handler)
@@ -178,6 +186,8 @@ public class Muscle : Part
         
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
 
+        baseHealth += transform.lossyScale.y * yHealthScale;
+
         handler.EndDraw();
     }
 
@@ -207,12 +217,14 @@ public class Muscle : Part
         //bug where halfway through drawing muscle on startup it stays
         if (anchorJoint == null || connectedAnchorJoint == null || spring == null)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         _started = true;
         spring.frequency = _springStrengthDefault;
+        baseHealth *= yHealthScale;
+        
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();
         //this.spring.breakForce = springHealth * this.healthScale;

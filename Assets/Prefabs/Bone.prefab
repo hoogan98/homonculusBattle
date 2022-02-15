@@ -162,5 +162,6 @@ MonoBehaviour:
   sizeMax: 4
   connectedJoints: []
   connectedMuscles: []
-  baseHealth: 10
+  baseHealth: 20
   minX: 0.05
+  yHealthScale: 1

@@ -164,8 +164,8 @@ MonoBehaviour:
   connectedMuscles: []
   baseHealth: 10
   strength: 2.5
-  strengthRatio: 1
+  yStrengthScale: 10
   anchorJoint: {fileID: 0}
   connectedAnchorJoint: {fileID: 0}
   spring: {fileID: 0}
-  healthScale: 1
+  yHealthScale: 10

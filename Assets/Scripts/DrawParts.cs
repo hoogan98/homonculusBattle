@@ -109,6 +109,9 @@ public class DrawParts : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && _deleteMode)
         {
             DeleteParts();
+        } else if (Input.GetMouseButtonDown(0))
+        {
+            MouseClickHandler();
         }
 
         if (_drawingPart != null)
@@ -120,7 +123,7 @@ public class DrawParts : MonoBehaviour
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 _currentKey++;
-                if (_currentKey >= controlKeys.Count - 1)
+                if (_currentKey > controlKeys.Count - 1)
                 {
                     _currentKey = 0;
                 }
@@ -163,14 +166,14 @@ public class DrawParts : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    private void MouseClickHandler()
     {
         if (_deleteMode || !isActive)
         {
             return;
         }
-
-        if (_drawMode == DrawMode.KeyBind)
+        
+        if (_drawMode.Equals(DrawMode.KeyBind))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
