@@ -157,12 +157,22 @@ public class Muscle : Part
         if (transform.lossyScale.x == 0)
         {
             handler.RemovePart(this);
+            handler.EndDraw();
+            return;
         }
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
         GameObject nextHit = GetBonesAndBrainOverMouse()[0].collider.gameObject;
+
+        if (nextHit.Equals(_firstBone))
+        {
+            handler.RemovePart(this);
+            handler.EndDraw();
+            return;
+        }
+        
         SpringJoint2D newSpring = _firstBone.AddComponent<SpringJoint2D>();
         newSpring.anchor = _firstBone.transform.InverseTransformPoint(_drawAnchor);
         newSpring.connectedBody = nextHit.GetComponent<Rigidbody2D>();
