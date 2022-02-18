@@ -11,6 +11,7 @@ public class StartButtonHandler : MonoBehaviour
     public Text p1DrawText;
     public Text p2DrawText;
     public float gravity;
+    public List<GameObject> movingDeathWalls;
 
     private Button _startButton;
 
@@ -46,6 +47,11 @@ public class StartButtonHandler : MonoBehaviour
             }
             
             Destroy(part.GetComponent<DrawingBehavior>());
+        }
+
+        foreach (GameObject wall in movingDeathWalls)
+        {
+            wall.GetComponent<DeathWallMover>().enabled = true;
         }
 
         Destroy(p1DrawZone);

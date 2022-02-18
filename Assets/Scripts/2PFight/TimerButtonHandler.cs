@@ -8,10 +8,10 @@ public class TimerButtonHandler : MonoBehaviour
     public GameObject p1DrawZone;
     public GameObject p2DrawZone;
     public GameObject barriers;
-    public Camera gameCam;
     public Text p1DrawText;
     public Text p2DrawText;
     public float gravity;
+    public List<GameObject> movingDeathWalls;
 
     private Button _startButton;
     private bool _p1Done;
@@ -113,6 +113,11 @@ public class TimerButtonHandler : MonoBehaviour
             Destroy(part.GetComponent<DrawingBehavior>());
             part.GetComponent<BoxCollider2D>().isTrigger = false;
             part.GetComponent<Part>().StartGame();
+        }
+        
+        foreach (GameObject wall in movingDeathWalls)
+        {
+            wall.GetComponent<DeathWallMover>().enabled = true;
         }
 
         Destroy(p1DrawZone);
