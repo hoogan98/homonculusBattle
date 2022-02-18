@@ -1227,12 +1227,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p1DrawZone: {fileID: 649962638}
-  p2DrawZone: {fileID: 0}
+  p2DrawZone: {fileID: 1286569976}
   barriers: {fileID: 151485001}
-  gameCam: {fileID: 0}
   p1DrawText: {fileID: 318354403}
   p2DrawText: {fileID: 314771728}
   gravity: 1
+  movingDeathWalls:
+  - {fileID: 1456881460}
+  - {fileID: 1931151625}
 --- !u!114 &786405398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1707,6 +1709,7 @@ GameObject:
   - component: {fileID: 1456881463}
   - component: {fileID: 1456881462}
   - component: {fileID: 1456881461}
+  - component: {fileID: 1456881464}
   m_Layer: 0
   m_Name: leftBarrier
   m_TagString: Untagged
@@ -1763,6 +1766,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1456881464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456881460}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce8acbdb1d4fcf4ab8660d9b8290fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.4
+  direction: {x: 0, y: -1, z: 0}
 --- !u!1 &1462692269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,6 +2093,7 @@ GameObject:
   - component: {fileID: 1931151628}
   - component: {fileID: 1931151627}
   - component: {fileID: 1931151626}
+  - component: {fileID: 1931151629}
   m_Layer: 0
   m_Name: rightBarrier
   m_TagString: Untagged
@@ -2132,6 +2150,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1931151629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931151625}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce8acbdb1d4fcf4ab8660d9b8290fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.4
+  direction: {x: 0, y: 1, z: 0}
 --- !u!1 &1971172770
 GameObject:
   m_ObjectHideFlags: 0
