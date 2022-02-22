@@ -1,0 +1,3 @@
+playerOne,UpArrow,DownArrow,LeftArrow,RightArrow,Backslash,RightShift
+playerTwo,W,S,A,D,Tab,LeftShift
+drawControl,DeleteMode:LeftShift,PlaceJoint:Mouse1,PlacePart:Mouse0,SwitchPart:Space

@@ -13,47 +13,113 @@ public class KeyBindLoader : MonoBehaviour
     public void Start()
     {
         //remove these later, for the initial population of text file
-        _p1ControlKeys = new List<KeyCode>()
-        {
-            KeyCode.UpArrow,
-            KeyCode.DownArrow,
-            KeyCode.LeftArrow,
-            KeyCode.RightArrow,
-            KeyCode.Backslash,
-            KeyCode.RightShift
-        };
-
-        _p2ControlKeys = new List<KeyCode>()
-        {
-            KeyCode.W,
-            KeyCode.S,
-            KeyCode.A,
-            KeyCode.D,
-            KeyCode.Tab,
-            KeyCode.LeftShift
-        };
-
-        _drawKeys = new Dictionary<DrawParts.DrawControl, KeyCode>()
-        {
-            { DrawParts.DrawControl.DeleteMode, KeyCode.LeftShift },
-            { DrawParts.DrawControl.PlaceJoint, KeyCode.Mouse1 },
-            { DrawParts.DrawControl.PlacePart, KeyCode.Mouse0 },
-            { DrawParts.DrawControl.SwitchPart, KeyCode.Space }
-        };
+        // _p1ControlKeys = new List<KeyCode>()
+        // {
+        //     KeyCode.UpArrow,
+        //     KeyCode.DownArrow,
+        //     KeyCode.LeftArrow,
+        //     KeyCode.RightArrow,
+        //     KeyCode.Backslash,
+        //     KeyCode.RightShift
+        // };
+        //
+        // _p2ControlKeys = new List<KeyCode>()
+        // {
+        //     KeyCode.W,
+        //     KeyCode.S,
+        //     KeyCode.A,
+        //     KeyCode.D,
+        //     KeyCode.Tab,
+        //     KeyCode.LeftShift
+        // };
+        //
+        // _drawKeys = new Dictionary<DrawParts.DrawControl, KeyCode>()
+        // {
+        //     { DrawParts.DrawControl.DeleteMode, KeyCode.LeftShift },
+        //     { DrawParts.DrawControl.PlaceJoint, KeyCode.Mouse1 },
+        //     { DrawParts.DrawControl.PlacePart, KeyCode.Mouse0 },
+        //     { DrawParts.DrawControl.SwitchPart, KeyCode.Space }
+        // };
         
-        WriteKeys();
+        LoadKeys();
+        
+        Debug.Log(_drawKeys);
+        Debug.Log(_p1ControlKeys);
+        Debug.Log(_p2ControlKeys);
+    }
+
+    public void LoadKeys()
+    {
+        foreach (string control in File.ReadLines("KeyBinds.txt"))
+        {
+            string[] splitControls = control.Split(',');
+
+            switch (splitControls[0])
+            {
+                case "playerOne":
+                    _p1ControlKeys = InterpretKeys(splitControls);
+                    break;
+                    
+                case "playerTwo":
+                    _p2ControlKeys = InterpretKeys(splitControls);
+                    break;
+                
+                case "drawControl":
+                    string[] keys = new string[splitControls.Length - 1];
+                    string[] controls = new string[splitControls.Length - 1];
+                    
+                    for (int i = 1; i < splitControls.Length; i++)
+                    {
+                        string[] splitPair = splitControls[i].Split(':');
+                        Debug.Log(splitPair[0] + " " + splitPair[1]);
+
+                        controls[i - 1] = splitPair[0];
+                        keys[i - 1] = splitPair[1];
+                    }
+
+                    _drawKeys = InterpretKeys(keys, controls);
+                    break;
+            }
+        }
+    }
+
+    private List<KeyCode> InterpretKeys(string[] keys)
+    {
+        List<KeyCode> keyList = new List<KeyCode>();
+
+        for (int i = 1; i < keys.Length; i++)
+        {
+            keyList.Add((KeyCode)Enum.Parse(typeof(KeyCode), keys[i]));
+        }
+
+        return keyList;
+    }
+
+    private Dictionary<DrawParts.DrawControl, KeyCode> InterpretKeys(string[] keys, string[] controls)
+    {
+        Debug.Log(controls[0] + controls[1] + controls[2]);
+        Dictionary<DrawParts.DrawControl, KeyCode> keyDict = new Dictionary<DrawParts.DrawControl, KeyCode>();
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            Debug.Log(controls[i] + " " + keys[i]);
+            keyDict.Add((DrawParts.DrawControl)Enum.Parse(typeof(DrawParts.DrawControl), controls[i]),
+                (KeyCode)Enum.Parse(typeof(KeyCode), keys[i]));
+        }
+
+        return keyDict;
     }
 
     public void WriteKeys()
     {
-        string[] keys = new string[3];
+        string[] keyStrings = new string[3];
 
-        keys[0] = "playerOne" + StringifyKeys(_p1ControlKeys);
-        keys[1] = "playerTwo" + StringifyKeys(_p2ControlKeys);
-        keys[3] = "drawControl" + StringifyKeys(_drawKeys);
+        keyStrings[0] = "playerOne" + StringifyKeys(_p1ControlKeys);
+        keyStrings[1] = "playerTwo" + StringifyKeys(_p2ControlKeys);
+        keyStrings[2] = "drawControl" + StringifyKeys(_drawKeys);
 
 
-        File.WriteAllLines("KeyBinds.txt", keys);
+        File.WriteAllLines("KeyBinds.txt", keyStrings);
     }
 
     private string StringifyKeys(List<KeyCode> keys)

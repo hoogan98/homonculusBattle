@@ -47,7 +47,6 @@ public class DrawParts : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(DrawMode.Brain);
         hasBrain = false;
         _drawText = new Dictionary<DrawMode, string>
         {
