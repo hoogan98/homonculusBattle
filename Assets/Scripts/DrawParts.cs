@@ -47,6 +47,42 @@ public class DrawParts : MonoBehaviour
 
     void Start()
     {
+        
+        //remove these later, for the initial population of text file
+        if (isP1)
+        {
+            controlKeys = new List<KeyCode>()
+            {
+                KeyCode.UpArrow,
+                KeyCode.DownArrow,
+                KeyCode.LeftArrow,
+                KeyCode.RightArrow,
+                KeyCode.Backslash,
+                KeyCode.RightShift
+            };
+        }
+        else
+        {
+            controlKeys = new List<KeyCode>()
+            {
+                KeyCode.W,
+                KeyCode.S,
+                KeyCode.A,
+                KeyCode.D,
+                KeyCode.Tab,
+                KeyCode.LeftShift
+            };
+        }
+        
+        drawKeys = new Dictionary<DrawParts.DrawControl, KeyCode>()
+        {
+            { DrawParts.DrawControl.DeleteMode, KeyCode.LeftShift },
+            { DrawParts.DrawControl.PlaceJoint, KeyCode.Mouse1 },
+            { DrawParts.DrawControl.PlacePart, KeyCode.Mouse0 },
+            { DrawParts.DrawControl.SwitchPart, KeyCode.Space }
+        };
+        
+        
         hasBrain = false;
         _drawText = new Dictionary<DrawMode, string>
         {
@@ -225,7 +261,7 @@ public class DrawParts : MonoBehaviour
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
         float ratio = _drawingPartPref.GetComponent<Transform>().localScale.x /
-                      _drawingPartPref.GetComponent<Renderer>().bounds.size.x;
+                      _drawingPartPref.GetComponentInChildren<Renderer>().bounds.size.x;
         _drawingPart.StartDraw(this, ratio);
     }
 
