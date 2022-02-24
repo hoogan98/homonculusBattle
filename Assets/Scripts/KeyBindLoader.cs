@@ -42,10 +42,6 @@ public class KeyBindLoader : MonoBehaviour
         // };
         
         LoadKeys();
-        
-        Debug.Log(_drawKeys);
-        Debug.Log(_p1ControlKeys);
-        Debug.Log(_p2ControlKeys);
     }
 
     public void LoadKeys()
@@ -71,7 +67,6 @@ public class KeyBindLoader : MonoBehaviour
                     for (int i = 1; i < splitControls.Length; i++)
                     {
                         string[] splitPair = splitControls[i].Split(':');
-                        Debug.Log(splitPair[0] + " " + splitPair[1]);
 
                         controls[i - 1] = splitPair[0];
                         keys[i - 1] = splitPair[1];
@@ -102,7 +97,6 @@ public class KeyBindLoader : MonoBehaviour
 
         for (int i = 0; i < keys.Length; i++)
         {
-            Debug.Log(controls[i] + " " + keys[i]);
             keyDict.Add((DrawParts.DrawControl)Enum.Parse(typeof(DrawParts.DrawControl), controls[i]),
                 (KeyCode)Enum.Parse(typeof(KeyCode), keys[i]));
         }
