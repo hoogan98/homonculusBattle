@@ -14,7 +14,16 @@ public class DrawParts : MonoBehaviour
     public bool isP1;
     public bool isActive;
     public List<KeyCode> controlKeys;
+    public Dictionary<DrawControl, KeyCode> drawKeys;
     public bool hasBrain;
+
+    public enum DrawControl
+    {
+        SwitchPart, //space
+        DeleteMode,  //lshift
+        PlacePart,  //mouse0
+        PlaceJoint,  //mouse1
+    }
 
     private bool _deleteMode;
     private List<GameObject> _drawnParts;
@@ -80,7 +89,7 @@ public class DrawParts : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(drawKeys[DrawControl.SwitchPart]))
         {
             if (_drawingPart != null)
             {
@@ -97,21 +106,32 @@ public class DrawParts : MonoBehaviour
             SetDrawing(_drawMode);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(drawKeys[DrawControl.DeleteMode]))
         {
             _deleteMode = true;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        else if (Input.GetKeyUp(drawKeys[DrawControl.DeleteMode]))
         {
             _deleteMode = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && _deleteMode)
+        if (Input.GetKeyDown(drawKeys[DrawControl.PlacePart]))
         {
-            DeleteParts();
-        } else if (Input.GetMouseButtonDown(0))
+            if (_deleteMode)
+            {
+                DeleteParts();
+            }
+            else
+            {
+                MouseClickHandler();
+            }
+        } else if (Input.GetKeyUp(drawKeys[DrawControl.PlacePart]))
         {
-            MouseClickHandler();
+            //maybe complete draw stroke regardless?
+            if (!_deleteMode)
+            {
+                CompleteDrawStroke();
+            }
         }
 
         if (_drawingPart != null)
@@ -216,7 +236,7 @@ public class DrawParts : MonoBehaviour
         hasBrain = true;
     }
 
-    private void OnMouseUp()
+    private void CompleteDrawStroke()
     {
         if (_deleteMode || !isActive)
         {
@@ -242,7 +262,7 @@ public class DrawParts : MonoBehaviour
         }
 
         //joint shstuff
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(drawKeys[DrawControl.PlaceJoint]))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
