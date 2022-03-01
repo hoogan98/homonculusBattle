@@ -25,7 +25,6 @@ public class Brain : Part
 
     public override void DrawingBehavior()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void FinishDraw(DrawParts drawingHandler)

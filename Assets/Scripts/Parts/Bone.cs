@@ -15,7 +15,7 @@ public class Bone : Part
         ratio = r;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 start = new Vector3(_drawAnchor.x + (GetComponent<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
+        Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
 
         transform.position = start;
     }
@@ -34,7 +34,7 @@ public class Bone : Part
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 2);
-        ratio = GetComponent<Renderer>().bounds.size.x;
+        ratio = GetComponentInChildren<Renderer>().bounds.size.x;
 
         baseHealth += yHealthScale * transform.lossyScale.y;
 
