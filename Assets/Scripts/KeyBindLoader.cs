@@ -92,7 +92,6 @@ public class KeyBindLoader : MonoBehaviour
 
     private Dictionary<DrawParts.DrawControl, KeyCode> InterpretKeys(string[] keys, string[] controls)
     {
-        Debug.Log(controls[0] + controls[1] + controls[2]);
         Dictionary<DrawParts.DrawControl, KeyCode> keyDict = new Dictionary<DrawParts.DrawControl, KeyCode>();
 
         for (int i = 0; i < keys.Length; i++)
