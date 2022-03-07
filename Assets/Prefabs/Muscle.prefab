@@ -118,6 +118,7 @@ MonoBehaviour:
   connectedAnchorJoint: {fileID: 0}
   spring: {fileID: 0}
   yHealthScale: 10
+  maxDistanceScale: 4
 --- !u!1 &5752584809439973057
 GameObject:
   m_ObjectHideFlags: 0

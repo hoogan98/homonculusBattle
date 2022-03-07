@@ -10,6 +10,7 @@ public class Muscle : Part
     public GameObject connectedAnchorJoint;
     public SpringJoint2D spring;
     public float yHealthScale;
+    public float maxDistanceScale;
 
     private float _springStrength;
     private float _springStrengthDefault;
@@ -85,13 +86,15 @@ public class Muscle : Part
             spring.distance *= 2;
             spring.frequency = _springStrengthDefault;
         }
-        
+
         CheckBreak();
     }
 
     private void CheckBreak()
     {
-        if (baseHealth < spring.reactionForce.magnitude)
+        if (baseHealth < spring.reactionForce.magnitude ||
+            Vector3.Distance(connectedAnchorJoint.transform.position, anchorJoint.transform.position) >
+            spring.distance * maxDistanceScale)
         {
             Break();
         }
@@ -172,7 +175,7 @@ public class Muscle : Part
             handler.EndDraw();
             return;
         }
-        
+
         SpringJoint2D newSpring = _firstBone.AddComponent<SpringJoint2D>();
         newSpring.anchor = _firstBone.transform.InverseTransformPoint(_drawAnchor);
         newSpring.connectedBody = nextHit.GetComponent<Rigidbody2D>();
@@ -193,7 +196,7 @@ public class Muscle : Part
 
         //keep a reference to the original joint holder
         nextHit.GetComponent<Part>().connectedMuscles.Add(this);
-        
+
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
 
         baseHealth += transform.lossyScale.y * yHealthScale;
@@ -234,7 +237,7 @@ public class Muscle : Part
         _started = true;
         spring.frequency = _springStrengthDefault;
         baseHealth *= yHealthScale;
-        
+
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();
         //this.spring.breakForce = springHealth * this.healthScale;
