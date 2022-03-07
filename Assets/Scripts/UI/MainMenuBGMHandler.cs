@@ -18,7 +18,10 @@ public class MainMenuBGMHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bgm.mute = PlayerPrefs.GetInt("main_menu_volume_muted", 0) == 1;
         originalVolume = bgm.volume;
+        bgm.volume = PlayerPrefs.GetFloat("main_menu_volume", originalVolume);
+        volumeSlider.value = bgm.volume / (originalVolume * 2);
     }
 
     public void OnSliderChange()
@@ -43,5 +46,7 @@ public class MainMenuBGMHandler : MonoBehaviour
         {
             toggleButtonImage.sprite = unmutedTexture;
         }
+        PlayerPrefs.SetFloat("main_menu_volume", bgm.volume);
+        PlayerPrefs.SetInt("main_menu_volume_muted", bgm.mute ? 1 : 0);
     }
 }
