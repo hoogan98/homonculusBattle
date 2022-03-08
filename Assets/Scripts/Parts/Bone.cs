@@ -54,7 +54,33 @@ public class Bone : Part
         return bone2;
     }
 
-    public override void Break()
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
+        Debug.Log(damage + " on " + gameObject.name);
+
+        // try
+        // {
+        //     float otherHealth = collision.gameObject.GetComponent<Part>().baseHealth;
+        //     if (otherHealth < baseHealth && otherHealth < damage)
+        //     {
+        //         Debug.Log("kill other attempt");
+        //         collision.gameObject.GetComponent<Part>().Break();
+        //         return;
+        //     }
+        // }
+        // catch
+        // {
+        //     Debug.Log("error in trying to kill another part");
+        // }
+
+        if (damage > baseHealth)
+        {
+            Break(collision.transform);
+        }
+    }
+
+    public void Break(Transform otherHit)
     {
         if ((transform.lossyScale.x / 2) < minX)
         {
