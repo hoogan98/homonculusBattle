@@ -2047,11 +2047,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60461b560b69c81478a4711adebcda60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: {fileID: 2090908152}
   volumeSlider: {fileID: 1421786055}
   toggleButtonImage: {fileID: 1730405333}
   unmutedTexture: {fileID: 21300000, guid: 6a104c627e4840843a24ab8713aadcb3, type: 3}
   mutedTexture: {fileID: 21300000, guid: ddb1a712d91640f4d984e0297ddd2b8f, type: 3}
+  baseVolume: 0.015
 --- !u!1 &2090908151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,6 +2062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090908153}
   - component: {fileID: 2090908152}
+  - component: {fileID: 2090908154}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -2081,7 +2082,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.0075
+  m_Volume: 0.015
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2179,6 +2180,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2090908154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090908151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1479507d220fe0547bd8d7655493caad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneMusicMap:
+  - sceneName: Menu
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: Credits
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: 2PFight
+    audioClip: {fileID: 8300000, guid: e10c850d1a43145428c51b661c29dbed, type: 3}
 --- !u!1 &2129723372
 GameObject:
   m_ObjectHideFlags: 0

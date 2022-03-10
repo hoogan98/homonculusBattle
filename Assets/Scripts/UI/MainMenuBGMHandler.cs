@@ -6,27 +6,28 @@ using UnityEngine.UI;
 
 public class MainMenuBGMHandler : MonoBehaviour
 {
-    public AudioSource bgm;
     public Slider volumeSlider;
     public Image toggleButtonImage;
 
     public Sprite unmutedTexture;
     public Sprite mutedTexture;
 
-    private float originalVolume;
+    public float baseVolume = 0.015f;
+    private AudioSource bgm;
 
     // Start is called before the first frame update
     void Start()
     {
+        bgm = BackgroundMusicSingleton.instance.AudioSourceComponent;
         bgm.mute = PlayerPrefs.GetInt("main_menu_volume_muted", 0) == 1;
-        originalVolume = bgm.volume;
-        bgm.volume = PlayerPrefs.GetFloat("main_menu_volume", originalVolume);
-        volumeSlider.value = bgm.volume / (originalVolume * 2);
+        bgm.volume = baseVolume;
+        bgm.volume = PlayerPrefs.GetFloat("main_menu_volume", baseVolume);
+        volumeSlider.value = bgm.volume / (baseVolume * 2);
     }
 
     public void OnSliderChange()
     {
-        bgm.volume = originalVolume * (volumeSlider.value * 2);
+        bgm.volume = baseVolume * (volumeSlider.value * 2);
         ToggleSprite();
     }
 
