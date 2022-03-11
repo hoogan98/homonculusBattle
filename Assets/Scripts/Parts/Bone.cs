@@ -10,9 +10,10 @@ public class Bone : Part
 
     private Vector3 _drawAnchor;
 
-    public override void StartDraw(DrawParts handler, float r)
+    public override void StartDraw(DrawParts handler)
     {
-        ratio = r;
+        ratio = transform.localScale.x /
+                    GetComponent<BoxCollider2D>().bounds.size.x;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
@@ -34,7 +35,7 @@ public class Bone : Part
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 2);
-        ratio = GetComponentInChildren<Renderer>().bounds.size.x;
+
 
         baseHealth += yHealthScale * transform.lossyScale.y;
 
@@ -54,33 +55,7 @@ public class Bone : Part
         return bone2;
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
-        Debug.Log(damage + " on " + gameObject.name);
-
-        // try
-        // {
-        //     float otherHealth = collision.gameObject.GetComponent<Part>().baseHealth;
-        //     if (otherHealth < baseHealth && otherHealth < damage)
-        //     {
-        //         Debug.Log("kill other attempt");
-        //         collision.gameObject.GetComponent<Part>().Break();
-        //         return;
-        //     }
-        // }
-        // catch
-        // {
-        //     Debug.Log("error in trying to kill another part");
-        // }
-
-        if (damage > baseHealth)
-        {
-            Break(collision.transform);
-        }
-    }
-
-    public void Break(Transform otherHit)
+    public override void Break()
     {
         if ((transform.lossyScale.x / 2) < minX)
         {
@@ -88,8 +63,8 @@ public class Bone : Part
             return;
         }
 
-        float offset = transform.lossyScale.x * ratio;
-        offset /= 4;
+
+        float offset = GetComponent<BoxCollider2D>().bounds.size.x / 4;
         Transform oldTrans = transform;
         MyJoint[] oldJoints = gameObject.GetComponentsInChildren<MyJoint>();
         SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();

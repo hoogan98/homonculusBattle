@@ -130,9 +130,8 @@ public class Muscle : Part
         }
     }
 
-    public override void StartDraw(DrawParts handler, float r)
+    public override void StartDraw(DrawParts handler)
     {
-        ratio = r;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         List<RaycastHit2D> hits = GetBonesAndBrainOverMouse();
@@ -145,6 +144,9 @@ public class Muscle : Part
 
         _firstBone = hits[0].collider.gameObject;
         _drawAnchor = mousePos;
+
+        ratio = GetComponent<Transform>().localScale.x /
+            GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
     public override void DrawingBehavior()

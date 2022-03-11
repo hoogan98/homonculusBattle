@@ -49,7 +49,7 @@ public abstract class Part : MonoBehaviour
         }
     }
 
-    public abstract void StartDraw(DrawParts drawingHandler, float ratio);
+    public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
     public abstract void FinishDraw(DrawParts drawingHandler);
 

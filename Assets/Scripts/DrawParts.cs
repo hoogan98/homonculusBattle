@@ -260,9 +260,8 @@ public class DrawParts : MonoBehaviour
 
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
-        float ratio = _drawingPartPref.GetComponent<Transform>().localScale.x /
-                      _drawingPartPref.GetComponentInChildren<Renderer>().bounds.size.x;
-        _drawingPart.StartDraw(this, ratio);
+       
+        _drawingPart.StartDraw(this);
     }
 
     public void SetBrain(GameObject brain)
