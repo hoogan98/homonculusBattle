@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MyJoint : Part
 {
-    
+
     public HingeJoint2D hinge;
-    
-    public override void StartDraw(DrawParts handler, float r)
+
+    public override void StartDraw(DrawParts handler)
     {
-        ratio = r;
         Vector2 mousePos = Input.mousePosition;
         transform.position = new Vector3(mousePos.x, mousePos.y, -2);
+
+        ratio = GetComponent<Transform>().localScale.x /
+                    GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
     public override void DrawingBehavior()

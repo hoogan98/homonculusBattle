@@ -23,25 +23,25 @@ public abstract class Part : MonoBehaviour
         baseHealth *= gameObject.transform.lossyScale.y;
     }
     
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
         Debug.Log(damage + " on " + gameObject.name);
 
-        try
-        {
-            float otherHealth = collision.gameObject.GetComponent<Part>().baseHealth;
-            if (otherHealth < baseHealth && otherHealth < damage)
-            {
-                Debug.Log("kill other attempt");
-                collision.gameObject.GetComponent<Part>().Break();
-                return;
-            }
-        }
-        catch
-        {
-            Debug.Log("error in trying to kill another part");
-        }
+        // try
+        // {
+        //     float otherHealth = collision.gameObject.GetComponent<Part>().baseHealth;
+        //     if (otherHealth < baseHealth && otherHealth < damage)
+        //     {
+        //         Debug.Log("kill other attempt");
+        //         collision.gameObject.GetComponent<Part>().Break();
+        //         return;
+        //     }
+        // }
+        // catch
+        // {
+        //     Debug.Log("error in trying to kill another part");
+        // }
 
         if (damage > baseHealth)
         {
@@ -49,7 +49,7 @@ public abstract class Part : MonoBehaviour
         }
     }
 
-    public abstract void StartDraw(DrawParts drawingHandler, float ratio);
+    public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
     public abstract void FinishDraw(DrawParts drawingHandler);
 

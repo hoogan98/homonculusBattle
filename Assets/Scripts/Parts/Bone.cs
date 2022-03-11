@@ -10,9 +10,10 @@ public class Bone : Part
 
     private Vector3 _drawAnchor;
 
-    public override void StartDraw(DrawParts handler, float r)
+    public override void StartDraw(DrawParts handler)
     {
-        ratio = r;
+        ratio = transform.localScale.x /
+                    GetComponent<BoxCollider2D>().bounds.size.x;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
@@ -34,7 +35,7 @@ public class Bone : Part
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 2);
-        ratio = GetComponentInChildren<Renderer>().bounds.size.x;
+
 
         baseHealth += yHealthScale * transform.lossyScale.y;
 
@@ -62,8 +63,8 @@ public class Bone : Part
             return;
         }
 
-        float offset = transform.lossyScale.x * ratio;
-        offset /= 4;
+
+        float offset = GetComponent<BoxCollider2D>().bounds.size.x / 4;
         Transform oldTrans = transform;
         MyJoint[] oldJoints = gameObject.GetComponentsInChildren<MyJoint>();
         SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();

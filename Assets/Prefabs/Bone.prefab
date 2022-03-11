@@ -111,9 +111,10 @@ MonoBehaviour:
   sizeMax: 4
   connectedJoints: []
   connectedMuscles: []
-  baseHealth: 20
+  baseHealth: 1
   minX: 0.05
   yHealthScale: 1
+  rendererTrans: {fileID: 7991593876265200545}
 --- !u!1 &8533593619931267833
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +127,7 @@ GameObject:
   - component: {fileID: 765274578951649737}
   m_Layer: 0
   m_Name: boneSprite
-  m_TagString: Untagged
+  m_TagString: Bone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

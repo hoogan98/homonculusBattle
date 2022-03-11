@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class Brain : Part
 {
-    public override void StartDraw(DrawParts handler, float r)
+    public override void StartDraw(DrawParts handler)
     {
-        ratio = r;
+        ratio = GetComponent<Transform>().localScale.x /
+                            GetComponentInChildren<Renderer>().bounds.size.x;
+
         if (handler.hasBrain)
         {
             handler.RemovePart(this);
             return;
         }
-        
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         transform.position = new Vector3(mousePos.x, mousePos.y, 1);
         transform.rotation = Quaternion.identity;
 
         handler.SetBrain(gameObject);
-        
+
         handler.EndDraw();
     }
 

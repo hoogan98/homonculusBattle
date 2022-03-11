@@ -20,9 +20,9 @@ public class DrawParts : MonoBehaviour
     public enum DrawControl
     {
         SwitchPart, //space
-        DeleteMode,  //lshift
-        PlacePart,  //mouse0
-        PlaceJoint,  //mouse1
+        DeleteMode, //lshift
+        PlacePart, //mouse0
+        PlaceJoint, //mouse1
     }
 
     private bool _deleteMode;
@@ -47,7 +47,6 @@ public class DrawParts : MonoBehaviour
 
     void Start()
     {
-        
         //remove these later, for the initial population of text file
         if (isP1)
         {
@@ -73,7 +72,7 @@ public class DrawParts : MonoBehaviour
                 KeyCode.LeftShift
             };
         }
-        
+
         drawKeys = new Dictionary<DrawParts.DrawControl, KeyCode>()
         {
             { DrawParts.DrawControl.DeleteMode, KeyCode.LeftShift },
@@ -81,8 +80,8 @@ public class DrawParts : MonoBehaviour
             { DrawParts.DrawControl.PlacePart, KeyCode.Mouse0 },
             { DrawParts.DrawControl.SwitchPart, KeyCode.Space }
         };
-        
-        
+
+
         hasBrain = false;
         _drawText = new Dictionary<DrawMode, string>
         {
@@ -161,7 +160,8 @@ public class DrawParts : MonoBehaviour
             {
                 MouseClickHandler();
             }
-        } else if (Input.GetKeyUp(drawKeys[DrawControl.PlacePart]))
+        }
+        else if (Input.GetKeyUp(drawKeys[DrawControl.PlacePart]))
         {
             //maybe complete draw stroke regardless?
             if (!_deleteMode)
@@ -212,7 +212,7 @@ public class DrawParts : MonoBehaviour
             {
                 continue;
             }
-            
+
             if (current.collider.gameObject.CompareTag("Brain"))
             {
                 hasBrain = false;
@@ -228,7 +228,7 @@ public class DrawParts : MonoBehaviour
         {
             return;
         }
-        
+
         if (_drawMode.Equals(DrawMode.KeyBind))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -260,9 +260,8 @@ public class DrawParts : MonoBehaviour
 
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
-        float ratio = _drawingPartPref.GetComponent<Transform>().localScale.x /
-                      _drawingPartPref.GetComponentInChildren<Renderer>().bounds.size.x;
-        _drawingPart.StartDraw(this, ratio);
+       
+        _drawingPart.StartDraw(this);
     }
 
     public void SetBrain(GameObject brain)
