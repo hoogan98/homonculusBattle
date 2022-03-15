@@ -70,6 +70,7 @@ public class Bone : Part
         SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();
 
         GameObject bone1 = Instantiate(gameObject, oldTrans.position, oldTrans.rotation);
+        bone1.GetComponent<AudioSource>().Play(0);
         bone1.transform.position += bone1.transform.TransformDirection(Vector3.right) * offset * -1;
         bone1.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);

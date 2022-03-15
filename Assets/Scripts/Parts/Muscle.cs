@@ -72,6 +72,7 @@ public class Muscle : Part
         //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
         if (Input.GetKeyDown(_flexKey))
         {
+            gameObject.GetComponent<AudioSource>().Play();
             spring.frequency = _springStrength;
             spring.distance /= 2;
             // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
