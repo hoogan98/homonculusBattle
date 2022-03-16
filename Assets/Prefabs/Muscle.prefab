@@ -120,6 +120,8 @@ MonoBehaviour:
   spring: {fileID: 0}
   yHealthScale: 10
   maxDistanceScale: 4
+  stretchSound: {fileID: 8300000, guid: 9112f6bafdbcb964c883182dbc31af3c, type: 3}
+  breakSound: {fileID: 8300000, guid: 9b046a25bcfb5e545b83b8541dfdc40c, type: 3}
 --- !u!82 &2683772492293669513
 AudioSource:
   m_ObjectHideFlags: 0

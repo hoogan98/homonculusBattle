@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 public class Bone : Part
 {
     public float minX;
     public float yHealthScale;
+    public AudioClip[] stepSounds;
 
     private Vector3 _drawAnchor;
 
@@ -53,6 +55,16 @@ public class Bone : Part
         }
 
         return bone2;
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Ground")) {
+            int i = Random.Range(0, stepSounds.Length - 1);
+
+            gameObject.GetComponent<AudioSource>().PlayOneShot(stepSounds[i]);
+        }
+
+        base.OnCollisionEnter2D(collision);
     }
 
     public override void Break()

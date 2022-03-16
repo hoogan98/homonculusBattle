@@ -6,3 +6,8 @@ bone snap 8.ogg - https://freesound.org/people/ShockwaveFIlms/sounds/341918/
 Bone Cracking 2.ogg - https://freesound.org/people/DalomarGrimm/sounds/7720/
 Bone Crunch.ogg - https://freesound.org/people/Clearwavsound/sounds/524609/
 stretching.wav - https://freesound.org/people/IENBA/sounds/536187/
+rope_break.wav - https://freesound.org/people/DSA98/sounds/393156/
+steps 0-9.wav - https://freesound.org/people/Garuda1982/sounds/555386/
+light hits 0-9.wav - https://freesound.org/people/NachtmahrTV/sounds/553241/
+big hit 1 - https://freesound.org/people/janbezouska/sounds/399183/
+big hit 2 - https://freesound.org/people/George_Arkin/sounds/392041/

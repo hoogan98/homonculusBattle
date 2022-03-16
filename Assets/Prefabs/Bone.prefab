@@ -115,6 +115,17 @@ MonoBehaviour:
   baseHealth: 1
   minX: 0.05
   yHealthScale: 1
+  stepSounds:
+  - {fileID: 8300000, guid: 766f03c451c75394dbb1b700e0483077, type: 3}
+  - {fileID: 8300000, guid: d4d3d6086df2728488dfe7bb249a6d3b, type: 3}
+  - {fileID: 8300000, guid: 8782d8d8c7ca5c74b9c2826fee8955ad, type: 3}
+  - {fileID: 8300000, guid: 1d17e7d98756f9a408656221b0920b62, type: 3}
+  - {fileID: 8300000, guid: b5dda3526c2c52e44a1cfa72af5a5795, type: 3}
+  - {fileID: 8300000, guid: 3f73bd74fa4caa346a2d9bcf1ee8e46b, type: 3}
+  - {fileID: 8300000, guid: 1537f436ea459974cae29b9d709f620e, type: 3}
+  - {fileID: 8300000, guid: fa855f21a0086434aa91b13c51684e66, type: 3}
+  - {fileID: 8300000, guid: bafb2f201daf2da449cd60e763f1389f, type: 3}
+  - {fileID: 8300000, guid: dff068bdbbd0614448710bceea6c0079, type: 3}
 --- !u!82 &-8221491942620047589
 AudioSource:
   m_ObjectHideFlags: 0
