@@ -31,12 +31,14 @@ public class Muscle : Part
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
     }
 
-    void Update()
+    public override void Update()
     {
         if (!_started)
         {
             return;
         }
+        
+        base.Update();
 
         if (anchorJoint == null || connectedAnchorJoint == null)
         {

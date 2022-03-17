@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
+
 
 public abstract class Part : MonoBehaviour
 {
@@ -12,15 +14,35 @@ public abstract class Part : MonoBehaviour
     public List<Muscle> connectedMuscles;
     public float baseHealth;
 
+    private float bigHitThreshold = 5f;
+    private float maxHitTimeCooldown = 0.1f;
+    private float minSoundDamage = 1.5f;
+    private AudioClip[] lightHitSounds;
+    private AudioClip[] bigHitSounds;
+    private AudioClip[] stepSounds;
+    private float hitTimeCooldown;
+
     public virtual void Start()
     {
         connectedJoints = new List<MyJoint>();
         connectedMuscles = new List<Muscle>();
+
+        lightHitSounds = Resources.LoadAll<AudioClip>("light_hits");
+        bigHitSounds = Resources.LoadAll<AudioClip>("big_hits");
+        stepSounds = Resources.LoadAll<AudioClip>("metal_steps");
+
+        hitTimeCooldown = maxHitTimeCooldown;
     }
     
     public virtual void StartGame()
     {
         baseHealth *= gameObject.transform.lossyScale.y;
+    }
+
+    public virtual void Update() {
+        if (hitTimeCooldown > 0) {
+            hitTimeCooldown -= Time.deltaTime;
+        }
     }
     
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -28,25 +50,34 @@ public abstract class Part : MonoBehaviour
         float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
         Debug.Log(damage + " on " + gameObject.name);
 
-        // try
-        // {
-        //     float otherHealth = collision.gameObject.GetComponent<Part>().baseHealth;
-        //     if (otherHealth < baseHealth && otherHealth < damage)
-        //     {
-        //         Debug.Log("kill other attempt");
-        //         collision.gameObject.GetComponent<Part>().Break();
-        //         return;
-        //     }
-        // }
-        // catch
-        // {
-        //     Debug.Log("error in trying to kill another part");
-        // }
+        HitSoundHandler(damage, collision.gameObject.CompareTag("Ground"));
 
         if (damage > baseHealth)
         {
             Break();
         }
+    }
+
+    protected virtual void HitSoundHandler(float damage, bool isGround) {
+        if (hitTimeCooldown > 0 || damage < minSoundDamage) {
+            return;
+        }
+
+        if (isGround) {
+            int i = Random.Range(0, stepSounds.Length - 1);
+
+            gameObject.GetComponent<AudioSource>().PlayOneShot(stepSounds[i]);
+        } else if (damage > bigHitThreshold){
+            int i = Random.Range(0, bigHitSounds.Length - 1);
+
+            gameObject.GetComponent<AudioSource>().PlayOneShot(bigHitSounds[i]);
+        } else {
+            int i = Random.Range(0, lightHitSounds.Length - 1);
+
+            gameObject.GetComponent<AudioSource>().PlayOneShot(lightHitSounds[i]);
+        }
+
+        hitTimeCooldown = maxHitTimeCooldown;
     }
 
     public abstract void StartDraw(DrawParts drawingHandler);
