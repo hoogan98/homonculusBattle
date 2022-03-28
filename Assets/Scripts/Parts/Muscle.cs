@@ -11,6 +11,8 @@ public class Muscle : Part
     public SpringJoint2D spring;
     public float yHealthScale;
     public float maxDistanceScale;
+    public AudioClip stretchSound;
+    public AudioClip breakSound;
 
     private float _springStrength;
     private float _springStrengthDefault;
@@ -29,12 +31,14 @@ public class Muscle : Part
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
     }
 
-    void Update()
+    public override void Update()
     {
         if (!_started)
         {
             return;
         }
+        
+        base.Update();
 
         if (anchorJoint == null || connectedAnchorJoint == null)
         {
@@ -72,6 +76,7 @@ public class Muscle : Part
         //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
         if (Input.GetKeyDown(_flexKey))
         {
+            gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
             spring.frequency = _springStrength;
             spring.distance /= 2;
             // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
@@ -189,6 +194,10 @@ public class Muscle : Part
         GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone);
         GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit);
 
+        //make sure to ignore collisions on the bones you are attached to
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), nextHit.GetComponent<BoxCollider2D>());
+
         newSpring.distance = Vector3.Distance(joint1.transform.position, joint2.transform.position);
 
         anchorJoint = joint1;
@@ -247,6 +256,7 @@ public class Muscle : Part
 
     public override void Break()
     {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(breakSound);
         Destroy(spring);
         Destroy(GetComponent<BoxCollider2D>());
         HingeJoint2D newHinge = gameObject.AddComponent<HingeJoint2D>();

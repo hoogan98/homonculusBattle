@@ -6,6 +6,7 @@ public class DrawingBehavior : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject.tag.Equals("Bone") || collision.gameObject.tag.Equals("Muscle"))
         {
             Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());
