@@ -14,9 +14,9 @@ public abstract class Part : MonoBehaviour
     public List<Muscle> connectedMuscles;
     public float baseHealth;
 
-    private float bigHitThreshold = 5f;
+    private float bigHitThreshold = 7f;
     private float maxHitTimeCooldown = 0.1f;
-    private float minSoundDamage = 1.5f;
+    private float minSoundDamage = 3f;
     private AudioClip[] lightHitSounds;
     private AudioClip[] bigHitSounds;
     private AudioClip[] stepSounds;
@@ -48,7 +48,6 @@ public abstract class Part : MonoBehaviour
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
-        Debug.Log(damage + " on " + gameObject.name);
 
         HitSoundHandler(damage, collision.gameObject.CompareTag("Ground"));
 

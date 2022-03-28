@@ -32,4 +32,7 @@ public class Brain : Part
     public override void FinishDraw(DrawParts drawingHandler)
     {
     }
+
+    protected override void OnCollisionEnter2D(Collision2D collision) {
+    }
 }

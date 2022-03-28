@@ -194,6 +194,10 @@ public class Muscle : Part
         GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone);
         GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit);
 
+        //make sure to ignore collisions on the bones you are attached to
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), nextHit.GetComponent<BoxCollider2D>());
+
         newSpring.distance = Vector3.Distance(joint1.transform.position, joint2.transform.position);
 
         anchorJoint = joint1;
