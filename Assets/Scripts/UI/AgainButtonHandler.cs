@@ -7,6 +7,6 @@ public class AgainButtonHandler : MonoBehaviour
 {
     public void Click()
     {
-        SceneManager.LoadScene("2PFight");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
