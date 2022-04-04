@@ -260,13 +260,17 @@ public class DrawParts : MonoBehaviour
 
         _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
-       
+
         _drawingPart.StartDraw(this);
     }
 
     public void SetBrain(GameObject brain)
     {
-        Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain);
+        try { Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain); }
+        catch
+        {
+            Debug.Log("camera has no win check, continuing...");
+        }
 
         hasBrain = true;
     }

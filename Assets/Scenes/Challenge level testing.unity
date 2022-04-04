@@ -827,7 +827,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: Begin Drawing
 --- !u!222 &876682150
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1108,16 +1108,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234086325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae49bce3cc496d94c960dd76b62b0e0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5976924c85c8f414a98f605817a67148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1DrawZone: {fileID: 0}
-  p2DrawZone: {fileID: 0}
-  barriers: {fileID: 0}
-  p1DrawText: {fileID: 0}
-  p2DrawText: {fileID: 0}
+  p1DrawZone: {fileID: 671630416}
+  p1DrawText: {fileID: 1647960238}
   gravity: 1
-  movingDeathWalls: []
+  barriers: {fileID: 1654108291}
 --- !u!114 &1234086328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2050,7 +2047,7 @@ PrefabInstance:
     - target: {fileID: 5153273637828866834, guid: f76b358d415e3b440af57a1606df61da,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5153273637828866834, guid: f76b358d415e3b440af57a1606df61da,
         type: 3}
