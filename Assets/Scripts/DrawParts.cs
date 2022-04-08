@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+using UnityEngine.SceneManagement;
+
 
 public class DrawParts : MonoBehaviour
 {
@@ -10,12 +13,14 @@ public class DrawParts : MonoBehaviour
     public GameObject jointPref;
     public GameObject musclePref;
     public GameObject brainPref;
+    public GameObject playerPref;
     public Text drawModeLabel;
     public bool isP1;
     public bool isActive;
     public List<KeyCode> controlKeys;
     public Dictionary<DrawControl, KeyCode> drawKeys;
     public bool hasBrain;
+    //public bool loadSavedPlayer = false;
 
     public enum DrawControl
     {
@@ -27,6 +32,7 @@ public class DrawParts : MonoBehaviour
 
     private bool _deleteMode;
     private List<GameObject> _drawnParts;
+    private GameObject _player;
 
     private enum DrawMode
     {
@@ -102,6 +108,35 @@ public class DrawParts : MonoBehaviour
         _drawnParts = new List<GameObject>();
 
         _currentKey = 0;
+    }
+
+    public void AttemptLoad()
+    {
+        GameObject prevPlayerPref = Resources.Load<GameObject>("Previous_Build_" + SceneManager.GetActiveScene().name);
+
+        if (prevPlayerPref == null)
+        {
+            _player = Instantiate<GameObject>(playerPref, gameObject.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            _player = Instantiate<GameObject>(prevPlayerPref, gameObject.transform.position, Quaternion.identity);
+
+            foreach (Transform child in _player.GetComponentsInChildren<Transform>())
+            {
+                if (child.gameObject.CompareTag("Untagged")) {
+                    continue;
+                }
+                
+                _drawnParts.Add(child.gameObject);
+            }
+        }
+
+    }
+
+    public void SavePlayer()
+    {
+        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
     }
 
     private void SetDrawing(DrawMode mode)
@@ -258,7 +293,7 @@ public class DrawParts : MonoBehaviour
             return;
         }
 
-        _drawingPart = Instantiate(_drawingPartPref).GetComponent<Part>();
+        _drawingPart = Instantiate(_drawingPartPref, _player.transform).GetComponent<Part>();
         _drawnParts.Add(_drawingPart.gameObject);
 
         _drawingPart.StartDraw(this);
@@ -266,10 +301,11 @@ public class DrawParts : MonoBehaviour
 
     public void SetBrain(GameObject brain)
     {
-        try { Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain); }
-        catch
+        WinCheck winChecker = Camera.main.GetComponent<WinCheck>();
+
+        if (winChecker != null)
         {
-            Debug.Log("camera has no win check, continuing...");
+            Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain);
         }
 
         hasBrain = true;

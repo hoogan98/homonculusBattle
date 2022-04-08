@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class BarrierPartKill : MonoBehaviour
 {
+    string[] partTags = new string[]{
+        "Bone",
+        "Muscle",
+        "Brain"
+    };
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bone") || collision.gameObject.CompareTag("Muscle"))
+        foreach (string tag in partTags)
         {
-            Destroy(collision.gameObject);
+            if (collision.gameObject.CompareTag(tag))
+            {
+                Destroy(collision.gameObject);
+                return;
+            }
         }
+
     }
 }

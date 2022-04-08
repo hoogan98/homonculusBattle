@@ -29,11 +29,8 @@ public class ObstacleModeStarter : MonoBehaviour
             DrawParts p1Drawer = p1DrawZone.GetComponent<DrawParts>();
 
             p1Drawer.isActive = true;
-            try {
-                GameObject prevHomonculus = Resources.Load<GameObject>("Previous_Build_" + SceneManager.GetActiveScene().name);
-            } catch {
-                Debug.Log("no previous attempt, continuing...");
-            }
+
+            p1Drawer.AttemptLoad();
 
             gameObject.GetComponentInChildren<Text>().text = "Start Game";
 
@@ -51,6 +48,8 @@ public class ObstacleModeStarter : MonoBehaviour
         {
             return;
         }
+
+        p1DrawZone.GetComponent<DrawParts>().SavePlayer();
 
         List<GameObject> parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
 

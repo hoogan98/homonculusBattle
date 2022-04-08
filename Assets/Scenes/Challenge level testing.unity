@@ -512,6 +512,8 @@ MonoBehaviour:
     type: 3}
   brainPref: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0,
     type: 3}
+  playerPref: {fileID: 5676415173875886560, guid: dd44bc8e8f0613842aea8fabde383ebf,
+    type: 3}
   drawModeLabel: {fileID: 1647960238}
   isP1: 1
   isActive: 0

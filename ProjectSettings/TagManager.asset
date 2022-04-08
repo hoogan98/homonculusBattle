@@ -9,6 +9,7 @@ TagManager:
   - Brain
   - DrawZone
   - Ground
+  - Joint
   layers:
   - Default
   - TransparentFX
