@@ -7,6 +7,7 @@ public class Bone : Part
 {
     public float minX;
     public float yHealthScale;
+    public GameObject bonePref;
 
     private Vector3 _drawAnchor;
 
@@ -19,6 +20,11 @@ public class Bone : Part
         Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
 
         transform.position = start;
+    }
+
+    public override void StartGame()
+    {
+        GetComponent<Rigidbody2D>().gravityScale = 1;
     }
 
     public override void DrawingBehavior()
@@ -37,7 +43,7 @@ public class Bone : Part
         transform.position = new Vector3(transform.position.x, transform.position.y, 2);
 
 
-        baseHealth += yHealthScale * transform.lossyScale.y;
+        baseHealth = yHealthScale * transform.lossyScale.y;
 
         drawingHandler.EndDraw();
     }
@@ -70,12 +76,14 @@ public class Bone : Part
         SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();
 
         GameObject bone1 = Instantiate(gameObject, oldTrans.position, oldTrans.rotation);
+        bone1.transform.parent = gameObject.transform.parent;
         bone1.GetComponent<AudioSource>().Play(0);
         bone1.transform.position += bone1.transform.TransformDirection(Vector3.right) * offset * -1;
         bone1.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);
 
         GameObject bone2 = Instantiate(gameObject, oldTrans.position, oldTrans.rotation);
+        bone2.transform.parent = gameObject.transform.parent;
         bone2.transform.position += bone2.transform.TransformDirection(Vector3.right) * offset;
         bone2.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);

@@ -13,11 +13,11 @@ public class Muscle : Part
     public float maxDistanceScale;
     public AudioClip stretchSound;
     public AudioClip breakSound;
+    public KeyCode _flexKey;
+    public float springForceModifier;
 
     private float _springStrength;
     private float _springStrengthDefault;
-    private KeyCode _flexKey;
-    private bool _hasKey;
     private bool _started;
     private GameObject _firstBone;
     private Vector3 _drawAnchor;
@@ -26,9 +26,15 @@ public class Muscle : Part
     public override void Start()
     {
         base.Start();
-        _hasKey = false;
         _started = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+    }
+
+    public override void LoadPart()
+    {
+        SetSpringStrength();
+
+        base.LoadPart();
     }
 
     public override void Update()
@@ -37,7 +43,7 @@ public class Muscle : Part
         {
             return;
         }
-        
+
         base.Update();
 
         if (anchorJoint == null || connectedAnchorJoint == null)
@@ -68,10 +74,6 @@ public class Muscle : Part
         transform.localScale = modScale;
         transform.position = (joint1Pos + joint2Pos) * 0.5f;
 
-        if (!_hasKey)
-        {
-            return;
-        }
 
         //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
         if (Input.GetKeyDown(_flexKey))
@@ -97,10 +99,11 @@ public class Muscle : Part
 
     private void CheckBreak()
     {
-        if (baseHealth < spring.reactionForce.magnitude ||
+        if (baseHealth < (spring.reactionForce.magnitude / springForceModifier) ||
             Vector3.Distance(connectedAnchorJoint.transform.position, anchorJoint.transform.position) >
             spring.distance * maxDistanceScale)
         {
+            Debug.Log(baseHealth + " muscleCheckBreak on: " + spring.reactionForce.magnitude);
             Break();
         }
     }
@@ -210,7 +213,7 @@ public class Muscle : Part
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
 
-        baseHealth += transform.lossyScale.y * yHealthScale;
+        baseHealth = transform.lossyScale.y * yHealthScale;
 
         handler.EndDraw();
     }
@@ -231,13 +234,11 @@ public class Muscle : Part
 
     public void SetFlexKey(KeyCode key)
     {
-        _hasKey = true;
         _flexKey = key;
     }
 
     public override void StartGame()
     {
-        base.StartGame();
         //bug where halfway through drawing muscle on startup it stays
         if (anchorJoint == null || connectedAnchorJoint == null || spring == null)
         {
@@ -247,7 +248,6 @@ public class Muscle : Part
 
         _started = true;
         spring.frequency = _springStrengthDefault;
-        baseHealth *= yHealthScale;
 
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();

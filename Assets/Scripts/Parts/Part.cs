@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random=UnityEngine.Random;
+using Random = UnityEngine.Random;
 
 
 public abstract class Part : MonoBehaviour
@@ -33,18 +33,26 @@ public abstract class Part : MonoBehaviour
 
         hitTimeCooldown = maxHitTimeCooldown;
     }
-    
-    public virtual void StartGame()
+
+    public abstract void StartGame();
+
+    public virtual void LoadPart()
     {
-        baseHealth *= gameObject.transform.lossyScale.y;
+        Destroy(GetComponent<DrawingBehavior>());
+        GetComponent<BoxCollider2D>().isTrigger = false;
+        StartGame();
+
+        return;
     }
 
-    public virtual void Update() {
-        if (hitTimeCooldown > 0) {
+    public virtual void Update()
+    {
+        if (hitTimeCooldown > 0)
+        {
             hitTimeCooldown -= Time.deltaTime;
         }
     }
-    
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
@@ -53,24 +61,32 @@ public abstract class Part : MonoBehaviour
 
         if (damage > baseHealth)
         {
+            Debug.Log("Breaking on: " + damage);
             Break();
         }
     }
 
-    protected virtual void HitSoundHandler(float damage, bool isGround) {
-        if (hitTimeCooldown > 0 || damage < minSoundDamage) {
+    protected virtual void HitSoundHandler(float damage, bool isGround)
+    {
+        if (hitTimeCooldown > 0 || damage < minSoundDamage)
+        {
             return;
         }
 
-        if (isGround) {
+        if (isGround)
+        {
             int i = Random.Range(0, stepSounds.Length - 1);
 
             gameObject.GetComponent<AudioSource>().PlayOneShot(stepSounds[i]);
-        } else if (damage > bigHitThreshold){
+        }
+        else if (damage > bigHitThreshold)
+        {
             int i = Random.Range(0, bigHitSounds.Length - 1);
 
             gameObject.GetComponent<AudioSource>().PlayOneShot(bigHitSounds[i]);
-        } else {
+        }
+        else
+        {
             int i = Random.Range(0, lightHitSounds.Length - 1);
 
             gameObject.GetComponent<AudioSource>().PlayOneShot(lightHitSounds[i]);

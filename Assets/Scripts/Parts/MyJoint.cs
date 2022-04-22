@@ -16,6 +16,11 @@ public class MyJoint : Part
                     GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
+    public override void StartGame()
+    {
+        //maybe kill self if not connected to anything?
+    }
+
     public override void DrawingBehavior()
     {
         throw new System.NotImplementedException();

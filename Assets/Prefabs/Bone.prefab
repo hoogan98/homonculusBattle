@@ -114,7 +114,8 @@ MonoBehaviour:
   connectedMuscles: []
   baseHealth: 20
   minX: 0.05
-  yHealthScale: 1
+  yHealthScale: 10
+  bonePref: {fileID: 3694555032006087983}
 --- !u!82 &-8221491942620047589
 AudioSource:
   m_ObjectHideFlags: 0
