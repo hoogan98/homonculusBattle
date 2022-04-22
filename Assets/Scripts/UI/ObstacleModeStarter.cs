@@ -55,22 +55,33 @@ public class ObstacleModeStarter : MonoBehaviour
 
         foreach (GameObject part in parts)
         {
+
+
             if (part == null)
             {
                 continue;
             }
-            if (!part.CompareTag("Muscle"))
+
+            Part p = part.GetComponent<Part>();
+
+            if (p == null)
             {
-                part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-            }
-            else
-            {
-                part.GetComponent<Muscle>().StartGame();
+                continue;
             }
 
-            Destroy(part.GetComponent<DrawingBehavior>());
-            part.GetComponent<BoxCollider2D>().isTrigger = false;
-            part.GetComponent<Part>().StartGame();
+            p.LoadPart();
+            // if (!part.CompareTag("Muscle"))
+            // {
+            //     part.GetComponent<Rigidbody2D>().gravityScale = gravity;
+            // }
+            // else
+            // {
+            //     part.GetComponent<Muscle>().StartGame();
+            // }
+
+            // Destroy(part.GetComponent<DrawingBehavior>());
+            // part.GetComponent<BoxCollider2D>().isTrigger = false;
+            // part.GetComponent<Part>().StartGame();
         }
 
         Destroy(p1DrawZone);

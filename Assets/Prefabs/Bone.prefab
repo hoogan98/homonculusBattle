@@ -114,7 +114,8 @@ MonoBehaviour:
   connectedMuscles: []
   baseHealth: 20
   minX: 0.05
-  yHealthScale: 1
+  yHealthScale: 10
+  bonePref: {fileID: 3694555032006087983}
 --- !u!82 &-8221491942620047589
 AudioSource:
   m_ObjectHideFlags: 0
@@ -223,7 +224,7 @@ GameObject:
   - component: {fileID: 765274578951649737}
   m_Layer: 0
   m_Name: boneSprite
-  m_TagString: Untagged
+  m_TagString: Bone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

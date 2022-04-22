@@ -25,6 +25,11 @@ public class Brain : Part
         handler.EndDraw();
     }
 
+    public override void StartGame()
+    {
+        //maybe kill other brains here?
+    }
+
     public override void DrawingBehavior()
     {
     }
