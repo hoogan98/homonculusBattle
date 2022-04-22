@@ -15,6 +15,11 @@ public class MainMenuHandler : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
+    public void OpenControls()
+    {
+        SceneManager.LoadScene("Controls");
+    }
+
     public void OpenCredits()
     {
         SceneManager.LoadScene("Credits");

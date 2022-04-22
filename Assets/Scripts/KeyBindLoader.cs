@@ -10,7 +10,7 @@ public class KeyBindLoader : MonoBehaviour
     private List<KeyCode> _p2ControlKeys;
     private Dictionary<DrawParts.DrawControl, KeyCode> _drawKeys;
 
-    public void Start()
+    public void Awake()
     {
         //remove these later, for the initial population of text file
         // _p1ControlKeys = new List<KeyCode>()
@@ -137,5 +137,23 @@ public class KeyBindLoader : MonoBehaviour
         }
 
         return ret;
+    }
+
+    public void SetKey(int playerID, int index, KeyCode newValue)
+    {
+        if (playerID == 1)
+        {
+            _p1ControlKeys[index] = newValue;
+        }
+        else
+        {
+            _p2ControlKeys[index] = newValue;
+        }
+        WriteKeys();
+    }
+
+    public KeyCode GetKey(int playerID, int index)
+    {
+        return playerID == 1 ? _p1ControlKeys[index] : _p2ControlKeys[index];
     }
 }
