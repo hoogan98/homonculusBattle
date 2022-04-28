@@ -159,6 +159,11 @@ public class DrawParts : MonoBehaviour
             return;
         }
 
+        if (PauseManager.Instance.IsPaused)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(drawKeys[DrawControl.SwitchPart]))
         {
             if (_drawingPart != null)
