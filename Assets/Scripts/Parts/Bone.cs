@@ -174,9 +174,11 @@ public class Bone : Part
 
             GameObject parentBone = ClosestObject(bone1, bone2, m.connectedAnchorJoint.transform.position);
 
+            Physics2D.IgnoreCollision(parentBone.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+
             spring.connectedBody = parentBone.GetComponent<Rigidbody2D>();
-            spring.connectedAnchor =
-                parentBone.transform.InverseTransformPoint(m.connectedAnchorJoint.transform.position);
+            // spring.connectedAnchor =
+            //     parentBone.transform.InverseTransformPoint(m.connectedAnchorJoint.transform.position);
         }
 
         //update the spring joints in a broken boi
@@ -188,9 +190,9 @@ public class Bone : Part
             SpringJoint2D newSpring = parentBone.AddComponent<SpringJoint2D>();
             newSpring.connectedBody = sp.connectedBody;
             newSpring.connectedAnchor = sp.connectedAnchor;
-            newSpring.anchor = parentBone.transform.InverseTransformPoint(oldPoint);
+            newSpring.anchor = sp.anchor;
             newSpring.autoConfigureDistance = false;
-            newSpring.enableCollision = true;
+            //newSpring.enableCollision = true;
         }
 
         Destroy(gameObject);

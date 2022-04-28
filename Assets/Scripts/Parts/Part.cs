@@ -24,8 +24,15 @@ public abstract class Part : MonoBehaviour
 
     public virtual void Start()
     {
-        connectedJoints = new List<MyJoint>();
-        connectedMuscles = new List<Muscle>();
+        if (connectedJoints == null)
+        {
+            connectedJoints = new List<MyJoint>();
+        }
+
+        if (connectedMuscles == null)
+        {
+            connectedMuscles = new List<Muscle>();
+        }
 
         lightHitSounds = Resources.LoadAll<AudioClip>("light_hits");
         bigHitSounds = Resources.LoadAll<AudioClip>("big_hits");
