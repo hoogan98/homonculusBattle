@@ -30,6 +30,13 @@ public class Brain : Part
         //maybe kill other brains here?
     }
 
+    public override void LoadPart()
+    {
+        base.LoadPart();
+
+        GetComponent<Rigidbody2D>().gravityScale = 1;
+    }
+
     public override void DrawingBehavior()
     {
     }

@@ -127,6 +127,10 @@ public class DrawParts : MonoBehaviour
                 if (child.gameObject.CompareTag("Untagged")) {
                     continue;
                 }
+
+                if (child.gameObject.CompareTag("Brain")) {
+                    this.hasBrain = true;
+                }
                 
                 _drawnParts.Add(child.gameObject);
             }
