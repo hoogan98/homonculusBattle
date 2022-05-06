@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
     public static PauseManager Instance => _instance;
     public bool IsPaused => Time.timeScale == 0;
+    public GameObject pauseMenu;
 
     private static PauseManager _instance;
 
@@ -28,9 +30,16 @@ public class PauseManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !IsPaused)
         {
             Time.timeScale = 0;
+            pauseMenu.SetActive(true);
         } else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 1;
+            pauseMenu.SetActive(false);
         }
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene("Scenes/Menu");
     }
 }
