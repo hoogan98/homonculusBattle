@@ -13,6 +13,8 @@ public abstract class Part : MonoBehaviour
     public List<MyJoint> connectedJoints;
     public List<Muscle> connectedMuscles;
     public float baseHealth;
+    public bool brainConnected;
+    public bool visited;
 
     private float bigHitThreshold = 7f;
     private float maxHitTimeCooldown = 0.1f;
@@ -39,9 +41,31 @@ public abstract class Part : MonoBehaviour
         stepSounds = Resources.LoadAll<AudioClip>("metal_steps");
 
         hitTimeCooldown = maxHitTimeCooldown;
+
+        brainConnected = false;
+        visited = false;
     }
 
     public abstract void StartGame();
+
+    // public void PropogateNeurons() {
+    //     if (visited) {
+    //         return;
+    //     }
+
+    //     visited = true;
+    //     brainConnected = true;
+
+    //     List<Part> connections = new List<Part>();
+
+    //     foreach (MyJoint joint in connectedJoints) {
+    //         connections.AddRange(joint.bindingParts);
+    //     }
+
+    //     foreach (Part part in connections) {
+    //         part.PropogateNeurons();
+    //     }
+    // }
 
     public virtual void LoadPart()
     {

@@ -15,6 +15,8 @@ public class Brain : Part
             return;
         }
 
+        brainConnected = true;
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         transform.position = new Vector3(mousePos.x, mousePos.y, 1);
@@ -28,6 +30,7 @@ public class Brain : Part
     public override void StartGame()
     {
         //maybe kill other brains here?
+        transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
     }
 
     public override void LoadPart()

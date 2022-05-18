@@ -112,7 +112,9 @@ MonoBehaviour:
   sizeMax: 4
   connectedJoints: []
   connectedMuscles: []
-  baseHealth: 20
+  baseHealth: 25
+  brainConnected: 0
+  visited: 0
   strength: 2.5
   yStrengthScale: 10
   anchorJoint: {fileID: 0}

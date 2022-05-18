@@ -66,6 +66,8 @@ public class Bone : Part
         if ((transform.lossyScale.x / 2) < minX)
         {
             Destroy(gameObject);
+            Debug.Log("recalc time");
+            transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
             return;
         }
 
@@ -88,7 +90,7 @@ public class Bone : Part
         bone2.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);
 
-        //kill the old joints because those are bad
+        //kill the new joints because those are bad
         foreach (Transform t in bone1.GetComponentsInChildren<Transform>())
         {
             if (t.gameObject.CompareTag("Bone"))
@@ -128,6 +130,8 @@ public class Bone : Part
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
 
             joint.transform.parent = parentBone.transform;
+
+            // joint.GetComponent<MyJoint>().ReplaceConnectedBone(parentBone.GetComponent<Bone>(), this);
 
             if (j.hinge != null)
             {
@@ -196,5 +200,7 @@ public class Bone : Part
         }
 
         Destroy(gameObject);
+        Debug.Log("recalc time");
+        transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
     }
 }
