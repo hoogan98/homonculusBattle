@@ -153,6 +153,7 @@ public class DrawParts : MonoBehaviour
     public void RemovePart(Part p)
     {
         _drawnParts.Remove(p.gameObject);
+        _player.GetComponent<Homonculus>().ReportDestroyedPart(p);
         Destroy(p.gameObject);
     }
 
@@ -312,6 +313,8 @@ public class DrawParts : MonoBehaviour
             Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain);
         }
 
+        _player.GetComponent<Homonculus>().ReportBrain(brain.GetComponent<Part>());
+
         hasBrain = true;
     }
 
@@ -396,12 +399,15 @@ public class DrawParts : MonoBehaviour
         Vector3 newScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1);
         newJointGo.transform.localScale = newScale;
 
-        // MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
+        MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
 
         // other.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
         // parent.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
 
         // newMyJoint.AddConnection(parent.GetComponent<Part>(), other.GetComponent<Part>());
+
+        newMyJoint.connectedPart = other.GetComponent<Part>();
+        _player.GetComponent<Homonculus>().ReportConnection(parent.GetComponent<Part>(), other.GetComponent<Part>());
 
         return newJointGo;
     }

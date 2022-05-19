@@ -10,6 +10,7 @@ public class Bone : Part
     public GameObject bonePref;
 
     private Vector3 _drawAnchor;
+    private Homonculus _homonculus;
 
     public override void StartDraw(DrawParts handler)
     {
@@ -45,6 +46,8 @@ public class Bone : Part
 
         baseHealth = yHealthScale * transform.lossyScale.y;
 
+        _homonculus = transform.parent.GetComponent<Homonculus>();
+
         drawingHandler.EndDraw();
     }
 
@@ -66,8 +69,7 @@ public class Bone : Part
         if ((transform.lossyScale.x / 2) < minX)
         {
             Destroy(gameObject);
-            Debug.Log("recalc time");
-            transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
+            _homonculus.ReportDestroyedPartAndRecalc(this);
             return;
         }
 
@@ -111,7 +113,7 @@ public class Bone : Part
             Destroy(t.gameObject);
         }
 
-        //kill old hinges/springs too cause we remake those
+        //kill new hinges/springs too cause we reuse those
         List<Joint2D> del = new List<Joint2D>();
         del.AddRange(bone1.GetComponents<HingeJoint2D>());
         del.AddRange(bone2.GetComponents<HingeJoint2D>());
@@ -132,6 +134,8 @@ public class Bone : Part
             joint.transform.parent = parentBone.transform;
 
             // joint.GetComponent<MyJoint>().ReplaceConnectedBone(parentBone.GetComponent<Bone>(), this);
+
+            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -157,6 +161,8 @@ public class Bone : Part
             GameObject joint = j.gameObject;
 
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
+
+            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -200,7 +206,6 @@ public class Bone : Part
         }
 
         Destroy(gameObject);
-        Debug.Log("recalc time");
-        transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
+        _homonculus.ReportDestroyedPartAndRecalc(this);
     }
 }

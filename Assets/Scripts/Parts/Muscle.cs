@@ -94,7 +94,9 @@ public class Muscle : Part
                 spring.distance *= 2;
                 spring.frequency = _springStrengthDefault;
             }
-        } else {
+        }
+        else
+        {
             //flail around I guess
         }
 
@@ -271,7 +273,6 @@ public class Muscle : Part
 
         GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         Destroy(this);
-        Debug.Log("recalc time");
-        transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
+        transform.parent.GetComponent<Homonculus>().ReportDestroyedPartAndRecalc(this);
     }
 }

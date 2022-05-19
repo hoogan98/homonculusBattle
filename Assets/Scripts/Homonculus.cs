@@ -9,7 +9,11 @@ public class Homonculus : MonoBehaviour
 
     public void Start()
     {
-        _connections = new Dictionary<Part, List<Part>>();
+        if (_connections == null)
+        {
+            _connections = new Dictionary<Part, List<Part>>();
+        }
+
     }
 
     public void RecalculateNeurons()
@@ -26,7 +30,7 @@ public class Homonculus : MonoBehaviour
         RecursiveNeuronRecalculation(new List<Part>() { _brain });
     }
 
-    public void RecursiveNeuronRecalculation(List<Part> incomingParts)
+    private void RecursiveNeuronRecalculation(List<Part> incomingParts)
     {
         if (incomingParts.Count == 0)
         {
@@ -64,6 +68,8 @@ public class Homonculus : MonoBehaviour
 
     public void ReportConnection(Part p1, Part p2)
     {
+        Debug.Log("made connection: " + p1.gameObject.name + " " + p2.gameObject.name);
+
         if (_connections.ContainsKey(p1))
         {
             _connections[p1].Add(p2);
@@ -83,13 +89,33 @@ public class Homonculus : MonoBehaviour
         }
     }
 
-    public void InvalidateConnection(Part p1, Part p2) {
+    public void InvalidateConnection(Part p1, Part p2)
+    {
         _connections[p1].Remove(p2);
 
         _connections[p2].Remove(p1);
     }
 
-    public void ReportDestroyedPart(Part deadPart) {
+    public void ReportDestroyedPart(Part deadPart)
+    {
+
+        if (!_connections.ContainsKey(deadPart))
+        {
+            return;
+        }
+
+        foreach (Part p in _connections[deadPart])
+        {
+            _connections[p].Remove(deadPart);
+        }
+
         _connections.Remove(deadPart);
+    }
+
+    public void ReportDestroyedPartAndRecalc(Part deadPart)
+    {
+        ReportDestroyedPart(deadPart);
+
+        RecalculateNeurons();
     }
 }

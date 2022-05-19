@@ -6,6 +6,7 @@ public class MyJoint : Part
 {
     // public Part[] bindingParts;
     public HingeJoint2D hinge;
+    public Part connectedPart;
 
     public override void StartDraw(DrawParts handler)
     {
