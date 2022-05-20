@@ -10,6 +10,7 @@ public class Bone : Part
     public GameObject bonePref;
 
     private Vector3 _drawAnchor;
+    private Homonculus _homonculus;
 
     public override void StartDraw(DrawParts handler)
     {
@@ -25,6 +26,8 @@ public class Bone : Part
     public override void StartGame()
     {
         GetComponent<Rigidbody2D>().gravityScale = 1;
+
+        _homonculus = transform.parent.GetComponent<Homonculus>();
     }
 
     public override void DrawingBehavior()
@@ -44,6 +47,8 @@ public class Bone : Part
 
 
         baseHealth = yHealthScale * transform.lossyScale.y;
+
+        _homonculus = transform.parent.GetComponent<Homonculus>();
 
         drawingHandler.EndDraw();
     }
@@ -66,6 +71,7 @@ public class Bone : Part
         if ((transform.lossyScale.x / 2) < minX)
         {
             Destroy(gameObject);
+            _homonculus.ReportDestroyedPartAndRecalc(this);
             return;
         }
 
@@ -88,7 +94,7 @@ public class Bone : Part
         bone2.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);
 
-        //kill the old joints because those are bad
+        //kill the new joints because those are bad
         foreach (Transform t in bone1.GetComponentsInChildren<Transform>())
         {
             if (t.gameObject.CompareTag("Bone"))
@@ -109,7 +115,7 @@ public class Bone : Part
             Destroy(t.gameObject);
         }
 
-        //kill old hinges/springs too cause we remake those
+        //kill new hinges/springs too cause we reuse those
         List<Joint2D> del = new List<Joint2D>();
         del.AddRange(bone1.GetComponents<HingeJoint2D>());
         del.AddRange(bone2.GetComponents<HingeJoint2D>());
@@ -128,6 +134,10 @@ public class Bone : Part
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
 
             joint.transform.parent = parentBone.transform;
+
+            // joint.GetComponent<MyJoint>().ReplaceConnectedBone(parentBone.GetComponent<Bone>(), this);
+
+            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -153,6 +163,8 @@ public class Bone : Part
             GameObject joint = j.gameObject;
 
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
+
+            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -196,5 +208,6 @@ public class Bone : Part
         }
 
         Destroy(gameObject);
+        _homonculus.ReportDestroyedPartAndRecalc(this);
     }
 }

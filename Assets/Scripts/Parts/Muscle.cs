@@ -74,24 +74,30 @@ public class Muscle : Part
         transform.localScale = modScale;
         transform.position = (joint1Pos + joint2Pos) * 0.5f;
 
-
-        //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
-        if (Input.GetKeyDown(_flexKey))
+        if (brainConnected)
         {
-            gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
-            spring.frequency = _springStrength;
-            spring.distance /= 2;
-            // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
-            // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
-            //                                 connectedAnchorJoint.transform.position);
+            //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
+            if (Input.GetKeyDown(_flexKey))
+            {
+                gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
+                spring.frequency = _springStrength;
+                spring.distance /= 2;
+                // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
+                // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
+                //                                 connectedAnchorJoint.transform.position);
+            }
+            else if (Input.GetKeyUp(_flexKey))
+            {
+                // this.spring.anchor = this.anchorJoint.transform.parent.InverseTransformPoint(this.anchorJoint.transform.position);
+                // this.spring.connectedAnchor = this.connectedAnchorJoint.transform.parent.InverseTransformPoint(
+                //                                 this.connectedAnchorJoint.transform.position);
+                spring.distance *= 2;
+                spring.frequency = _springStrengthDefault;
+            }
         }
-        else if (Input.GetKeyUp(_flexKey))
+        else
         {
-            // this.spring.anchor = this.anchorJoint.transform.parent.InverseTransformPoint(this.anchorJoint.transform.position);
-            // this.spring.connectedAnchor = this.connectedAnchorJoint.transform.parent.InverseTransformPoint(
-            //                                 this.connectedAnchorJoint.transform.position);
-            spring.distance *= 2;
-            spring.frequency = _springStrengthDefault;
+            //flail around I guess
         }
 
         CheckBreak();
@@ -103,7 +109,7 @@ public class Muscle : Part
             Vector3.Distance(connectedAnchorJoint.transform.position, anchorJoint.transform.position) >
             spring.distance * maxDistanceScale)
         {
-            Debug.Log(baseHealth + " muscleCheckBreak on: " + spring.reactionForce.magnitude);
+            Debug.Log(baseHealth + " muscleCheckBreak on: " + spring.reactionForce.magnitude / springForceModifier);
             Break();
         }
     }
@@ -194,8 +200,8 @@ public class Muscle : Part
         newSpring.enableCollision = true;
 
         //joints so the muslcess obey you
-        GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone);
-        GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit);
+        GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone, this.gameObject);
+        GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit, this.gameObject);
 
         //make sure to ignore collisions on the bones you are attached to
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());
@@ -213,7 +219,7 @@ public class Muscle : Part
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
 
-        baseHealth = transform.lossyScale.y * yHealthScale;
+        baseHealth = transform.lossyScale.y * yHealthScale * baseHealth;
 
         handler.EndDraw();
     }
@@ -267,5 +273,6 @@ public class Muscle : Part
 
         GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         Destroy(this);
+        transform.parent.GetComponent<Homonculus>().ReportDestroyedPartAndRecalc(this);
     }
 }

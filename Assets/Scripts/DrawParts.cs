@@ -136,6 +136,8 @@ public class DrawParts : MonoBehaviour
             }
         }
 
+        _player.GetComponent<Homonculus>().BeginTracking();
+
     }
 
     public void SavePlayer()
@@ -153,6 +155,7 @@ public class DrawParts : MonoBehaviour
     public void RemovePart(Part p)
     {
         _drawnParts.Remove(p.gameObject);
+        _player.GetComponent<Homonculus>().ReportDestroyedPart(p);
         Destroy(p.gameObject);
     }
 
@@ -317,6 +320,8 @@ public class DrawParts : MonoBehaviour
             Camera.main.GetComponent<WinCheck>().AssignBrain(isP1, brain);
         }
 
+        _player.GetComponent<Homonculus>().ReportBrain(brain.GetComponent<Part>());
+
         hasBrain = true;
     }
 
@@ -382,7 +387,7 @@ public class DrawParts : MonoBehaviour
     //return him if you wanna reference him
     public GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
-        GameObject newJointGo = CreateBasicJointAtPoint(origin, parent);
+        GameObject newJointGo = CreateBasicJointAtPoint(origin, parent, other);
 
         HingeJoint2D newHinge = parent.AddComponent<HingeJoint2D>();
         newHinge.connectedBody = other.GetComponent<Rigidbody2D>();
@@ -391,17 +396,25 @@ public class DrawParts : MonoBehaviour
         MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
         newMyJoint.hinge = newHinge;
 
-        other.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
-
         return newJointGo;
     }
 
-    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent)
-    {
+    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent, GameObject other) {
+
         GameObject newJointGo = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
         newJointGo.transform.position = new Vector3(origin.x, origin.y, -1);
         Vector3 newScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1);
         newJointGo.transform.localScale = newScale;
+
+        MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
+
+        // other.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
+        // parent.transform.gameObject.GetComponent<Part>().connectedJoints.Add(newMyJoint);
+
+        // newMyJoint.AddConnection(parent.GetComponent<Part>(), other.GetComponent<Part>());
+
+        newMyJoint.connectedPart = other.GetComponent<Part>();
+        _player.GetComponent<Homonculus>().ReportConnection(parent.GetComponent<Part>(), other.GetComponent<Part>());
 
         return newJointGo;
     }
