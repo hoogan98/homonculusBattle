@@ -7,13 +7,17 @@ public class Homonculus : MonoBehaviour
     private Part _brain;
     private Dictionary<Part, List<Part>> _connections;
 
-    public void Start()
+    public void BeginTracking()
     {
-        if (_connections == null)
-        {
-            _connections = new Dictionary<Part, List<Part>>();
+        _connections = new Dictionary<Part, List<Part>>();
+
+        MyJoint[] allJoints = GetComponentsInChildren<MyJoint>();
+
+        foreach (MyJoint j in allJoints) {
+            ReportConnection(j.transform.parent.GetComponent<Part>(), j.connectedPart);
         }
 
+        _brain = GetComponentInChildren<Brain>();
     }
 
     public void RecalculateNeurons()
@@ -68,7 +72,6 @@ public class Homonculus : MonoBehaviour
 
     public void ReportConnection(Part p1, Part p2)
     {
-        Debug.Log("made connection: " + p1.gameObject.name + " " + p2.gameObject.name);
 
         if (_connections.ContainsKey(p1))
         {

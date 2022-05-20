@@ -136,6 +136,8 @@ public class DrawParts : MonoBehaviour
             }
         }
 
+        _player.GetComponent<Homonculus>().BeginTracking();
+
     }
 
     public void SavePlayer()

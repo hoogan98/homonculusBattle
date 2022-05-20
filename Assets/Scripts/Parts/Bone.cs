@@ -26,6 +26,8 @@ public class Bone : Part
     public override void StartGame()
     {
         GetComponent<Rigidbody2D>().gravityScale = 1;
+
+        _homonculus = transform.parent.GetComponent<Homonculus>();
     }
 
     public override void DrawingBehavior()
