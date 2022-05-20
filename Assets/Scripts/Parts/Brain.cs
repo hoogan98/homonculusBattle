@@ -30,7 +30,7 @@ public class Brain : Part
     public override void StartGame()
     {
         //maybe kill other brains here?
-        transform.parent.GetComponent<Homonculus>().RecalculateNeurons();
+        transform.parent.GetComponent<Homonculus>().StartGame();
     }
 
     public override void LoadPart()
