@@ -15,12 +15,15 @@ public class Muscle : Part
     public AudioClip breakSound;
     public KeyCode _flexKey;
     public float springForceModifier;
+    public float maxFlailDelay;
 
     private float _springStrength;
     private float _springStrengthDefault;
     private bool _started;
     private GameObject _firstBone;
     private Vector3 _drawAnchor;
+    private float _flailDelay;
+    private bool _flexed;
 
     //these are the base values to be updated in inspector
     public override void Start()
@@ -28,6 +31,7 @@ public class Muscle : Part
         base.Start();
         _started = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        _flexed = false;
     }
 
     public override void LoadPart()
@@ -76,31 +80,61 @@ public class Muscle : Part
 
         if (brainConnected)
         {
-            //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
+
             if (Input.GetKeyDown(_flexKey))
             {
-                gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
-                spring.frequency = _springStrength;
-                spring.distance /= 2;
-                // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
-                // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
-                //                                 connectedAnchorJoint.transform.position);
+                Flex();
             }
             else if (Input.GetKeyUp(_flexKey))
             {
-                // this.spring.anchor = this.anchorJoint.transform.parent.InverseTransformPoint(this.anchorJoint.transform.position);
-                // this.spring.connectedAnchor = this.connectedAnchorJoint.transform.parent.InverseTransformPoint(
-                //                                 this.connectedAnchorJoint.transform.position);
-                spring.distance *= 2;
-                spring.frequency = _springStrengthDefault;
+                Relax();
             }
         }
         else
         {
             //flail around I guess
+            if (_flailDelay < 0)
+            {
+                if (_flexed)
+                {
+                    Relax();
+                }
+                else
+                {
+                    Flex();
+                }
+
+                _flailDelay = Random.Range(0, maxFlailDelay);
+            }
+            else
+            {
+                _flailDelay -= Time.deltaTime;
+            }
         }
 
         CheckBreak();
+    }
+
+    //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
+    private void Flex()
+    {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
+        spring.frequency = _springStrength;
+        spring.distance /= 2;
+        _flexed = true;
+        // spring.anchor = anchorJoint.transform.parent.InverseTransformPoint(anchorJoint.transform.position);
+        // spring.connectedAnchor = connectedAnchorJoint.transform.parent.InverseTransformPoint(
+        //                                 connectedAnchorJoint.transform.position);
+    }
+
+    private void Relax()
+    {
+        // this.spring.anchor = this.anchorJoint.transform.parent.InverseTransformPoint(this.anchorJoint.transform.position);
+        // this.spring.connectedAnchor = this.connectedAnchorJoint.transform.parent.InverseTransformPoint(
+        //                                 this.connectedAnchorJoint.transform.position);
+        spring.distance *= 2;
+        spring.frequency = _springStrengthDefault;
+        _flexed = false;
     }
 
     private void CheckBreak()
