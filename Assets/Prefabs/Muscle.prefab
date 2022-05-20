@@ -126,6 +126,7 @@ MonoBehaviour:
   breakSound: {fileID: 8300000, guid: 9b046a25bcfb5e545b83b8541dfdc40c, type: 3}
   _flexKey: 0
   springForceModifier: 100
+  maxFlailDelay: 3
 --- !u!82 &2683772492293669513
 AudioSource:
   m_ObjectHideFlags: 0
