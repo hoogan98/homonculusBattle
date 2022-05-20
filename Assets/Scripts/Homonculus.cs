@@ -13,7 +13,12 @@ public class Homonculus : MonoBehaviour
 
         MyJoint[] allJoints = GetComponentsInChildren<MyJoint>();
 
-        foreach (MyJoint j in allJoints) {
+        foreach (MyJoint j in allJoints)
+        {
+            if (j.connectedPart == null) {
+                continue;
+            }
+            
             ReportConnection(j.transform.parent.GetComponent<Part>(), j.connectedPart);
         }
 
@@ -118,6 +123,21 @@ public class Homonculus : MonoBehaviour
     public void ReportDestroyedPartAndRecalc(Part deadPart)
     {
         ReportDestroyedPart(deadPart);
+
+        RecalculateNeurons();
+    }
+
+    public void StartGame()
+    {
+        MyJoint[] allJoints = GetComponentsInChildren<MyJoint>();
+
+        foreach (MyJoint j in allJoints)
+        {
+            if (j.connectedPart == null) {
+                Destroy(j.gameObject);
+                ReportDestroyedPart(j);
+            }
+        }
 
         RecalculateNeurons();
     }
