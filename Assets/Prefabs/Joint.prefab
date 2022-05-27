@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 129624181573339562}
   - component: {fileID: 1396632463614913413}
+  - component: {fileID: 1601744611331684359}
   m_Layer: 0
   m_Name: Joint
   m_TagString: Untagged
@@ -50,7 +51,30 @@ MonoBehaviour:
   connectedJoints: []
   connectedMuscles: []
   baseHealth: 5
+  brainConnected: 0
+  visited: 0
+  creationSound: {fileID: 0}
   hinge: {fileID: 0}
+  connectedPart: {fileID: 0}
+--- !u!95 &1601744611331684359
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3960184402078090984}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e5fa9b9f1187b7c42abe694c3172ec22, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9110646950757309310
 GameObject:
   m_ObjectHideFlags: 0
