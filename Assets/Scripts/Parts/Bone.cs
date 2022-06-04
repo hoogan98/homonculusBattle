@@ -38,6 +38,8 @@ public class Bone : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
+        base.FinishDraw(drawingHandler);
+        
         if (transform.lossyScale.x == 0)
         {
             drawingHandler.RemovePart(this);

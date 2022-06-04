@@ -118,7 +118,7 @@ public class Muscle : Part
     //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
     private void Flex()
     {
-        gameObject.GetComponent<AudioSource>().PlayOneShot(stretchSound);
+        audioPlayer.PlayOneShot(stretchSound);
         spring.frequency = _springStrength;
         spring.distance /= 2;
         _flexed = true;
@@ -207,6 +207,8 @@ public class Muscle : Part
 
     public override void FinishDraw(DrawParts handler)
     {
+        base.FinishDraw(handler);
+
         if (transform.lossyScale.x == 0)
         {
             handler.RemovePart(this);
@@ -296,7 +298,7 @@ public class Muscle : Part
 
     public override void Break()
     {
-        gameObject.GetComponent<AudioSource>().PlayOneShot(breakSound);
+        audioPlayer.PlayOneShot(breakSound);
         Destroy(spring);
         Destroy(GetComponent<BoxCollider2D>());
         HingeJoint2D newHinge = gameObject.AddComponent<HingeJoint2D>();

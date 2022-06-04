@@ -15,6 +15,9 @@ public abstract class Part : MonoBehaviour
     public float baseHealth;
     public bool brainConnected;
     public bool visited;
+    public AudioClip creationSound;
+
+    protected AudioSource audioPlayer;
 
     private float bigHitThreshold = 7f;
     private float maxHitTimeCooldown = 0.1f;
@@ -44,28 +47,11 @@ public abstract class Part : MonoBehaviour
 
         brainConnected = false;
         visited = false;
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
 
     public abstract void StartGame();
-
-    // public void PropogateNeurons() {
-    //     if (visited) {
-    //         return;
-    //     }
-
-    //     visited = true;
-    //     brainConnected = true;
-
-    //     List<Part> connections = new List<Part>();
-
-    //     foreach (MyJoint joint in connectedJoints) {
-    //         connections.AddRange(joint.bindingParts);
-    //     }
-
-    //     foreach (Part part in connections) {
-    //         part.PropogateNeurons();
-    //     }
-    // }
 
     public virtual void LoadPart()
     {
@@ -108,19 +94,19 @@ public abstract class Part : MonoBehaviour
         {
             int i = Random.Range(0, stepSounds.Length - 1);
 
-            gameObject.GetComponent<AudioSource>().PlayOneShot(stepSounds[i]);
+            audioPlayer.PlayOneShot(stepSounds[i]);
         }
         else if (damage > bigHitThreshold)
         {
             int i = Random.Range(0, bigHitSounds.Length - 1);
 
-            gameObject.GetComponent<AudioSource>().PlayOneShot(bigHitSounds[i]);
+            audioPlayer.PlayOneShot(bigHitSounds[i]);
         }
         else
         {
             int i = Random.Range(0, lightHitSounds.Length - 1);
 
-            gameObject.GetComponent<AudioSource>().PlayOneShot(lightHitSounds[i]);
+            audioPlayer.PlayOneShot(lightHitSounds[i]);
         }
 
         hitTimeCooldown = maxHitTimeCooldown;
@@ -128,7 +114,9 @@ public abstract class Part : MonoBehaviour
 
     public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
-    public abstract void FinishDraw(DrawParts drawingHandler);
+    public virtual void FinishDraw(DrawParts drawingHandler) {
+        audioPlayer.PlayOneShot(creationSound);
+    }
 
     protected void FollowMouseAnchor(Vector3 anchor)
     {
