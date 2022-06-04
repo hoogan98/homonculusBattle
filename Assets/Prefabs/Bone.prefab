@@ -113,6 +113,9 @@ MonoBehaviour:
   connectedJoints: []
   connectedMuscles: []
   baseHealth: 20
+  brainConnected: 0
+  visited: 0
+  creationSound: {fileID: 8300000, guid: 8d9c082eeadcf194b97ecf5fff1ee2a0, type: 3}
   minX: 0.05
   yHealthScale: 10
   bonePref: {fileID: 3694555032006087983}

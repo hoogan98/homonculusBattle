@@ -115,6 +115,7 @@ MonoBehaviour:
   baseHealth: 25
   brainConnected: 0
   visited: 0
+  creationSound: {fileID: 8300000, guid: 9112f6bafdbcb964c883182dbc31af3c, type: 3}
   strength: 2.5
   yStrengthScale: 10
   anchorJoint: {fileID: 0}

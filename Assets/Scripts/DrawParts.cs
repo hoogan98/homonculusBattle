@@ -370,10 +370,14 @@ public class DrawParts : MonoBehaviour
 
             if (len >= 2)
             {
+                GameObject joint = null;
+
                 for (int i = 0; i < (len - 1); i++)
                 {
-                    CreateJointAtPoint(mousePos, hits[i].collider.gameObject, hits[i + 1].collider.gameObject);
+                    joint = CreateJointAtPoint(mousePos, hits[i].collider.gameObject, hits[i + 1].collider.gameObject);
                 }
+                
+                joint.GetComponent<MyJoint>().FinishDraw(this);
             }
         }
     }
