@@ -16,6 +16,7 @@ public class Muscle : Part
     public KeyCode _flexKey;
     public float springForceModifier;
     public float maxFlailDelay;
+    public Sprite selectedSprite;
 
     private float _springStrength;
     private float _springStrengthDefault;
@@ -276,6 +277,7 @@ public class Muscle : Part
 
     public void SetFlexKey(KeyCode key)
     {
+        GetComponentInChildren<SpriteRenderer>().sprite = selectedSprite;
         _flexKey = key;
     }
 

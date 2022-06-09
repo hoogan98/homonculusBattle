@@ -116,8 +116,8 @@ MonoBehaviour:
   brainConnected: 0
   visited: 0
   creationSound: {fileID: 8300000, guid: 9112f6bafdbcb964c883182dbc31af3c, type: 3}
-  strength: 2.5
-  yStrengthScale: 10
+  strength: 2
+  yStrengthScale: 8
   anchorJoint: {fileID: 0}
   connectedAnchorJoint: {fileID: 0}
   spring: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   _flexKey: 0
   springForceModifier: 100
   maxFlailDelay: 3
+  selectedSprite: {fileID: 21300000, guid: c9146ad3b483551408a00233027e78a7, type: 3}
 --- !u!82 &2683772492293669513
 AudioSource:
   m_ObjectHideFlags: 0
