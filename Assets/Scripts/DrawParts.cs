@@ -51,6 +51,10 @@ public class DrawParts : MonoBehaviour
     //key binding stuff
     private int _currentKey;
 
+    public GameObject GetPlayer() {
+        return _player;
+    }
+
     void Start()
     {
         //remove these later, for the initial population of text file
