@@ -20,7 +20,6 @@ public class CamFollowSingle : MonoBehaviour
 
     public void Update() {
         if (player != null) {
-            Debug.Log(player.position);
             Vector3 approachPos = Vector3.Lerp(transform.position, player.position, camLerpT*Time.deltaTime);
             transform.position = new Vector3(approachPos.x, approachPos.y, transform.position.z);
         }
