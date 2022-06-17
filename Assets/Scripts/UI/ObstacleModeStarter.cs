@@ -72,18 +72,6 @@ public class ObstacleModeStarter : MonoBehaviour
             }
 
             p.LoadPart();
-            // if (!part.CompareTag("Muscle"))
-            // {
-            //     part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-            // }
-            // else
-            // {
-            //     part.GetComponent<Muscle>().StartGame();
-            // }
-
-            // Destroy(part.GetComponent<DrawingBehavior>());
-            // part.GetComponent<BoxCollider2D>().isTrigger = false;
-            // part.GetComponent<Part>().StartGame();
         }
 
         Camera.main.GetComponent<CamFollowSingle>().BeginGame(drawer.GetPlayer().transform);

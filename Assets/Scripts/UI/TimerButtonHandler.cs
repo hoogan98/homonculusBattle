@@ -48,7 +48,7 @@ public class TimerButtonHandler : MonoBehaviour
         }
         else if (!_ready)
         {
-            DrawParts p2Drawer = p1DrawZone.GetComponent<DrawParts>();
+            DrawParts p2Drawer = p2DrawZone.GetComponent<DrawParts>();
             p2Drawer.isActive = true;
             p2Drawer.AttemptLoad();
 
@@ -100,8 +100,6 @@ public class TimerButtonHandler : MonoBehaviour
         drawer1.SavePlayer();
         drawer2.SavePlayer();
 
-        Camera.main.GetComponent<WinCheck>().StartGame();
-
         List<GameObject> parts = drawer1.GetParts();
         parts.AddRange(drawer2.GetParts());
 
@@ -135,5 +133,7 @@ public class TimerButtonHandler : MonoBehaviour
         Destroy(p2DrawText);
         Destroy(barriers);
         Destroy(gameObject);
+        
+        Camera.main.GetComponent<WinCheck>().StartGame();
     }
 }

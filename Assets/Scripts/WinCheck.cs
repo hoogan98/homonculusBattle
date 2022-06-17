@@ -29,16 +29,20 @@ public class WinCheck : MonoBehaviour
         if (p1Brain == null)
         {
             winText.text = "P2 Wins";
-            Destroy(this);
+            
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
+            Destroy(this);
+            return;
         }
         if (p2Brain == null)
         {
             winText.text = "P1 Wins";
-            Destroy(this);
+            
             Instantiate(menuButton, canvas.transform);
             Instantiate(againButton, canvas.transform);
+            Destroy(this);
+            return;
         }
     }
 
