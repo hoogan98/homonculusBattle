@@ -133,14 +133,14 @@ public class DrawParts : MonoBehaviour
                 }
 
                 if (child.gameObject.CompareTag("Brain")) {
-                    this.hasBrain = true;
+                    SetBrain(child.gameObject);
                 }
                 
                 _drawnParts.Add(child.gameObject);
             }
         }
 
-        _player.GetComponent<Homonculus>().BeginTracking();
+        _player.GetComponent<Homonculus>().BeginTracking(isP1);
 
     }
 

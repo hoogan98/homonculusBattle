@@ -5,8 +5,7 @@ using UnityEngine;
 public class CamFollowSingle : MonoBehaviour
 {
     public float camLerpT;
-    public float camSpeed;
-
+    
     private Transform player;
 
     public void BeginGame(Transform playerTrans) {

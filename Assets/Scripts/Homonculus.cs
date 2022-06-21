@@ -6,8 +6,10 @@ public class Homonculus : MonoBehaviour
 {
     private Part _brain;
     private Dictionary<Part, List<Part>> _connections;
+    private CamFollowDouble camFollow;
+    private bool isP1;
 
-    public void BeginTracking()
+    public void BeginTracking(bool isP1)
     {
         _connections = new Dictionary<Part, List<Part>>();
 
@@ -21,6 +23,8 @@ public class Homonculus : MonoBehaviour
             
             ReportConnection(j.transform.parent.GetComponent<Part>(), j.connectedPart);
         }
+
+        this.isP1 = isP1;
 
         _brain = GetComponentInChildren<Brain>();
     }
@@ -139,6 +143,20 @@ public class Homonculus : MonoBehaviour
             }
         }
 
+        camFollow = Camera.main.GetComponent<CamFollowDouble>();
+
         RecalculateNeurons();
+    }
+
+    void OnBecameVisible() {
+        if (camFollow != null) {
+            camFollow.SetVisibility(isP1, true);
+        }
+    }
+
+    void OnBecameInvisible() {
+        if (camFollow != null) {
+            camFollow.SetVisibility(isP1, false);
+        }
     }
 }
