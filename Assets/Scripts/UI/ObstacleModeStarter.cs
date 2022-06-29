@@ -48,10 +48,12 @@ public class ObstacleModeStarter : MonoBehaviour
         {
             return;
         }
+        
+        DrawParts drawer = p1DrawZone.GetComponent<DrawParts>();
 
-        p1DrawZone.GetComponent<DrawParts>().SavePlayer();
+        drawer.SavePlayer();
 
-        List<GameObject> parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
+        List<GameObject> parts = drawer.GetParts();
 
         foreach (GameObject part in parts)
         {
@@ -70,19 +72,9 @@ public class ObstacleModeStarter : MonoBehaviour
             }
 
             p.LoadPart();
-            // if (!part.CompareTag("Muscle"))
-            // {
-            //     part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-            // }
-            // else
-            // {
-            //     part.GetComponent<Muscle>().StartGame();
-            // }
-
-            // Destroy(part.GetComponent<DrawingBehavior>());
-            // part.GetComponent<BoxCollider2D>().isTrigger = false;
-            // part.GetComponent<Part>().StartGame();
         }
+
+        Camera.main.GetComponent<CamFollowSingle>().BeginGame(drawer.GetPlayer().transform);
 
         Destroy(p1DrawZone);
         Destroy(p1DrawText);
