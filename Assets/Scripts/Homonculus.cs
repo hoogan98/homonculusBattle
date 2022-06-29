@@ -147,16 +147,4 @@ public class Homonculus : MonoBehaviour
 
         RecalculateNeurons();
     }
-
-    void OnBecameVisible() {
-        if (camFollow != null) {
-            camFollow.SetVisibility(isP1, true);
-        }
-    }
-
-    void OnBecameInvisible() {
-        if (camFollow != null) {
-            camFollow.SetVisibility(isP1, false);
-        }
-    }
 }

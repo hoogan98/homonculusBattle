@@ -6,10 +6,13 @@ public class CamFollowDouble : MonoBehaviour
 {
     public float camLerpT;
     public float camZoomSpeed;
+    public float maxPlayerDistCoeff;
+    public float minPlayerDistCoeff;
 
     private Transform player1;
     private Transform player2;
-    private float maxZ;
+    private float minSize;
+    private Camera cam;
     private bool p1Visible;
     private bool p2Visible;
 
@@ -25,23 +28,28 @@ public class CamFollowDouble : MonoBehaviour
             Destroy(this);
         }
 
-        maxZ = transform.position.z;
+        cam = GetComponent<Camera>();
+
+        minSize = cam.orthographicSize;
         
         p1Visible = true;
         p2Visible = true;
 
     }
 
-    public void SetVisibility(bool isP1, bool isVisible)
-    {
-        if (isP1)
-        {
-            p1Visible = isVisible;
-        }
-        else
-        {
-            p2Visible = isVisible;
-        }
+    private float CamWidth() {
+        float height = 2f * cam.orthographicSize;
+        float width = height * cam.aspect;
+
+        return width;
+    }
+
+    private bool CamTooSmall() {
+        return Vector3.Distance(player1.position, player2.position) > (CamWidth() * maxPlayerDistCoeff);
+    }
+
+    private bool CamTooBig() {
+        return Vector3.Distance(player1.position, player2.position) < (CamWidth() * minPlayerDistCoeff);
     }
 
     public void Update()
@@ -54,25 +62,26 @@ public class CamFollowDouble : MonoBehaviour
                 Vector3 midPos = Vector3.Lerp(transform.position, (player1.position + player2.position) / 2,
                 camLerpT * Time.deltaTime);
 
-                float newZ = transform.position.z;
+                float newSize = cam.orthographicSize;
 
                 //try to zoom out if either of them is close to off-screen
-                if (!p1Visible || !p2Visible)
+                if (CamTooSmall())
                 {
-                    newZ -= camZoomSpeed * Time.deltaTime;
+                    newSize += camZoomSpeed * Time.deltaTime;
                 }
-                else if (newZ < maxZ)
+                else if (CamTooBig())
                 {
-                    //otherwise, try to zoom in if your Z is not the max Z
-                    newZ += camZoomSpeed * Time.deltaTime;
-                }
-
-                if (newZ > maxZ)
-                {
-                    newZ = maxZ;
+                    //otherwise, try to zoom in
+                    newSize -= camZoomSpeed * Time.deltaTime;
                 }
 
-                transform.position = new Vector3(midPos.x, midPos.y, newZ);
+                if (newSize < minSize)
+                {
+                    newSize = minSize;
+                }
+
+                transform.position = new Vector3(midPos.x, midPos.y, transform.position.z);
+                cam.orthographicSize = newSize;
 
                 return;
             }
@@ -85,11 +94,5 @@ public class CamFollowDouble : MonoBehaviour
             Vector3 approachPos = Vector3.Lerp(transform.position, player2.position, camLerpT * Time.deltaTime);
             transform.position = new Vector3(approachPos.x, approachPos.y, transform.position.z);
         }
-
-
-        // if (player1 != null) {
-        //     Vector3 approachPos = Vector3.Lerp(transform.position, player.position, camLerpT*Time.deltaTime);
-        //     transform.position = new Vector3(approachPos.x, approachPos.y, transform.position.z);
-        // }
     }
 }
