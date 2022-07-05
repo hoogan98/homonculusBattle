@@ -34,7 +34,9 @@ public class TimerButtonHandler : MonoBehaviour
     {
         if (!_startTime) 
         { 
-            p1DrawZone.GetComponent<DrawParts>().isActive = true;
+            DrawParts p1Drawer = p1DrawZone.GetComponent<DrawParts>();
+            p1Drawer.isActive = true;
+            p1Drawer.AttemptLoad();
 
             _startTime = true;
         }
@@ -46,7 +48,9 @@ public class TimerButtonHandler : MonoBehaviour
         }
         else if (!_ready)
         {
-            p2DrawZone.GetComponent<DrawParts>().isActive = true;
+            DrawParts p2Drawer = p2DrawZone.GetComponent<DrawParts>();
+            p2Drawer.isActive = true;
+            p2Drawer.AttemptLoad();
 
             _ready = true;
         }
@@ -90,10 +94,14 @@ public class TimerButtonHandler : MonoBehaviour
             return;
         }
 
-        Camera.main.GetComponent<WinCheck>().StartGame();
+        DrawParts drawer1 = p1DrawZone.GetComponent<DrawParts>();
+        DrawParts drawer2 = p2DrawZone.GetComponent<DrawParts>();
 
-        List<GameObject> parts = p1DrawZone.GetComponent<DrawParts>().GetParts();
-        parts.AddRange(p2DrawZone.GetComponent<DrawParts>().GetParts());
+        drawer1.SavePlayer();
+        drawer2.SavePlayer();
+
+        List<GameObject> parts = drawer1.GetParts();
+        parts.AddRange(drawer2.GetParts());
 
         foreach (GameObject part in parts)
         {
@@ -101,18 +109,15 @@ public class TimerButtonHandler : MonoBehaviour
             {
                 continue;
             }
-            if (!part.CompareTag("Muscle"))
+
+            Part p = part.GetComponent<Part>();
+
+            if (p == null)
             {
-                part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-            }
-            else
-            {
-                part.GetComponent<Muscle>().StartGame();
+                continue;
             }
 
-            Destroy(part.GetComponent<DrawingBehavior>());
-            part.GetComponent<BoxCollider2D>().isTrigger = false;
-            part.GetComponent<Part>().StartGame();
+            p.LoadPart();
         }
         
         foreach (GameObject wall in movingDeathWalls)
@@ -120,11 +125,15 @@ public class TimerButtonHandler : MonoBehaviour
             wall.GetComponent<DeathWallMover>().enabled = true;
         }
 
+        Camera.main.GetComponent<CamFollowDouble>().BeginGame(drawer1.GetPlayer().transform, drawer2.GetPlayer().transform);
+
         Destroy(p1DrawZone);
         Destroy(p2DrawZone);
         Destroy(p1DrawText);
         Destroy(p2DrawText);
         Destroy(barriers);
         Destroy(gameObject);
+        
+        Camera.main.GetComponent<WinCheck>().StartGame();
     }
 }

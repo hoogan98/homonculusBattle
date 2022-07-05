@@ -51,6 +51,10 @@ public class DrawParts : MonoBehaviour
     //key binding stuff
     private int _currentKey;
 
+    public GameObject GetPlayer() {
+        return _player;
+    }
+
     void Start()
     {
         //remove these later, for the initial population of text file
@@ -112,7 +116,7 @@ public class DrawParts : MonoBehaviour
 
     public void AttemptLoad()
     {
-        GameObject prevPlayerPref = Resources.Load<GameObject>("Previous_Build_" + SceneManager.GetActiveScene().name);
+        GameObject prevPlayerPref = Resources.Load<GameObject>(isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name);
 
         if (prevPlayerPref == null)
         {
@@ -129,20 +133,20 @@ public class DrawParts : MonoBehaviour
                 }
 
                 if (child.gameObject.CompareTag("Brain")) {
-                    this.hasBrain = true;
+                    SetBrain(child.gameObject);
                 }
                 
                 _drawnParts.Add(child.gameObject);
             }
         }
 
-        _player.GetComponent<Homonculus>().BeginTracking();
+        _player.GetComponent<Homonculus>().BeginTracking(isP1);
 
     }
 
     public void SavePlayer()
     {
-        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
+        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
     }
 
     private void SetDrawing(DrawMode mode)
