@@ -24,7 +24,7 @@ public class Brain : Part
 
         handler.SetBrain(gameObject);
 
-        handler.EndDraw();
+        //handler.EndDraw();
     }
 
     public override void StartGame()
@@ -45,5 +45,13 @@ public class Brain : Part
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision) {
+        audioPlayer.PlayOneShot(lightHitSounds.PickRandom());
+    }
+    
+    public override void FinishDraw(DrawParts drawingHandler)
+    {
+        base.FinishDraw(drawingHandler);
+
+        drawingHandler.EndDraw();
     }
 }
