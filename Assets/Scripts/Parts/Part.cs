@@ -22,9 +22,9 @@ public abstract class Part : MonoBehaviour
     private float bigHitThreshold = 7f;
     private float maxHitTimeCooldown = 0.1f;
     private float minSoundDamage = 3f;
-    private AudioClip[] lightHitSounds;
-    private AudioClip[] bigHitSounds;
-    private AudioClip[] stepSounds;
+    public AudioClip[] lightHitSounds;
+    public AudioClip[] bigHitSounds;
+    public AudioClip[] stepSounds;
     private float hitTimeCooldown;
 
     public virtual void Start()
@@ -92,21 +92,15 @@ public abstract class Part : MonoBehaviour
 
         if (isGround)
         {
-            int i = Random.Range(0, stepSounds.Length - 1);
-
-            audioPlayer.PlayOneShot(stepSounds[i]);
+            audioPlayer.PlayOneShot(stepSounds.PickRandom());
         }
         else if (damage > bigHitThreshold)
         {
-            int i = Random.Range(0, bigHitSounds.Length - 1);
-
-            audioPlayer.PlayOneShot(bigHitSounds[i]);
+            audioPlayer.PlayOneShot(bigHitSounds.PickRandom());
         }
         else
         {
-            int i = Random.Range(0, lightHitSounds.Length - 1);
-
-            audioPlayer.PlayOneShot(lightHitSounds[i]);
+            audioPlayer.PlayOneShot(lightHitSounds.PickRandom());
         }
 
         hitTimeCooldown = maxHitTimeCooldown;
