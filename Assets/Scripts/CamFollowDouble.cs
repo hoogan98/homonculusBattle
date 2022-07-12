@@ -13,8 +13,6 @@ public class CamFollowDouble : MonoBehaviour
     private Transform player2;
     private float minSize;
     private Camera cam;
-    private bool p1Visible;
-    private bool p2Visible;
 
     public void BeginGame(Transform player1Trans, Transform player2Trans)
     {
@@ -31,10 +29,6 @@ public class CamFollowDouble : MonoBehaviour
         cam = GetComponent<Camera>();
 
         minSize = cam.orthographicSize;
-        
-        p1Visible = true;
-        p2Visible = true;
-
     }
 
     private float CamWidth() {

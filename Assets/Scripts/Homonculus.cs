@@ -8,6 +8,32 @@ public class Homonculus : MonoBehaviour
     private Dictionary<Part, List<Part>> _connections;
     private CamFollowDouble camFollow;
     private bool isP1;
+    private AudioClip[] lightHitSounds;
+    private AudioClip[] bigHitSounds;
+    private AudioClip[] stepSounds;
+    private AudioClip[] brainDeathSounds;
+    private AudioClip boneCrunch;
+    private AudioClip drillSound;
+    private AudioClip muscleStretch;
+    private AudioClip muscleBreak;
+    private AudioSource audioPlayer;
+    private float maxHitTimeCooldown = 0.1f;
+    private float hitTimeCooldown;
+
+    public void Start() {
+        lightHitSounds = Resources.LoadAll<AudioClip>("light_hits");
+        bigHitSounds = Resources.LoadAll<AudioClip>("big_hits");
+        stepSounds = Resources.LoadAll<AudioClip>("metal_steps");
+        brainDeathSounds = Resources.LoadAll<AudioClip>("brain_squish");
+        boneCrunch = Resources.Load<AudioClip>("Bone Crunch");
+        drillSound = Resources.Load<AudioClip>("drill_sound");
+        muscleStretch = Resources.Load<AudioClip>("stretching");
+        muscleBreak = Resources.Load<AudioClip>("rope_break");
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
+
+        hitTimeCooldown = maxHitTimeCooldown;
+    }
 
     public void BeginTracking(bool isP1)
     {
