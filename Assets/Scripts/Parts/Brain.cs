@@ -45,7 +45,7 @@ public class Brain : Part
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision) {
-        audioPlayer.PlayOneShot(lightHitSounds.PickRandom());
+        homonculus.PlayLightBrainHit();
     }
     
     public override void FinishDraw(DrawParts drawingHandler)
