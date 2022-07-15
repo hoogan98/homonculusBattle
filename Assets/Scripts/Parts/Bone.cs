@@ -79,7 +79,6 @@ public class Bone : Part
 
         GameObject bone1 = Instantiate(gameObject, oldTrans.position, oldTrans.rotation);
         bone1.transform.parent = gameObject.transform.parent;
-        //bone1.GetComponent<AudioSource>().Play(0);
         homonculus.PlayBoneBreak();
         bone1.transform.position += bone1.transform.TransformDirection(Vector3.right) * offset * -1;
         bone1.transform.localScale =

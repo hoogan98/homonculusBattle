@@ -88,6 +88,7 @@ public abstract class Part : MonoBehaviour
     public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
     public virtual void FinishDraw(DrawParts drawingHandler) {
+        homonculus = transform.parent.GetComponent<Homonculus>();
         homonculus.PlaySound(creationSound);
     }
 

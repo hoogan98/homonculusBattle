@@ -11,8 +11,6 @@ public class Muscle : Part
     public SpringJoint2D spring;
     public float yHealthScale;
     public float maxDistanceScale;
-    public AudioClip stretchSound;
-    public AudioClip breakSound;
     public KeyCode _flexKey;
     public float springForceModifier;
     public float maxFlailDelay;

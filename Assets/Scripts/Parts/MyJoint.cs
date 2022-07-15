@@ -36,6 +36,7 @@ public class MyJoint : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
+        homonculus = transform.parent.parent.GetComponent<Homonculus>();
         homonculus.PlayDrill();
     }
 
