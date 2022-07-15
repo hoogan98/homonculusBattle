@@ -11,8 +11,6 @@ public class Muscle : Part
     public SpringJoint2D spring;
     public float yHealthScale;
     public float maxDistanceScale;
-    public AudioClip stretchSound;
-    public AudioClip breakSound;
     public KeyCode _flexKey;
     public float springForceModifier;
     public float maxFlailDelay;
@@ -42,14 +40,12 @@ public class Muscle : Part
         base.LoadPart();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (!_started)
         {
             return;
         }
-
-        base.Update();
 
         if (anchorJoint == null || connectedAnchorJoint == null)
         {
@@ -119,7 +115,7 @@ public class Muscle : Part
     //i have no idea why I was resetting these anchor points before, it shouldn't need that right?
     private void Flex()
     {
-        audioPlayer.PlayOneShot(stretchSound);
+        homonculus.PlayMuscleStretch();
         spring.frequency = _springStrength;
         spring.distance /= 2;
         _flexed = true;
@@ -300,7 +296,7 @@ public class Muscle : Part
 
     public override void Break()
     {
-        audioPlayer.PlayOneShot(breakSound);
+        homonculus.PlayMuscleBreak();
         Destroy(spring);
         Destroy(GetComponent<BoxCollider2D>());
         HingeJoint2D newHinge = gameObject.AddComponent<HingeJoint2D>();

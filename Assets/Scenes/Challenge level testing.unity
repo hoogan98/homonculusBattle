@@ -1835,7 +1835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camLerpT: 0.5
-  camSpeed: 10
 --- !u!1 &1540899581
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,15 +17,10 @@ public abstract class Part : MonoBehaviour
     public bool visited;
     public AudioClip creationSound;
 
-    protected AudioSource audioPlayer;
+    protected Homonculus homonculus;
 
     private float bigHitThreshold = 7f;
-    private float maxHitTimeCooldown = 0.1f;
     private float minSoundDamage = 3f;
-    public AudioClip[] lightHitSounds;
-    public AudioClip[] bigHitSounds;
-    public AudioClip[] stepSounds;
-    private float hitTimeCooldown;
 
     public virtual void Start()
     {
@@ -39,16 +34,10 @@ public abstract class Part : MonoBehaviour
             connectedMuscles = new List<Muscle>();
         }
 
-        lightHitSounds = Resources.LoadAll<AudioClip>("light_hits");
-        bigHitSounds = Resources.LoadAll<AudioClip>("big_hits");
-        stepSounds = Resources.LoadAll<AudioClip>("metal_steps");
-
-        hitTimeCooldown = maxHitTimeCooldown;
-
         brainConnected = false;
         visited = false;
 
-        audioPlayer = gameObject.GetComponent<AudioSource>();
+        homonculus = transform.parent.GetComponent<Homonculus>();
     }
 
     public abstract void StartGame();
@@ -60,14 +49,6 @@ public abstract class Part : MonoBehaviour
         StartGame();
 
         return;
-    }
-
-    public virtual void Update()
-    {
-        if (hitTimeCooldown > 0)
-        {
-            hitTimeCooldown -= Time.deltaTime;
-        }
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -85,31 +66,30 @@ public abstract class Part : MonoBehaviour
 
     protected virtual void HitSoundHandler(float damage, bool isGround)
     {
-        if (hitTimeCooldown > 0 || damage < minSoundDamage)
+        if (damage < minSoundDamage)
         {
             return;
         }
 
         if (isGround)
         {
-            audioPlayer.PlayOneShot(stepSounds.PickRandom());
+            homonculus.PlayStep();
         }
         else if (damage > bigHitThreshold)
         {
-            audioPlayer.PlayOneShot(bigHitSounds.PickRandom());
+            homonculus.PlayBigHit();
         }
         else
         {
-            audioPlayer.PlayOneShot(lightHitSounds.PickRandom());
+            homonculus.PlayLightHit();
         }
-
-        hitTimeCooldown = maxHitTimeCooldown;
     }
 
     public abstract void StartDraw(DrawParts drawingHandler);
     public abstract void DrawingBehavior();
     public virtual void FinishDraw(DrawParts drawingHandler) {
-        audioPlayer.PlayOneShot(creationSound);
+        homonculus = transform.parent.GetComponent<Homonculus>();
+        homonculus.PlaySound(creationSound);
     }
 
     protected void FollowMouseAnchor(Vector3 anchor)

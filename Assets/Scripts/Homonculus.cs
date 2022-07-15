@@ -8,6 +8,37 @@ public class Homonculus : MonoBehaviour
     private Dictionary<Part, List<Part>> _connections;
     private CamFollowDouble camFollow;
     private bool isP1;
+    private AudioClip[] lightHitSounds;
+    private AudioClip[] lightBrainHits;
+    private AudioClip[] bigHitSounds;
+    private AudioClip[] bigBrainHits;
+    private AudioClip[] stepSounds;
+    private AudioClip brainDeathSound;
+    private AudioClip boneCrunch;
+    private AudioClip drillSound;
+    private AudioClip muscleStretch;
+    private AudioClip muscleBreak;
+    private AudioSource audioPlayer;
+    private float maxHitTimeCooldown = 0.1f;
+    private float hitTimeCooldown;
+
+    public void Start() {
+        lightHitSounds = Resources.LoadAll<AudioClip>("light_hits");
+        lightBrainHits = Resources.LoadAll<AudioClip>("light_brain_hits");
+        bigHitSounds = Resources.LoadAll<AudioClip>("big_hits");
+        bigBrainHits = Resources.LoadAll<AudioClip>("big_brain_hits");
+        stepSounds = Resources.LoadAll<AudioClip>("metal_steps");
+
+        brainDeathSound = Resources.Load<AudioClip>("squish_1");
+        boneCrunch = Resources.Load<AudioClip>("Bone Crunch");
+        drillSound = Resources.Load<AudioClip>("drill_sound");
+        muscleStretch = Resources.Load<AudioClip>("stretching");
+        muscleBreak = Resources.Load<AudioClip>("rope_break");
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
+
+        hitTimeCooldown = maxHitTimeCooldown;
+    }
 
     public void BeginTracking(bool isP1)
     {
@@ -146,5 +177,63 @@ public class Homonculus : MonoBehaviour
         camFollow = Camera.main.GetComponent<CamFollowDouble>();
 
         RecalculateNeurons();
+    }
+
+    public void Update() {
+        if (hitTimeCooldown > 0) {
+            hitTimeCooldown -= Time.deltaTime;
+        }
+    }
+
+    public void PlayLightHit() {
+        if (hitTimeCooldown <= 0) {
+            hitTimeCooldown = maxHitTimeCooldown;
+
+            audioPlayer.PlayOneShot(lightHitSounds.PickRandom());
+        }
+    }
+
+    public void PlayBigHit() {
+        if (hitTimeCooldown <= 0) {
+            hitTimeCooldown = maxHitTimeCooldown;
+
+            audioPlayer.PlayOneShot(bigHitSounds.PickRandom());
+        }
+    }
+
+    public void PlayStep() {
+        audioPlayer.PlayOneShot(stepSounds.PickRandom());
+    }
+
+    public void PlayLightBrainHit() {
+        audioPlayer.PlayOneShot(lightBrainHits.PickRandom());
+    }
+
+    public void PlayBigBrainHit() {
+        audioPlayer.PlayOneShot(bigBrainHits.PickRandom());
+    }
+
+    public void PlayBrainDie() {
+        audioPlayer.PlayOneShot(brainDeathSound);
+    }
+
+    public void PlayBoneBreak() {
+        audioPlayer.PlayOneShot(boneCrunch);
+    }
+
+    public void PlayDrill() {
+        audioPlayer.PlayOneShot(drillSound);
+    }
+
+    public void PlayMuscleStretch() {
+        audioPlayer.PlayOneShot(muscleStretch);
+    }
+
+    public void PlayMuscleBreak() {
+        audioPlayer.PlayOneShot(muscleBreak);
+    }
+
+    public void PlaySound(AudioClip sound) {
+        audioPlayer.PlayOneShot(sound);
     }
 }

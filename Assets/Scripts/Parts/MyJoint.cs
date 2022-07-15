@@ -36,7 +36,8 @@ public class MyJoint : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
-        GetComponent<AudioSource>().PlayOneShot(creationSound);
+        homonculus = transform.parent.parent.GetComponent<Homonculus>();
+        homonculus.PlayDrill();
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)

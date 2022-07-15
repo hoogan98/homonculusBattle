@@ -10,8 +10,6 @@ public class Bone : Part
     public GameObject bonePref;
 
     private Vector3 _drawAnchor;
-    private Homonculus _homonculus;
-
     public override void StartDraw(DrawParts handler)
     {
         ratio = transform.localScale.x /
@@ -26,8 +24,6 @@ public class Bone : Part
     public override void StartGame()
     {
         GetComponent<Rigidbody2D>().gravityScale = 1;
-
-        _homonculus = transform.parent.GetComponent<Homonculus>();
     }
 
     public override void DrawingBehavior()
@@ -50,8 +46,6 @@ public class Bone : Part
 
         baseHealth = yHealthScale * transform.lossyScale.y;
 
-        _homonculus = transform.parent.GetComponent<Homonculus>();
-
         drawingHandler.EndDraw();
     }
 
@@ -73,7 +67,7 @@ public class Bone : Part
         if ((transform.lossyScale.x / 2) < minX)
         {
             Destroy(gameObject);
-            _homonculus.ReportDestroyedPartAndRecalc(this);
+            homonculus.ReportDestroyedPartAndRecalc(this);
             return;
         }
 
@@ -85,7 +79,7 @@ public class Bone : Part
 
         GameObject bone1 = Instantiate(gameObject, oldTrans.position, oldTrans.rotation);
         bone1.transform.parent = gameObject.transform.parent;
-        bone1.GetComponent<AudioSource>().Play(0);
+        homonculus.PlayBoneBreak();
         bone1.transform.position += bone1.transform.TransformDirection(Vector3.right) * offset * -1;
         bone1.transform.localScale =
             new Vector3(oldTrans.localScale.x / 2, oldTrans.localScale.y, oldTrans.localScale.z);
@@ -139,7 +133,7 @@ public class Bone : Part
 
             // joint.GetComponent<MyJoint>().ReplaceConnectedBone(parentBone.GetComponent<Bone>(), this);
 
-            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
+            homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -166,7 +160,7 @@ public class Bone : Part
 
             GameObject parentBone = ClosestObject(bone1, bone2, joint.transform.position);
 
-            _homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
+            homonculus.ReportConnection(parentBone.GetComponent<Part>(), j.connectedPart);
 
             if (j.hinge != null)
             {
@@ -210,6 +204,6 @@ public class Bone : Part
         }
 
         Destroy(gameObject);
-        _homonculus.ReportDestroyedPartAndRecalc(this);
+        homonculus.ReportDestroyedPartAndRecalc(this);
     }
 }
