@@ -47,7 +47,7 @@ public class BackgroundMusicSingleton : MonoBehaviour
         currentClip = allAudio.IndexOf(sceneMusic.audioClip);
     }
 
-    public void NextClip() {
+    public string NextClip() {
         currentClip++;
 
         if (currentClip >= allAudio.Count) {
@@ -58,9 +58,13 @@ public class BackgroundMusicSingleton : MonoBehaviour
         {
             SceneMusicMap[i].audioClip = allAudio[currentClip];
         }
+
+        ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
+
+        return allAudio[currentClip].name;
     }
 
-    public void PreviousClip() {
+    public string PreviousClip() {
         currentClip--;
 
         if (currentClip < 0) {
@@ -71,6 +75,10 @@ public class BackgroundMusicSingleton : MonoBehaviour
         {
             SceneMusicMap[i].audioClip = allAudio[currentClip];
         }
+
+        ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
+
+        return allAudio[currentClip].name;
     }
 
     private void ReplaceMusic(Scene activeScene, LoadSceneMode mode)
