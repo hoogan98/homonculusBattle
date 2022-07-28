@@ -2539,7 +2539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce8acbdb1d4fcf4ab8660d9b8290fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
   direction: {x: 0, y: -1, z: 0}
 --- !u!1 &1462692269
 GameObject:
@@ -2889,7 +2888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce8acbdb1d4fcf4ab8660d9b8290fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
   direction: {x: 0, y: 1, z: 0}
 --- !u!1 &1971172770
 GameObject:
