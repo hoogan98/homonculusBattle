@@ -3006,7 +3006,35 @@ MonoBehaviour:
   - sceneName: Credits
     audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
   - sceneName: 2PFight
-    audioClip: {fileID: 8300000, guid: e10c850d1a43145428c51b661c29dbed, type: 3}
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: Controls
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: Credits
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: Menu
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: Tutorial
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: BumpyRoad
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: DinalFestination
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: FlatGround
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: SlideOff
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: SlideTogether
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: gap
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: holeInTheWall
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: incline
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: ladder
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
+  - sceneName: smallWall
+    audioClip: {fileID: 8300000, guid: 70ac28c09368bb84c9ed62fe7d260e68, type: 3}
 --- !u!114 &2090908155
 MonoBehaviour:
   m_ObjectHideFlags: 0
