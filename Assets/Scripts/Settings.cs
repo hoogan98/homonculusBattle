@@ -6,6 +6,7 @@ public class Settings : MonoBehaviour
 {
     public static Settings instance;
     public float deathWallSpeed;
+    public float brightness;
 
     private void Awake()
     {
