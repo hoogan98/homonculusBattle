@@ -7,6 +7,7 @@ public class Settings : MonoBehaviour
     public static Settings instance;
     public float deathWallSpeed;
     public float brightness;
+    public float SFXVolume;
 
     private void Awake()
     {

@@ -37,6 +37,8 @@ public class Homonculus : MonoBehaviour
 
         audioPlayer = gameObject.GetComponent<AudioSource>();
 
+        audioPlayer.volume = Settings.instance.SFXVolume;
+
         hitTimeCooldown = maxHitTimeCooldown;
     }
 
