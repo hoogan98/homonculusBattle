@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using UnityEditor;
 
 public class PrevBuildRemover : MonoBehaviour
 {
+    public GameObject blankHomonculus;
+
     public void OnClick()
     {
-        DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Builds/");
+        GameObject[] prevBuilds = Resources.LoadAll<GameObject>("Builds/");
 
-        foreach (FileInfo file in dir.GetFiles())
-        {
-            Debug.Log("deleted file: " + file.Name);
-            file.Delete();
-        }
+        foreach (GameObject build in prevBuilds) {
+            PrefabUtility.SaveAsPrefabAsset(blankHomonculus, "Assets/Resources/Builds/" + build.name + ".prefab");
+        }   
     }
 }
