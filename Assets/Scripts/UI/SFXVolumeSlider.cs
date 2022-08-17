@@ -8,11 +8,11 @@ public class SFXVolumeSlider : MonoBehaviour
     public Slider volumeSlider;
 
     public void Start() {
-        volumeSlider.value = Settings.instance.SFXVolume;
+        volumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1);
     }
 
     public void OnSliderChange()
     {
-        Settings.instance.SFXVolume = volumeSlider.value;
+        PlayerPrefs.SetFloat("SFXVolume", volumeSlider.value);
     }
 }

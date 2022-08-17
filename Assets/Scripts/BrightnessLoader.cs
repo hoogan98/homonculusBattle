@@ -10,6 +10,6 @@ public class BrightnessLoader : MonoBehaviour
 
     public void Start()
     {
-        brightnessFilter.GetSetting<ColorGrading>().postExposure.Override(Settings.instance.brightness);
+        brightnessFilter.GetSetting<ColorGrading>().postExposure.Override(PlayerPrefs.GetFloat("Brightness", 1));
     }
 }

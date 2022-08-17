@@ -10,12 +10,12 @@ public class BrightnessSliderHandler : MonoBehaviour
     public PostProcessProfile brightnessFilter;
 
     public void Start() {
-        brightnessSlider.value = Settings.instance.brightness;
+        brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1);
     }
 
     public void OnSliderChange()
     {
-        Settings.instance.brightness = brightnessSlider.value;
+        PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
         brightnessFilter.GetSetting<ColorGrading>().postExposure.Override(brightnessSlider.value);
     }
 }

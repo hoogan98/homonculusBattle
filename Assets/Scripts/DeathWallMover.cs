@@ -10,7 +10,7 @@ public class DeathWallMover : MonoBehaviour
     private float speed;
 
     public void Start() {
-        speed = Settings.instance.deathWallSpeed;
+        speed = PlayerPrefs.GetFloat("DeathWallSpeed", 1);
     }
 
     public void Update()

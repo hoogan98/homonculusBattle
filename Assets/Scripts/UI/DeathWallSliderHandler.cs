@@ -8,11 +8,11 @@ public class DeathWallSliderHandler : MonoBehaviour
     public Slider speedSlider;
 
     public void Start() {
-        speedSlider.value = Settings.instance.deathWallSpeed;
+        speedSlider.value = PlayerPrefs.GetFloat("DeathWallSpeed", 1);
     }
 
     public void OnSliderChange()
     {
-        Settings.instance.deathWallSpeed = speedSlider.value;
+        PlayerPrefs.SetFloat("DeathWallSpeed", speedSlider.value);
     }
 }
