@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class DeathWallSliderHandler : MonoBehaviour
 {
     public Slider speedSlider;
-    public float speedModifier;
+
+    public void Start() {
+        speedSlider.value = PlayerPrefs.GetFloat("DeathWallSpeed", 1);
+    }
 
     public void OnSliderChange()
     {
-        Settings.instance.deathWallSpeed =speedSlider.value * speedModifier;
-        Debug.Log(Settings.instance.deathWallSpeed);
+        PlayerPrefs.SetFloat("DeathWallSpeed", speedSlider.value);
     }
 }

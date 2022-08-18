@@ -61,7 +61,7 @@ public class BackgroundMusicSingleton : MonoBehaviour
 
         ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
 
-        return allAudio[currentClip].name;
+        return CurrentClipName();
     }
 
     public string PreviousClip() {
@@ -78,6 +78,10 @@ public class BackgroundMusicSingleton : MonoBehaviour
 
         ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
 
+        return CurrentClipName();
+    }
+
+    public string CurrentClipName() {
         return allAudio[currentClip].name;
     }
 

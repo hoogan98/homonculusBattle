@@ -116,7 +116,7 @@ public class DrawParts : MonoBehaviour
 
     public void AttemptLoad()
     {
-        GameObject prevPlayerPref = Resources.Load<GameObject>(isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name);
+        GameObject prevPlayerPref = Resources.Load<GameObject>("Builds/" + isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name);
 
         if (prevPlayerPref == null)
         {
@@ -146,7 +146,7 @@ public class DrawParts : MonoBehaviour
 
     public void SavePlayer()
     {
-        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
+        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Builds/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
     }
 
     private void SetDrawing(DrawMode mode)

@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
 {
+    public void Start(){
+        Screen.fullScreen = (PlayerPrefs.GetInt("Windowed", 0) == 0);
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("2PFight");
@@ -15,9 +19,9 @@ public class MainMenuHandler : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
-    public void OpenControls()
+    public void OpenSettings()
     {
-        SceneManager.LoadScene("Controls");
+        SceneManager.LoadScene("Settings");
     }
 
     public void OpenCredits()

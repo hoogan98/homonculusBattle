@@ -7,6 +7,10 @@ public class BGMChanger : MonoBehaviour
 {
     public Text assignedText;
 
+    public void Start() {
+        assignedText.text = BackgroundMusicSingleton.instance.CurrentClipName();
+    }
+
     public void PlayNext() {
         assignedText.text = BackgroundMusicSingleton.instance.NextClip();
     }
