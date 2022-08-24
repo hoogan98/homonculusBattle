@@ -2729,7 +2729,7 @@ MonoBehaviour:
     type: 3}
   brainPref: {fileID: 2710713444361540116, guid: 9bffb89a3c4c0af4cb768cdb5962ccb0,
     type: 3}
-  playerPref: {fileID: 5676415173875886560, guid: dd44bc8e8f0613842aea8fabde383ebf,
+  playerPref: {fileID: 5676415173875886560, guid: 08e1c9386be67424cb740a5c27471dc2,
     type: 3}
   drawModeLabel: {fileID: 1714227259}
   isP1: 1

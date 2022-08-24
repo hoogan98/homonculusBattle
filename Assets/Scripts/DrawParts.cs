@@ -145,14 +145,14 @@ public class DrawParts : MonoBehaviour
             _player = Instantiate<GameObject>(playerPref, gameObject.transform.position, Quaternion.identity);
         }
 
-        _player.GetComponent<Homonculus>().BeginTracking(isP1);
+        
 
     }
 
     public void SavePlayer()
     {
         //PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Builds/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
-        File.WriteAllText("Assets/Resources/Builds/" + isP1 + "Previous_Build_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(_player));
+        //File.WriteAllText("Assets/Resources/Builds/" + isP1 + "Previous_Build_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(_player));
     }
 
     private void SetDrawing(DrawMode mode)
@@ -164,6 +164,7 @@ public class DrawParts : MonoBehaviour
 
     public void RemovePart(Part p)
     {
+        Debug.Log("removing part");
         _drawnParts.Remove(p.gameObject);
         _player.GetComponent<Homonculus>().ReportDestroyedPart(p);
         Destroy(p.gameObject);
