@@ -147,8 +147,6 @@ public class DrawParts : MonoBehaviour
 
     public void SavePlayer()
     {
-        //PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Builds/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
-        //File.WriteAllText("Assets/Resources/Builds/" + isP1 + "Previous_Build_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(_player));
         if (PreviousHomonculus.instance.go != null) {
             Destroy(PreviousHomonculus.instance.go);
         }
