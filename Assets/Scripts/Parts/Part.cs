@@ -16,6 +16,8 @@ public abstract class Part : MonoBehaviour
     public bool brainConnected;
     public bool visited;
     public AudioClip creationSound;
+    public delegate void DeathDelegate();
+    public DeathDelegate OnDeath; 
 
     protected Homonculus homonculus;
 
@@ -155,6 +157,7 @@ public abstract class Part : MonoBehaviour
 
     public virtual void Break()
     {
+        OnDeath();
         Destroy(gameObject);
     }
 }

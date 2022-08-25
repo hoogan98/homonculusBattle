@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3509229380544449167}
   - component: {fileID: 75595551367239376}
   - component: {fileID: 5444152787194764497}
+  - component: {fileID: 676306754920658085}
   m_Layer: 0
   m_Name: win box
   m_TagString: Untagged
@@ -126,3 +127,16 @@ MonoBehaviour:
   menuButton: {fileID: 0}
   againButton: {fileID: 0}
   canvas: {fileID: 0}
+--- !u!114 &676306754920658085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9162943290489184073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550cceb7b650b4341a92b0968fc58fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}

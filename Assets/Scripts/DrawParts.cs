@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 
 public class DrawParts : MonoBehaviour
@@ -51,7 +52,8 @@ public class DrawParts : MonoBehaviour
     //key binding stuff
     private int _currentKey;
 
-    public GameObject GetPlayer() {
+    public GameObject GetPlayer()
+    {
         return _player;
     }
 
@@ -116,37 +118,43 @@ public class DrawParts : MonoBehaviour
 
     public void AttemptLoad()
     {
-        GameObject prevPlayerPref = Resources.Load<GameObject>("Builds/" + isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name);
-
-        if (prevPlayerPref == null)
+        try
         {
-            _player = Instantiate<GameObject>(playerPref, gameObject.transform.position, Quaternion.identity);
-        }
-        else
-        {
-            _player = Instantiate<GameObject>(prevPlayerPref, gameObject.transform.position, Quaternion.identity);
+            _player = Instantiate<GameObject>(PreviousHomonculus.instance.go, gameObject.transform.position, Quaternion.identity);
+            
+            _player.SetActive(true);
 
             foreach (Transform child in _player.GetComponentsInChildren<Transform>())
             {
-                if (child.gameObject.CompareTag("Untagged")) {
+                if (child.gameObject.CompareTag("Untagged"))
+                {
                     continue;
                 }
 
-                if (child.gameObject.CompareTag("Brain")) {
+                if (child.gameObject.CompareTag("Brain"))
+                {
                     SetBrain(child.gameObject);
                 }
-                
+
                 _drawnParts.Add(child.gameObject);
             }
         }
-
-        _player.GetComponent<Homonculus>().BeginTracking(isP1);
-
+        catch
+        {
+            _player = Instantiate<GameObject>(playerPref, gameObject.transform.position, Quaternion.identity);
+        }
     }
 
     public void SavePlayer()
     {
-        PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Builds/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
+        if (PreviousHomonculus.instance.go != null) {
+            Destroy(PreviousHomonculus.instance.go);
+        }
+        
+        GameObject savedGO = Instantiate<GameObject>(_player);
+        savedGO.SetActive(false);
+        DontDestroyOnLoad(savedGO);
+        PreviousHomonculus.instance.go = savedGO;
     }
 
     private void SetDrawing(DrawMode mode)
@@ -158,6 +166,7 @@ public class DrawParts : MonoBehaviour
 
     public void RemovePart(Part p)
     {
+        Debug.Log("removing part");
         _drawnParts.Remove(p.gameObject);
         _player.GetComponent<Homonculus>().ReportDestroyedPart(p);
         Destroy(p.gameObject);
@@ -380,7 +389,7 @@ public class DrawParts : MonoBehaviour
                 {
                     joint = CreateJointAtPoint(mousePos, hits[i].collider.gameObject, hits[i + 1].collider.gameObject);
                 }
-                
+
                 joint.GetComponent<MyJoint>().FinishDraw(this);
             }
         }
@@ -407,7 +416,8 @@ public class DrawParts : MonoBehaviour
         return newJointGo;
     }
 
-    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent, GameObject other) {
+    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
+    {
 
         GameObject newJointGo = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
         newJointGo.transform.position = new Vector3(origin.x, origin.y, -3);
