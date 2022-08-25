@@ -120,6 +120,9 @@ public class Homonculus : MonoBehaviour
 
     public void ReportConnection(Part p1, Part p2)
     {
+        if (_connections == null) {
+            return;
+        }
 
         if (_connections.ContainsKey(p1))
         {

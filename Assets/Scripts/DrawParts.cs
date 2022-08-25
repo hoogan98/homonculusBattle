@@ -120,10 +120,9 @@ public class DrawParts : MonoBehaviour
     {
         try
         {
-            TextAsset JSONHomonculus = Resources.Load<TextAsset>("Builds/" + isP1 + "Previous_Build_" + SceneManager.GetActiveScene().name);
-            GameObject prevPlayerPref = JsonUtility.FromJson<GameObject>(JSONHomonculus.ToString());
-
-            _player = Instantiate<GameObject>(prevPlayerPref, gameObject.transform.position, Quaternion.identity);
+            _player = Instantiate<GameObject>(PreviousHomonculus.instance.go, gameObject.transform.position, Quaternion.identity);
+            
+            _player.SetActive(true);
 
             foreach (Transform child in _player.GetComponentsInChildren<Transform>())
             {
@@ -144,15 +143,20 @@ public class DrawParts : MonoBehaviour
         {
             _player = Instantiate<GameObject>(playerPref, gameObject.transform.position, Quaternion.identity);
         }
-
-        
-
     }
 
     public void SavePlayer()
     {
         //PrefabUtility.SaveAsPrefabAsset(_player, "Assets/Resources/Builds/"+ isP1 +"Previous_Build_" + SceneManager.GetActiveScene().name + ".prefab");
         //File.WriteAllText("Assets/Resources/Builds/" + isP1 + "Previous_Build_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(_player));
+        if (PreviousHomonculus.instance.go != null) {
+            Destroy(PreviousHomonculus.instance.go);
+        }
+        
+        GameObject savedGO = Instantiate<GameObject>(_player);
+        savedGO.SetActive(false);
+        DontDestroyOnLoad(savedGO);
+        PreviousHomonculus.instance.go = savedGO;
     }
 
     private void SetDrawing(DrawMode mode)
