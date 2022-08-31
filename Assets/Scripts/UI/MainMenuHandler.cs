@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : MonoBehaviour
 {
     public void Start(){
-        Screen.fullScreen = (PlayerPrefs.GetInt("Windowed", 0) == 0);
+        Screen.fullScreen = (PlayerPrefs.GetInt("Windowed", 0) == 1);
     }
 
     public void StartGame()
