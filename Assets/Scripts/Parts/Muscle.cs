@@ -216,7 +216,15 @@ public class Muscle : Part
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-        GameObject nextHit = GetBonesAndBrainOverMouse()[0].collider.gameObject;
+        List<RaycastHit2D> nextHits = GetBonesAndBrainOverMouse();
+
+        if (nextHits.Count == 0) {
+            handler.RemovePart(this);
+            handler.EndDraw();
+            return;
+        }
+
+        GameObject nextHit = nextHits[0].collider.gameObject;
 
         if (nextHit.Equals(_firstBone))
         {
