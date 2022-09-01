@@ -121,7 +121,7 @@ public class DrawParts : MonoBehaviour
         try
         {
             _player = Instantiate<GameObject>(PreviousHomonculus.instance.go, gameObject.transform.position, Quaternion.identity);
-            
+
             _player.SetActive(true);
 
             foreach (Transform child in _player.GetComponentsInChildren<Transform>())
@@ -147,14 +147,22 @@ public class DrawParts : MonoBehaviour
 
     public void SavePlayer()
     {
-        if (PreviousHomonculus.instance.go != null) {
-            Destroy(PreviousHomonculus.instance.go);
+        try
+        {
+            if (PreviousHomonculus.instance.go != null)
+            {
+                Destroy(PreviousHomonculus.instance.go);
+            }
+
+            GameObject savedGO = Instantiate<GameObject>(_player);
+            savedGO.SetActive(false);
+            DontDestroyOnLoad(savedGO);
+            PreviousHomonculus.instance.go = savedGO;
         }
-        
-        GameObject savedGO = Instantiate<GameObject>(_player);
-        savedGO.SetActive(false);
-        DontDestroyOnLoad(savedGO);
-        PreviousHomonculus.instance.go = savedGO;
+        catch
+        {
+            Debug.Log("no previous homonculus class, or you're in two player mode");
+        }
     }
 
     private void SetDrawing(DrawMode mode)
