@@ -73,7 +73,9 @@ public class Muscle : Part
         Vector3 modScale = transform.localScale;
         modScale.x = newScale;
         transform.localScale = modScale;
-        transform.position = (joint1Pos + joint2Pos) * 0.5f;
+
+        Vector3 newPos = (joint1Pos + joint2Pos) * 0.5f;
+        transform.position = new Vector3(newPos.x, newPos.y, startZ);
 
         if (brainConnected)
         {
@@ -258,7 +260,7 @@ public class Muscle : Part
         //keep a reference to the original joint holder
         nextHit.GetComponent<Part>().connectedMuscles.Add(this);
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+        transform.position = new Vector3(transform.position.x, transform.position.y, startZ);
 
         baseHealth = transform.lossyScale.y * yHealthScale * baseHealth;
 

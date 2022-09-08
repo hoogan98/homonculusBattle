@@ -17,7 +17,8 @@ public abstract class Part : MonoBehaviour
     public bool visited;
     public AudioClip creationSound;
     public delegate void DeathDelegate();
-    public DeathDelegate OnDeath; 
+    public DeathDelegate OnDeath;
+    public int startZ;
 
     protected Homonculus homonculus;
 

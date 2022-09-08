@@ -16,7 +16,7 @@ public class Bone : Part
                     GetComponent<BoxCollider2D>().bounds.size.x;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, 2);
+        Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, startZ);
 
         transform.position = start;
     }
@@ -41,7 +41,7 @@ public class Bone : Part
             drawingHandler.RemovePart(this);
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, 2);
+        transform.position = new Vector3(transform.position.x, transform.position.y, startZ);
 
 
         baseHealth = yHealthScale * transform.lossyScale.y;

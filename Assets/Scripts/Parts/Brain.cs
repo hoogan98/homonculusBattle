@@ -19,7 +19,7 @@ public class Brain : Part
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.position = new Vector3(mousePos.x, mousePos.y, 1);
+        transform.position = new Vector3(mousePos.x, mousePos.y, startZ);
         transform.rotation = Quaternion.identity;
 
         handler.SetBrain(gameObject);
@@ -44,10 +44,11 @@ public class Brain : Part
     {
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision) {
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
         homonculus.PlayLightBrainHit();
     }
-    
+
     public override void FinishDraw(DrawParts drawingHandler)
     {
         base.FinishDraw(drawingHandler);

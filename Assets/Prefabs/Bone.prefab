@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3694555032006087983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.75, y: 0.31, z: 2}
+  m_LocalPosition: {x: 3.75, y: 0.31, z: 1}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_Children:
   - {fileID: 7991593876265200545}
@@ -115,6 +115,7 @@ MonoBehaviour:
   brainConnected: 0
   visited: 0
   creationSound: {fileID: 8300000, guid: 8d9c082eeadcf194b97ecf5fff1ee2a0, type: 3}
+  startZ: 5
   minX: 0.05
   yHealthScale: 10
   bonePref: {fileID: 3694555032006087983}
