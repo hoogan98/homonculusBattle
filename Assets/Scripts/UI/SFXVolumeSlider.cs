@@ -14,5 +14,6 @@ public class SFXVolumeSlider : MonoBehaviour
     public void OnSliderChange()
     {
         PlayerPrefs.SetFloat("SFXVolume", volumeSlider.value);
+        BackgroundSoundSingleton.instance.AudioSourceComponent.volume = volumeSlider.value;
     }
 }
