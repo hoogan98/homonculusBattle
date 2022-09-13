@@ -428,7 +428,7 @@ public class DrawParts : MonoBehaviour
     {
 
         GameObject newJointGo = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
-        newJointGo.transform.position = new Vector3(origin.x, origin.y, -3);
+        newJointGo.transform.position = new Vector3(origin.x, origin.y, 2);
         Vector3 newScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1);
         newJointGo.transform.localScale = newScale;
 

@@ -16,7 +16,7 @@ public class MyJoint : Part
     public override void StartDraw(DrawParts handler)
     {
         Vector2 mousePos = Input.mousePosition;
-        transform.position = new Vector3(mousePos.x, mousePos.y, -2);
+        transform.position = new Vector3(mousePos.x, mousePos.y, startZ);
 
         ratio = GetComponent<Transform>().localScale.x /
                     GetComponentInChildren<Renderer>().bounds.size.x;
