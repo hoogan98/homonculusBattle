@@ -412,19 +412,18 @@ public class DrawParts : MonoBehaviour
     //return him if you wanna reference him
     public GameObject CreateJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
-        GameObject newJointGo = CreateBasicJointAtPoint(origin, parent, other);
+        MyJoint newJoint = CreateBasicJointAtPoint(origin, parent, other);
 
         HingeJoint2D newHinge = parent.AddComponent<HingeJoint2D>();
         newHinge.connectedBody = other.GetComponent<Rigidbody2D>();
         newHinge.anchor = parent.transform.InverseTransformPoint(origin);
 
-        MyJoint newMyJoint = newJointGo.GetComponent<MyJoint>();
-        newMyJoint.hinge = newHinge;
+        newJoint.hinge = newHinge;
 
-        return newJointGo;
+        return newJoint.gameObject;
     }
 
-    public GameObject CreateBasicJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
+    public MyJoint CreateBasicJointAtPoint(Vector3 origin, GameObject parent, GameObject other)
     {
 
         GameObject newJointGo = Instantiate(jointPref, origin, parent.transform.rotation, parent.transform);
@@ -442,6 +441,8 @@ public class DrawParts : MonoBehaviour
         newMyJoint.connectedPart = other.GetComponent<Part>();
         _player.GetComponent<Homonculus>().ReportConnection(parent.GetComponent<Part>(), other.GetComponent<Part>());
 
-        return newJointGo;
+        newMyJoint.StartDraw();
+
+        return newMyJoint;
     }
 }
