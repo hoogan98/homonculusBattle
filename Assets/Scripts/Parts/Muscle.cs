@@ -243,8 +243,8 @@ public class Muscle : Part
         newSpring.enableCollision = true;
 
         //joints so the muslcess obey you
-        GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone, this.gameObject);
-        GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit, this.gameObject);
+        GameObject joint1 = handler.CreateBasicJointAtPoint(_drawAnchor, _firstBone, this.gameObject).gameObject;
+        GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit, this.gameObject).gameObject;
 
         //make sure to ignore collisions on the bones you are attached to
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());

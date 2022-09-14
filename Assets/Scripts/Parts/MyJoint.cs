@@ -6,23 +6,26 @@ public class MyJoint : Part
 {
     public HingeJoint2D hinge;
     public Part connectedPart;
-
-    private Animation startAnim;
+    public GameObject spinner;
 
     public override void Start()
     {
     }
 
-    public override void StartDraw(DrawParts handler)
+    public override void StartDraw(DrawParts drawingHandler)
     {
-        Vector2 mousePos = Input.mousePosition;
-        transform.position = new Vector3(mousePos.x, mousePos.y, startZ);
+        //don't call this we don't need to
+    }
+
+    public void StartDraw()
+    {
+        // Vector2 mousePos = Input.mousePosition;
+        // transform.position = new Vector3(mousePos.x, mousePos.y, startZ);
+
+        GameObject.Instantiate(spinner, transform.position, transform.rotation);
 
         ratio = GetComponent<Transform>().localScale.x /
                     GetComponentInChildren<Renderer>().bounds.size.x;
-
-        startAnim = GetComponent<Animation>();
-        startAnim.wrapMode = WrapMode.Once;
     }
 
     public override void StartGame()
