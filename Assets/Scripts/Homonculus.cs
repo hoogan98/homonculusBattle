@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Homonculus : MonoBehaviour
 {
+    public Part.DeathDelegate OnBrainDeath;
+
     private Part _brain;
     private Dictionary<Part, List<Part>> _connections;
     private CamFollowDouble camFollow;
@@ -37,6 +39,8 @@ public class Homonculus : MonoBehaviour
 
         audioPlayer = gameObject.GetComponent<AudioSource>();
 
+        audioPlayer.volume = PlayerPrefs.GetFloat("SFXVolume", 1);
+
         hitTimeCooldown = maxHitTimeCooldown;
     }
 
@@ -58,6 +62,10 @@ public class Homonculus : MonoBehaviour
         this.isP1 = isP1;
 
         _brain = GetComponentInChildren<Brain>();
+        
+        //if (OnBrainDeath != null) {
+            _brain.OnDeath += OnBrainDeath;
+        //}
     }
 
     public void RecalculateNeurons()
@@ -112,6 +120,9 @@ public class Homonculus : MonoBehaviour
 
     public void ReportConnection(Part p1, Part p2)
     {
+        if (_connections == null) {
+            return;
+        }
 
         if (_connections.ContainsKey(p1))
         {
@@ -141,6 +152,9 @@ public class Homonculus : MonoBehaviour
 
     public void ReportDestroyedPart(Part deadPart)
     {
+        if (_connections == null) {
+            return;
+        }
 
         if (!_connections.ContainsKey(deadPart))
         {
@@ -164,6 +178,8 @@ public class Homonculus : MonoBehaviour
 
     public void StartGame()
     {
+        BeginTracking(isP1);
+
         MyJoint[] allJoints = GetComponentsInChildren<MyJoint>();
 
         foreach (MyJoint j in allJoints)

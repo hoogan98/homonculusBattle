@@ -18,6 +18,10 @@ public class BackgroundMusicSingleton : MonoBehaviour
 
     public SceneMusic[] SceneMusicMap;
 
+    private List<AudioClip> allAudio;
+
+    private int currentClip;
+
     public AudioSource AudioSourceComponent => GetComponent<AudioSource>();
 
     private void Awake()
@@ -34,6 +38,51 @@ public class BackgroundMusicSingleton : MonoBehaviour
         }
 
         SceneManager.sceneLoaded += ReplaceMusic;
+
+        allAudio = new List<AudioClip>();
+        allAudio.AddRange(Resources.LoadAll<AudioClip>("music"));
+
+        SceneMusic sceneMusic = SceneMusicMap.First(value => value.sceneName == SceneManager.GetActiveScene().name);
+
+        currentClip = allAudio.IndexOf(sceneMusic.audioClip);
+    }
+
+    public string NextClip() {
+        currentClip++;
+
+        if (currentClip >= allAudio.Count) {
+            currentClip = 0;
+        }
+
+        for (int i = 0; i < SceneMusicMap.Length; i++)
+        {
+            SceneMusicMap[i].audioClip = allAudio[currentClip];
+        }
+
+        ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
+
+        return CurrentClipName();
+    }
+
+    public string PreviousClip() {
+        currentClip--;
+
+        if (currentClip < 0) {
+            currentClip = allAudio.Count - 1;
+        }
+
+        for (int i = 0; i < SceneMusicMap.Length; i++)
+        {
+            SceneMusicMap[i].audioClip = allAudio[currentClip];
+        }
+
+        ReplaceMusic(SceneManager.GetActiveScene(), new LoadSceneMode());
+
+        return CurrentClipName();
+    }
+
+    public string CurrentClipName() {
+        return allAudio[currentClip].name;
     }
 
     private void ReplaceMusic(Scene activeScene, LoadSceneMode mode)

@@ -13,6 +13,8 @@ public class CamFollowDouble : MonoBehaviour
     private Transform player2;
     private float minSize;
     private Camera cam;
+    private float bgSizeRatio;
+    private Transform bg;
 
     public void BeginGame(Transform player1Trans, Transform player2Trans)
     {
@@ -29,6 +31,10 @@ public class CamFollowDouble : MonoBehaviour
         cam = GetComponent<Camera>();
 
         minSize = cam.orthographicSize;
+
+        bg = transform.GetChild(0);
+
+        bgSizeRatio = bg.localScale.x / minSize;
     }
 
     private float CamWidth() {
@@ -76,6 +82,9 @@ public class CamFollowDouble : MonoBehaviour
 
                 transform.position = new Vector3(midPos.x, midPos.y, transform.position.z);
                 cam.orthographicSize = newSize;
+
+                float newScale = newSize * bgSizeRatio;
+                bg.localScale = new Vector3(newScale, newScale, bg.transform.localScale.z);
 
                 return;
             }
