@@ -20,4 +20,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Controls.unity
     guid: 72fd50aabceba1840a3d8215beb17862
+  - enabled: 1
+    path: Assets/Scenes/MapSelector.unity
+    guid: 8037d30915d71ea4f99f53fa8c832a84
+  - enabled: 1
+    path: Assets/Scenes/obstacleMaps/gap.unity
+    guid: af5a662e42a750f4b92bf6ffc59535c4
+  - enabled: 1
+    path: Assets/Scenes/obstacleMaps/holeInTheWall.unity
+    guid: 535ed75d339718c4b91ca1bc53105361
+  - enabled: 1
+    path: Assets/Scenes/obstacleMaps/incline.unity
+    guid: 61c532462f05e834083df1e5f8861013
+  - enabled: 1
+    path: Assets/Scenes/obstacleMaps/ladder.unity
+    guid: 7cc6a4c1882371a4180ec76d603a07ed
+  - enabled: 1
+    path: Assets/Scenes/obstacleMaps/smallWall.unity
+    guid: 36ed41cf8215bc844bd69c56561a7435
+  - enabled: 1
+    path: Assets/Scenes/2pMaps/BumpyRoad.unity
+    guid: b2e929730ceb61d41972f960f668d186
+  - enabled: 1
+    path: Assets/Scenes/2pMaps/DinalFestination.unity
+    guid: e1677b7e5b9ec3746a0cc3dec82779be
+  - enabled: 1
+    path: Assets/Scenes/2pMaps/FlatGround.unity
+    guid: ae17169db285cd24fae41524bdca4e20
+  - enabled: 1
+    path: Assets/Scenes/2pMaps/SlideOff.unity
+    guid: 16b82fcb8f7f02843806533f8b8db9ae
+  - enabled: 1
+    path: Assets/Scenes/2pMaps/SlideTogether.unity
+    guid: d6ffb439fc2e2254197230d395291d71
   m_configObjects: {}
