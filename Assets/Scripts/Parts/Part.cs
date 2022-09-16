@@ -19,11 +19,14 @@ public abstract class Part : MonoBehaviour
     public delegate void DeathDelegate();
     public DeathDelegate OnDeath;
     public int startZ;
+    public float bigHitThreshold;
+    public float minSoundDamage;
+    public AudioClip breakSound;
+    public AudioClip[] uniqueLightHits;
+    public AudioClip[] uniqueBigHits;
+    public AudioClip useSound;
 
     protected Homonculus homonculus;
-
-    private float bigHitThreshold = 7f;
-    private float minSoundDamage = 3f;
 
     public virtual void Start()
     {
@@ -80,11 +83,19 @@ public abstract class Part : MonoBehaviour
         }
         else if (damage > bigHitThreshold)
         {
-            homonculus.PlayBigHit();
+            if (uniqueBigHits.Length != 0) {
+                homonculus.PlayCooldownSound(uniqueBigHits.PickRandom<AudioClip>());
+            } else {
+                homonculus.PlayBigHit();
+            }
         }
         else
         {
-            homonculus.PlayLightHit();
+            if (uniqueLightHits.Length != 0) {
+                homonculus.PlayCooldownSound(uniqueLightHits.PickRandom<AudioClip>());
+            } else {
+                homonculus.PlayLightHit();
+            }
         }
     }
 

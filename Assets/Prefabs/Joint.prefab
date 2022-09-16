@@ -54,6 +54,12 @@ MonoBehaviour:
   visited: 0
   creationSound: {fileID: 8300000, guid: b8894820f4f342849877bcda3064ab65, type: 3}
   startZ: 12
+  bigHitThreshold: 0
+  minSoundDamage: 0
+  breakSound: {fileID: 0}
+  uniqueLightHits: []
+  uniqueBigHits: []
+  useSound: {fileID: 8300000, guid: b8894820f4f342849877bcda3064ab65, type: 3}
   hinge: {fileID: 0}
   connectedPart: {fileID: 0}
   spinner: {fileID: 9025078111551565657, guid: 2bd729314d6f3c54a80da7a42e28f32f, type: 3}

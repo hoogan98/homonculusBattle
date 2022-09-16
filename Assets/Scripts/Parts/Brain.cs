@@ -44,11 +44,6 @@ public class Brain : Part
     {
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        homonculus.PlayLightBrainHit();
-    }
-
     public override void FinishDraw(DrawParts drawingHandler)
     {
         base.FinishDraw(drawingHandler);
