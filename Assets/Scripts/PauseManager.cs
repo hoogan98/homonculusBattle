@@ -31,7 +31,8 @@ public class PauseManager : MonoBehaviour
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
-        } else if (Input.GetKeyDown(KeyCode.Escape))
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
@@ -40,6 +41,14 @@ public class PauseManager : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        try
+        {
+            SceneManager.MoveGameObjectToScene(GameObject.Find("win box"), SceneManager.GetActiveScene());
+        }
+        catch
+        {
+            Debug.Log("no winbox?");
+        }
         SceneManager.LoadScene("Scenes/Menu");
     }
 }
