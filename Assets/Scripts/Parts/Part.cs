@@ -172,4 +172,8 @@ public abstract class Part : MonoBehaviour
         OnDeath();
         Destroy(gameObject);
     }
+
+    public virtual void Die() {
+        Destroy(gameObject);
+    }
 }

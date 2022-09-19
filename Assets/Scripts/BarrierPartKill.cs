@@ -16,7 +16,7 @@ public class BarrierPartKill : MonoBehaviour
         {
             if (collision.gameObject.CompareTag(tag))
             {
-                collision.gameObject.GetComponent<Part>().Break();
+                collision.gameObject.GetComponent<Part>().Die();
                 return;
             }
         }
