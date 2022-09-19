@@ -2673,7 +2673,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: win box
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 75595551367239376, guid: f76b358d415e3b440af57a1606df61da, type: 3}
+    - {fileID: 5444152787194764497, guid: f76b358d415e3b440af57a1606df61da, type: 3}
+    - {fileID: 676306754920658085, guid: f76b358d415e3b440af57a1606df61da, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f76b358d415e3b440af57a1606df61da, type: 3}
 --- !u!1 &1999978965
 GameObject:
