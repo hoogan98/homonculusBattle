@@ -26,6 +26,9 @@ public class MyJoint : Part
 
         ratio = GetComponent<Transform>().localScale.x /
                     GetComponentInChildren<Renderer>().bounds.size.x;
+
+        homonculus = transform.parent.parent.GetComponent<Homonculus>();
+        homonculus.PlaySound(useSound);
     }
 
     public override void StartGame()
@@ -39,8 +42,7 @@ public class MyJoint : Part
 
     public override void FinishDraw(DrawParts drawingHandler)
     {
-        homonculus = transform.parent.parent.GetComponent<Homonculus>();
-        homonculus.PlaySound(useSound);
+
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
