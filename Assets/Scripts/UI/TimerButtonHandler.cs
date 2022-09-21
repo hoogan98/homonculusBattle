@@ -70,7 +70,7 @@ public class TimerButtonHandler : MonoBehaviour
         if (!_p1Done)
         {
             _time += Time.deltaTime;
-            _startButton.GetComponentInChildren<Text>().text = _time + " seconds";
+            _startButton.GetComponentInChildren<Text>().text = FloatToTime(_time);
         }
         else if (!_ready)
         {
@@ -79,7 +79,7 @@ public class TimerButtonHandler : MonoBehaviour
         else
         {
             _time -= Time.deltaTime;
-            _startButton.GetComponentInChildren<Text>().text = _time + " seconds";
+            _startButton.GetComponentInChildren<Text>().text = FloatToTime(_time);
             if (_time <= 0)
             {
                 StartGame();
@@ -135,5 +135,17 @@ public class TimerButtonHandler : MonoBehaviour
         Destroy(gameObject);
         
         Camera.main.GetComponent<WinCheck>().StartGame();
+    }
+
+    public string FloatToTime(float seconds) {
+        float fraction = seconds / 60f;
+        int hr = Mathf.FloorToInt(fraction);
+        int sec = Mathf.FloorToInt((fraction - hr) * 60);
+
+        if (sec < 10) {
+            return hr.ToString() + ":0" + sec.ToString();
+        }
+
+        return hr.ToString() + ":" + sec.ToString();
     }
 }
