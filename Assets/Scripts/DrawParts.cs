@@ -109,7 +109,7 @@ public class DrawParts : MonoBehaviour
             { DrawMode.Muscle, musclePref },
             { DrawMode.KeyBind, null }
         };
-        SetDrawing(DrawMode.Brain);
+        //SetDrawing(DrawMode.Brain);
 
         _drawnParts = new List<GameObject>();
 
@@ -120,6 +120,8 @@ public class DrawParts : MonoBehaviour
     {
         try
         {
+            SetDrawing(DrawMode.Brain);
+            
             _player = Instantiate<GameObject>(PreviousHomonculus.instance.go, gameObject.transform.position, Quaternion.identity);
 
             _player.SetActive(true);
