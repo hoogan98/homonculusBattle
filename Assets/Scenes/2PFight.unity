@@ -787,7 +787,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Draw Object: Bone'
+  m_Text: Wait...
 --- !u!222 &314771729
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -866,7 +866,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Draw Object: Bone'
+  m_Text: Wait...
 --- !u!222 &318354404
 CanvasRenderer:
   m_ObjectHideFlags: 0
