@@ -13,10 +13,12 @@ public class WinCheck : MonoBehaviour
     public Text winText;
 
     private bool _started;
+    private WinPhraseGenerator winGenerator;
 
     private void Start()
     {
         _started = false;
+        winGenerator =GetComponent<WinPhraseGenerator>();
     }
 
     void Update()
@@ -28,7 +30,7 @@ public class WinCheck : MonoBehaviour
 
         if (p1Brain == null)
         {
-            winText.text = "P2 Wins";
+            winText.text = "P2 is the " + winGenerator.GetTitle();
             
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
@@ -37,7 +39,7 @@ public class WinCheck : MonoBehaviour
         }
         if (p2Brain == null)
         {
-            winText.text = "P1 Wins";
+            winText.text = "P1 is the " + winGenerator.GetTitle();
             
             Instantiate(menuButton, canvas.transform);
             Instantiate(againButton, canvas.transform);
