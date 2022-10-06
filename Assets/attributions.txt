@@ -19,7 +19,7 @@ jazz song - https://freemusicarchive.org/music/US_Army_Blues/Live_At_Blues_Alley
 blues song - https://freemusicarchive.org/music/Kevin_MacLeod/Blues_Sampler/Slow_Burn/
 synthwave song - https://freemusicarchive.org/music/holiznacc0/gamer-beats/hard-mode/
 ui arrows - https://publicdomainvectors.org/en/free-clipart/Arrow-pointer-right-vector-clip-art/26531.html <- this might be replaced by that ▼
-ui bone pointers - https://publicdomainvectors.org/en/free-clipart/Standing-human-skeleton-vector-image/28669.html
+ui bone pointers - https://publicdomainvectors.org/en/free-clipart/Standing-human-skeleton-vector-image/28669.html  nevermind that ^ is too confusing
 ai art backgrounds - https://creativecommons.org/licenses/by-nc/4.0/legalcode (license) - https://www.midjourney.com/home/ (source)
 metal plates - https://publicdomainvectors.org/en/free-clipart/Metal-plate/56219.html
 bone - https://publicdomainvectors.org/en/free-clipart/Arm-bone/57966.html
