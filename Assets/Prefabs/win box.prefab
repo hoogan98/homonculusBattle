@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dbe814c5022eb4d94ae575f923cd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winText: {fileID: 0}
+  winSound: {fileID: 8300000, guid: 191e7d7bdf56f104d836c0f776628ff0, type: 3}
   menuButton: {fileID: 0}
   againButton: {fileID: 0}
   canvas: {fileID: 0}
