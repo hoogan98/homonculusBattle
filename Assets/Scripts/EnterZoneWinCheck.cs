@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class EnterZoneWinCheck : MonoBehaviour
 {
-    public Text winText;
+    public AudioClip winSound;
     public Button menuButton;
     public Button againButton;
     public GameObject canvas;
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Brain")) {
-            winText.text = "You Win";
-             Instantiate(againButton, canvas.transform);
+            other.gameObject.GetComponentInParent<Homonculus>().PlaySound(winSound);
+            Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
         }
     }

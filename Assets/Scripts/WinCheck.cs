@@ -11,12 +11,15 @@ public class WinCheck : MonoBehaviour
     public Button menuButton;
     public Button againButton;
     public Text winText;
+    public AudioClip winSound;
 
     private bool _started;
+    private WinPhraseGenerator winGenerator;
 
     private void Start()
     {
         _started = false;
+        winGenerator =GetComponent<WinPhraseGenerator>();
     }
 
     void Update()
@@ -28,7 +31,8 @@ public class WinCheck : MonoBehaviour
 
         if (p1Brain == null)
         {
-            winText.text = "P2 Wins";
+            winText.text = "P2 is the " + winGenerator.GetTitle();
+            p2Brain.GetComponentInParent<Homonculus>().PlaySound(winSound);
             
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
@@ -37,7 +41,8 @@ public class WinCheck : MonoBehaviour
         }
         if (p2Brain == null)
         {
-            winText.text = "P1 Wins";
+            winText.text = "P1 is the " + winGenerator.GetTitle();
+            p1Brain.GetComponentInParent<Homonculus>().PlaySound(winSound);
             
             Instantiate(menuButton, canvas.transform);
             Instantiate(againButton, canvas.transform);

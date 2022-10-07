@@ -18,7 +18,8 @@ Squish_1.ogg - https://freesound.org/people/editor_adp/sounds/269485/
 jazz song - https://freemusicarchive.org/music/US_Army_Blues/Live_At_Blues_Alley/0_-_04_-_The_US_Army_Blues_-_Not_On_The_Bus/
 blues song - https://freemusicarchive.org/music/Kevin_MacLeod/Blues_Sampler/Slow_Burn/
 synthwave song - https://freemusicarchive.org/music/holiznacc0/gamer-beats/hard-mode/
-ui arrows - https://publicdomainvectors.org/en/free-clipart/Arrow-pointer-right-vector-clip-art/26531.html
+ui arrows - https://publicdomainvectors.org/en/free-clipart/Arrow-pointer-right-vector-clip-art/26531.html <- this might be replaced by that ▼
+ui bone pointers - https://publicdomainvectors.org/en/free-clipart/Standing-human-skeleton-vector-image/28669.html  nevermind that ^ is too confusing
 ai art backgrounds - https://creativecommons.org/licenses/by-nc/4.0/legalcode (license) - https://www.midjourney.com/home/ (source)
 metal plates - https://publicdomainvectors.org/en/free-clipart/Metal-plate/56219.html
 bone - https://publicdomainvectors.org/en/free-clipart/Arm-bone/57966.html
@@ -30,3 +31,8 @@ mute clipart - https://www.flaticon.com/free-icon/mute_565295?term=volume%20mute
 construction tape - https://publicdomainvectors.org/en/free-clipart/Under-Construction-Yellow-Sign/35562.html
 cursor image - http://www.rw-designer.com/cursor-detail/82056
 falling scream - https://freesound.org/people/Mordecai666/sounds/579818/
+death walls - https://www.pexels.com/photo/rusty-nails-in-a-bowl-7790669/
+party whistle noise - https://freesound.org/people/D.jones/sounds/532853/
+win music - https://freesound.org/people/humanoide9000/sounds/466133/
+medal - https://publicdomainvectors.org/en/free-clipart/Vector-clip-art-of-medal-with-red-ribbon/28850.html
+checkered flags - https://publicdomainvectors.org/en/free-clipart/Racing-Flags-vector/18883.html
