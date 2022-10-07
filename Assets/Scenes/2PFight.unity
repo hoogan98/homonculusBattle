@@ -1553,6 +1553,7 @@ MonoBehaviour:
   againButton: {fileID: 5302949789375305329, guid: 885b75438a416d8498363d41417da355,
     type: 3}
   winText: {fileID: 2072236723}
+  winSound: {fileID: 8300000, guid: 191e7d7bdf56f104d836c0f776628ff0, type: 3}
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
