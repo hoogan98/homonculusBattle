@@ -20,7 +20,9 @@ public class WinPhraseGenerator : MonoBehaviour
         "Luckiest",
         "Dumbest",
         "Worst",
-        "Second-Best"
+        "Second-Best",
+        "Sexiest",
+        "Cutest"
     };
 
     private string[] midWords = new string[]{
