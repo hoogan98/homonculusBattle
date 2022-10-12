@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Brain : Part
 {
@@ -49,5 +50,12 @@ public class Brain : Part
         base.FinishDraw(drawingHandler);
 
         drawingHandler.EndDraw();
+    }
+
+    public override void Die()
+    {
+        Debug.Log("running scene reset");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        base.Die();
     }
 }
