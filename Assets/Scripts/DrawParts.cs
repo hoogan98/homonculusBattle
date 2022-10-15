@@ -222,7 +222,6 @@ public class DrawParts : MonoBehaviour
 
         if (Input.GetKeyDown(drawKeys[DrawControl.PlacePart]))
         {
-            Debug.Log("getkey of place part was found");
             if (_deleteMode)
             {
                 DeleteParts();
@@ -295,7 +294,6 @@ public class DrawParts : MonoBehaviour
 
     private void MouseClickHandler()
     {
-        Debug.Log("mouse clickHandler activated");
         if (_deleteMode || !isActive)
         {
             return;
