@@ -29,13 +29,11 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !IsPaused)
         {
-            Time.timeScale = 0;
-            pauseMenu.SetActive(true);
+            Pause();
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 1;
-            pauseMenu.SetActive(false);
+            UnPause();
         }
     }
 
@@ -49,6 +47,19 @@ public class PauseManager : MonoBehaviour
         {
             Debug.Log("no winbox?");
         }
+
+        UnPause();
+
         SceneManager.LoadScene("Scenes/Menu");
+    }
+
+    public void Pause() {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+    }
+
+    public void UnPause() {
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
     }
 }
