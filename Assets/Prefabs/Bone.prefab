@@ -116,8 +116,8 @@ MonoBehaviour:
   visited: 0
   creationSound: {fileID: 8300000, guid: 8d9c082eeadcf194b97ecf5fff1ee2a0, type: 3}
   startZ: 5
-  bigHitThreshold: 0
-  minSoundDamage: 0
+  bigHitThreshold: 3
+  minSoundDamage: 1
   breakSound: {fileID: 8300000, guid: 8d9c082eeadcf194b97ecf5fff1ee2a0, type: 3}
   uniqueLightHits: []
   uniqueBigHits: []
