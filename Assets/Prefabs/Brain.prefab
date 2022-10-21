@@ -133,6 +133,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1c1c921400830f3448a13b54c61339ed, type: 3}
   - {fileID: 8300000, guid: e42b31809a3867d488ec5f596205a14a, type: 3}
   useSound: {fileID: 0}
+  giblet: {fileID: 6034382562545222853, guid: 8fa4cb78d4b10524fba20eb6f58078fa, type: 3}
+  maxGibs: 20
 --- !u!1 &6576712561092495357
 GameObject:
   m_ObjectHideFlags: 0

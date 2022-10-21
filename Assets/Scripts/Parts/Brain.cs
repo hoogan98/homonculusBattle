@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Brain : Part
 {
+    public GameObject giblet;
+    public int maxGibs;
+
     public override void StartDraw(DrawParts handler)
     {
         ratio = GetComponent<Transform>().localScale.x /
@@ -54,8 +56,17 @@ public class Brain : Part
 
     public override void Die()
     {
-        Debug.Log("running scene reset");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        int gibCount = Random.Range(maxGibs / 2, maxGibs + 1);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        for (int i = 0; i < gibCount; i++) {
+            Rigidbody2D newGibRb = Instantiate(giblet, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
+            newGibRb.AddForce(rb.velocity);
+            newGibRb.AddTorque(rb.rotation);
+        }
+
         base.Die();
     }
+
+    
 }
