@@ -28,7 +28,7 @@ public class Muscle : Part
     public override void Start()
     {
         base.Start();
-        _started = false;
+        _started = homonculus.enemy;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         _flexed = false;
     }
@@ -77,7 +77,7 @@ public class Muscle : Part
         Vector3 newPos = (joint1Pos + joint2Pos) * 0.5f;
         transform.position = new Vector3(newPos.x, newPos.y, startZ);
 
-        if (brainConnected)
+        if (brainConnected && !homonculus.enemy)
         {
 
             if (Input.GetKeyDown(_flexKey))
