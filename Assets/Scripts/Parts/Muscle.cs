@@ -247,8 +247,8 @@ public class Muscle : Part
         GameObject joint2 = handler.CreateBasicJointAtPoint(mousePos, nextHit, this.gameObject).gameObject;
 
         //make sure to ignore collisions on the bones you are attached to
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), nextHit.GetComponent<BoxCollider2D>());
+        // Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), _firstBone.GetComponent<BoxCollider2D>());
+        // Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), nextHit.GetComponent<BoxCollider2D>());
 
         newSpring.distance = Vector3.Distance(joint1.transform.position, joint2.transform.position);
 
@@ -299,6 +299,9 @@ public class Muscle : Part
         _started = true;
         spring.frequency = _springStrengthDefault;
 
+        //get rid of the collider you use to assign hits
+        Destroy(GetComponent<BoxCollider2D>());
+
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();
         //this.spring.breakForce = springHealth * this.healthScale;
@@ -308,7 +311,7 @@ public class Muscle : Part
     {
         homonculus.PlayCooldownSound(breakSound);
         Destroy(spring);
-        Destroy(GetComponent<BoxCollider2D>());
+        //Destroy(GetComponent<BoxCollider2D>());
         HingeJoint2D newHinge = gameObject.AddComponent<HingeJoint2D>();
         newHinge.anchor = transform.InverseTransformPoint(anchorJoint.transform.position);
         newHinge.connectedAnchor =
