@@ -5,12 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class OnBrainDeath : MonoBehaviour
 {
+    private Brain attachedBrain;
+
     void Start() {
-        GetComponent<Homonculus>().OnBrainDeath += ResetScene;
+        attachedBrain = GetComponentInChildren<Brain>();
+
+        if (attachedBrain.IsEnemy()) {
+            attachedBrain.OnDeath += DisplayWinText;
+        } else {
+            attachedBrain.OnDeath += ResetScene;
+        }
     }
 
     public void ResetScene() {
-        Debug.Log("running scene reset");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void DisplayWinText() {
+        Debug.Log("wiener");
     }
 }
