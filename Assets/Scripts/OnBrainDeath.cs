@@ -9,8 +9,9 @@ public class OnBrainDeath : MonoBehaviour
 
     void Start() {
         attachedBrain = GetComponentInChildren<Brain>();
+        Homonculus self = GetComponent<Homonculus>();
 
-        if (attachedBrain.IsEnemy()) {
+        if (self.enemy) {
             attachedBrain.OnDeath += DisplayWinText;
         } else {
             attachedBrain.OnDeath += ResetScene;
