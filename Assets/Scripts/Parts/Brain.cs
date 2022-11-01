@@ -81,6 +81,6 @@ public class Brain : Part
         yield return new WaitForSeconds(resetSeconds);
 
         OnDeath();
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

@@ -135,6 +135,7 @@ MonoBehaviour:
   useSound: {fileID: 0}
   giblet: {fileID: 6034382562545222853, guid: 8fa4cb78d4b10524fba20eb6f58078fa, type: 3}
   maxGibs: 20
+  resetSeconds: 5
 --- !u!1 &6576712561092495357
 GameObject:
   m_ObjectHideFlags: 0

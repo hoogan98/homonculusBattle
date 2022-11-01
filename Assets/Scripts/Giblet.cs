@@ -9,7 +9,6 @@ public class Giblet : MonoBehaviour
     public Sprite[] possibleSprites;
     public float velDeviation;
     public float torqueDeviation;
-    public float resetSeconds;
     public AudioClip[] hitSounds;
 
     private AudioSource player;
