@@ -9,7 +9,6 @@ public class Giblet : MonoBehaviour
     public Sprite[] possibleSprites;
     public float velDeviation;
     public float torqueDeviation;
-    public float resetSeconds;
     public AudioClip[] hitSounds;
 
     private AudioSource player;
@@ -23,18 +22,9 @@ public class Giblet : MonoBehaviour
         rb.AddTorque(Random.Range(-torqueDeviation, torqueDeviation));
 
         player = GetComponent<AudioSource>();
-
-        StartCoroutine(ResetAfterSeconds());
     }
 
-    IEnumerator ResetAfterSeconds()
-    {
-        yield return new WaitForSeconds(resetSeconds);
-
-        Debug.Log("running scene reset");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Destroy(gameObject);
-    }
+    
 
     public void OnCollisionEnter2D(Collision2D col)
     {

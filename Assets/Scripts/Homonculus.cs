@@ -5,6 +5,7 @@ using UnityEngine;
 public class Homonculus : MonoBehaviour
 {
     public Part.DeathDelegate OnBrainDeath;
+    public bool enemy;
 
     private Part _brain;
     private Dictionary<Part, List<Part>> _connections;
@@ -34,6 +35,10 @@ public class Homonculus : MonoBehaviour
         audioPlayer.volume = PlayerPrefs.GetFloat("SFXVolume", 1);
 
         hitTimeCooldown = maxHitTimeCooldown;
+
+        if (enemy) {
+            isP1 = false;
+        }
     }
 
     public void BeginTracking(bool isP1)

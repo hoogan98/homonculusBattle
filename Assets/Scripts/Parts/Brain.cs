@@ -6,6 +6,7 @@ public class Brain : Part
 {
     public GameObject giblet;
     public int maxGibs;
+    public float resetSeconds;
 
     public override void StartDraw(DrawParts handler)
     {
@@ -65,8 +66,21 @@ public class Brain : Part
             newGibRb.AddTorque(rb.rotation);
         }
 
-        base.Die();
+        Destroy(GetComponent<SpriteRenderer>());
+        Destroy(GetComponent<BoxCollider2D>());
+
+        StartCoroutine(OnDeathAfterSeconds());
     }
 
-    
+    public bool IsEnemy() {
+        return homonculus.enemy;
+    }
+
+    IEnumerator OnDeathAfterSeconds()
+    {
+        yield return new WaitForSeconds(resetSeconds);
+
+        OnDeath();
+        Destroy(transform.parent.gameObject);
+    }
 }

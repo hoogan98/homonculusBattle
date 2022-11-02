@@ -10,6 +10,8 @@ public class ObstacleModeStarter : MonoBehaviour
     public Text p1DrawText;
     public float gravity;
     public GameObject barriers;
+    public GameObject enemy;
+    public Vector2 enemyStartLocation;
 
     private Button _startButton;
     private bool _ready;
@@ -51,6 +53,8 @@ public class ObstacleModeStarter : MonoBehaviour
         
         DrawParts drawer = p1DrawZone.GetComponent<DrawParts>();
 
+        drawer.GetPlayer().AddComponent<OnBrainDeath>();
+
         drawer.SavePlayer();
 
         List<GameObject> parts = drawer.GetParts();
@@ -79,6 +83,11 @@ public class ObstacleModeStarter : MonoBehaviour
         Destroy(p1DrawZone);
         Destroy(p1DrawText);
         Destroy(barriers);
+
+        if (enemy != null) {
+            Instantiate(enemy, enemyStartLocation, Quaternion.identity); 
+        }
+
         Destroy(gameObject);
     }
 }
