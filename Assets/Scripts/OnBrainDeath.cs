@@ -23,7 +23,7 @@ public class OnBrainDeath : MonoBehaviour
         try {
             winGenerator = GetComponent<WinPhraseGenerator>();
             canvas = GameObject.Find("Canvas");
-            winText = GameObject.Find("Win Text").GetComponent<Text>();
+            winText = GameObject.Find("Canvas/WinText").GetComponent<Text>();
         } catch {
             Debug.Log("win ui text error");
         }

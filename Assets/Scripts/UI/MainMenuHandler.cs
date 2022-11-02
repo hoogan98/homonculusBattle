@@ -11,7 +11,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("smallWall");
+        SceneManager.LoadScene("1PFightPrototype");
     }
 
     public void StartTutorial()
