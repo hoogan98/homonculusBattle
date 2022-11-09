@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamFollowSingle : MonoBehaviour
+public class CamFollowSingle : CamFollow
 {
     public float camLerpT;
     
-    private Transform player;
 
     public void BeginGame(Transform playerTrans) {
         try{
-            player = playerTrans.GetComponentInChildren<Brain>().transform;
+            player1 = playerTrans.GetComponentInChildren<Brain>().transform;
         } catch {
             Destroy(this);
         }
@@ -18,8 +17,8 @@ public class CamFollowSingle : MonoBehaviour
     }
 
     public void Update() {
-        if (player != null) {
-            Vector3 approachPos = Vector3.Lerp(transform.position, player.position, camLerpT*Time.deltaTime);
+        if (player1 != null) {
+            Vector3 approachPos = Vector3.Lerp(transform.position, player1.position, camLerpT*Time.deltaTime);
             transform.position = new Vector3(approachPos.x, approachPos.y, transform.position.z);
         }
     }

@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamFollowDouble : MonoBehaviour
+public class CamFollowDouble : CamFollow
 {
     public float camLerpT;
     public float camZoomSpeed;
     public float maxPlayerDistCoeff;
     public float minPlayerDistCoeff;
-
-    private Transform player1;
+    
     private Transform player2;
     private float minSize;
     private Camera cam;
