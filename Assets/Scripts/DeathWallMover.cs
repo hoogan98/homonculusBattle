@@ -11,6 +11,7 @@ public class DeathWallMover : MonoBehaviour
 
     public void Start() {
         speed = PlayerPrefs.GetFloat("DeathWallSpeed", 1);
+        this.enabled = false;
     }
 
     public void Update()

@@ -53,6 +53,10 @@ public class ObstacleModeStarter : MonoBehaviour
         
         DrawParts drawer = p1DrawZone.GetComponent<DrawParts>();
 
+        foreach (DeathWallMover mover in GameObject.Find("edgeBarriers").GetComponentsInChildren<DeathWallMover>()) {
+            mover.enabled = true;
+        }
+
         drawer.GetPlayer().AddComponent<OnBrainDeath>();
 
         drawer.SavePlayer();
