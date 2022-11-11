@@ -458,7 +458,7 @@ Transform:
   - {fileID: 1958515721}
   - {fileID: 1661179572}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &122747608
 GameObject:
@@ -1047,7 +1047,7 @@ PrefabInstance:
     - target: {fileID: 6613797552514195391, guid: 43092f89aa175d047bd2b050a165d32b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6613797552514195391, guid: 43092f89aa175d047bd2b050a165d32b,
         type: 3}
@@ -1106,6 +1106,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43092f89aa175d047bd2b050a165d32b, type: 3}
+--- !u!1 &566072947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 6783207581461221394, guid: 1e4cd6ac0daca1f4e955ff171ec76317,
+    type: 3}
+  m_PrefabInstance: {fileID: 2125847923}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 566072948}
+  m_Layer: 0
+  m_Name: 'death walls (Missing Prefab with guid: 1e4cd6ac0daca1f4e955ff171ec76317)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &566072948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 6783207581461221395, guid: 1e4cd6ac0daca1f4e955ff171ec76317,
+    type: 3}
+  m_PrefabInstance: {fileID: 2125847923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566072947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &595763479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,7 +1448,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &662722555
 GameObject:
@@ -3451,6 +3483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90518ced810f5d45bad0d7b158c7870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 0}
   camLerpT: 1
   camZoomSpeed: 1
   maxPlayerDistCoeff: 0.6
@@ -3508,6 +3541,7 @@ MonoBehaviour:
   againButton: {fileID: 5302949789375305329, guid: 885b75438a416d8498363d41417da355,
     type: 3}
   winText: {fileID: 449024636}
+  winSound: {fileID: 0}
 --- !u!20 &1513997354
 Camera:
   m_ObjectHideFlags: 0
@@ -3564,7 +3598,7 @@ Transform:
   m_Children:
   - {fileID: 595763480}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1513997356
 MonoBehaviour:
@@ -3743,7 +3777,7 @@ RectTransform:
   - {fileID: 449024635}
   - {fileID: 1670422752}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4417,7 +4451,7 @@ Canvas:
   m_GameObject: {fileID: 1701304462}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1513997354}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
@@ -4445,7 +4479,7 @@ RectTransform:
   - {fileID: 2128907522}
   - {fileID: 398063522}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5023,7 +5057,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958515717
 GameObject:
@@ -5145,7 +5179,7 @@ Transform:
   - {fileID: 860806293}
   - {fileID: 1188591344}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2072164145
 GameObject:
