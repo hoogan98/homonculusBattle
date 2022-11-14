@@ -123,9 +123,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e7ca390d71b942e4fa561e908ae2be1d, type: 3}
   - {fileID: 21300000, guid: d7d104ba8eff8744c90ddfdb90000722, type: 3}
   - {fileID: 21300000, guid: c34233ee1b72ef347836f46198dbe6ae, type: 3}
-  velDeviation: 1000
-  torqueDeviation: 5
-  resetSeconds: 5
+  velDeviation: 1500
+  torqueDeviation: 3
   hitSounds:
   - {fileID: 8300000, guid: 435867e3b409fc945890931a86e2675c, type: 3}
   - {fileID: 8300000, guid: f5d2a6df6588833458eb900e9b1004e6, type: 3}

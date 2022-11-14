@@ -15,7 +15,7 @@ public class Giblet : MonoBehaviour
 
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = possibleSprites.PickRandom<Sprite>();
+        GetComponent<SpriteRenderer>().sprite = possibleSprites[Random.Range(0, possibleSprites.Length)];
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(Random.Range(-velDeviation, velDeviation), Random.Range(-velDeviation, velDeviation)));
