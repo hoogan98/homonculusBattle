@@ -2653,6 +2653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d709cb50747a8464581d70e5e9efc9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 0}
   camLerpT: 0.5
 --- !u!114 &1546577971
 MonoBehaviour:
@@ -3468,7 +3469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 61}
+  m_AnchoredPosition: {x: 170, y: 0}
   m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943026263
@@ -3487,6 +3488,8 @@ MonoBehaviour:
   p1DrawText: {fileID: 1714227259}
   gravity: 1
   barriers: {fileID: 538484052}
+  enemy: {fileID: 0}
+  enemyStartLocation: {x: 0, y: 0}
 --- !u!114 &1943026264
 MonoBehaviour:
   m_ObjectHideFlags: 0

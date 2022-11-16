@@ -83,7 +83,6 @@ public class Brain : Part
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("entered the brain one");
         float damage = collision.relativeVelocity.magnitude * collision.otherRigidbody.mass;
 
         HitSoundHandler(damage, collision.gameObject.CompareTag("Ground"));
