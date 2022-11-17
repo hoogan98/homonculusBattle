@@ -11,7 +11,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("1PFightPrototype");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void StartTutorial()
