@@ -10,11 +10,22 @@ public class EnterZoneWinCheck : MonoBehaviour
     public Button againButton;
     public GameObject canvas;
 
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Brain")) {
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Brain"))
+        {
             other.gameObject.GetComponentInParent<Homonculus>().PlaySound(winSound);
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
+
+            try
+            {
+                GetComponent<LevelUpHandler>().LevelUp();
+            }
+            catch
+            {
+                Debug.Log("no level up handler found");
+            }
         }
     }
 }

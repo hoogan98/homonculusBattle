@@ -10,4 +10,10 @@ public static class Utilities
         var choice = r.Next(0, array.Length - 1);
         return array[choice];
     }
+
+    public enum LevelType {
+        obstacle,
+        boss,
+        multiplayer
+    }
 }

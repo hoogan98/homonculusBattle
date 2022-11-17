@@ -8,8 +8,13 @@ using UnityEngine.UI;
 public class LevelSelectButton : MonoBehaviour
 {
     public string sceneName;
+    public Utilities.LevelType levelType;
+    public int unlocksRequired;
 
     public void Click() {
-        SceneManager.LoadScene("gap");
+        Debug.Log(levelType.ToString());
+        if (PlayerPrefs.GetInt(levelType.ToString(), 0) >= unlocksRequired) {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
