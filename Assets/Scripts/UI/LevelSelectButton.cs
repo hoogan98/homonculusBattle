@@ -12,7 +12,6 @@ public class LevelSelectButton : MonoBehaviour
     public int unlocksRequired;
 
     public void Click() {
-        Debug.Log(levelType.ToString());
         if (PlayerPrefs.GetInt(levelType.ToString(), 0) >= unlocksRequired) {
             SceneManager.LoadScene(sceneName);
         }

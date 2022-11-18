@@ -54,6 +54,9 @@ EditorBuildSettings:
     path: Assets/Scenes/obstacleMaps/smallWall.unity
     guid: 36ed41cf8215bc844bd69c56561a7435
   - enabled: 1
-    path: Assets/Scenes/1PFightPrototype.unity
+    path: Assets/Scenes/bossFights/JumpingJack.unity
     guid: ab46019c51223f84282c1f1a17a42371
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 8037d30915d71ea4f99f53fa8c832a84
   m_configObjects: {}

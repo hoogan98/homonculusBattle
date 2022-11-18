@@ -37,7 +37,7 @@ public class BackgroundMusicSingleton : MonoBehaviour
             return;
         }
 
-        SceneManager.sceneLoaded += ReplaceMusic;
+        //SceneManager.sceneLoaded += ReplaceMusic;
 
         allAudio = new List<AudioClip>();
         allAudio.AddRange(Resources.LoadAll<AudioClip>("music"));

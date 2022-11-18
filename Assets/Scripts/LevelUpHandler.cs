@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LevelUpHandler : MonoBehaviour
 {
-    public string levelType;
+    public Utilities.LevelType levelType;
     public int points;
     public void LevelUp() {
-        if (PlayerPrefs.GetInt(levelType, 99) < points) {
-            PlayerPrefs.SetInt(levelType, points);
+        if (PlayerPrefs.GetInt(levelType.ToString(), 0) < points) {
+            PlayerPrefs.SetInt(levelType.ToString(), points);
         }
     }
 }
