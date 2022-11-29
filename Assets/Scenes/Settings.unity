@@ -1946,7 +1946,7 @@ PrefabInstance:
     - target: {fileID: 3238719268156839325, guid: 95c7157d3b5298b45ae85f6ca987df36,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3238719268156839325, guid: 95c7157d3b5298b45ae85f6ca987df36,
         type: 3}
@@ -3044,12 +3044,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3093,8 +3093,8 @@ RectTransform:
   - {fileID: 971557185}
   - {fileID: 423071123}
   - {fileID: 959083832}
-  - {fileID: 35336468}
   - {fileID: 899395694}
+  - {fileID: 35336468}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
