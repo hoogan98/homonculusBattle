@@ -51,7 +51,7 @@ public abstract class Part : MonoBehaviour
     public virtual void LoadPart()
     {
         Destroy(GetComponent<DrawingBehavior>());
-        GetComponent<BoxCollider2D>().isTrigger = false;
+        GetComponent<Collider2D>().isTrigger = false;
         StartGame();
 
         return;

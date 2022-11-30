@@ -9,7 +9,7 @@ public class DrawingBehavior : MonoBehaviour
         
         if (collision.gameObject.tag.Equals("Bone") || collision.gameObject.tag.Equals("Muscle"))
         {
-            Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
         }
     }
 }

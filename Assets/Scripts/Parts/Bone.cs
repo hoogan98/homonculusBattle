@@ -13,7 +13,7 @@ public class Bone : Part
     public override void StartDraw(DrawParts handler)
     {
         ratio = transform.localScale.x /
-                    GetComponent<BoxCollider2D>().bounds.size.x;
+                    GetComponent<Collider2D>().bounds.size.x;
         _drawAnchor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 start = new Vector3(_drawAnchor.x + (GetComponentInChildren<Renderer>().bounds.size.x / 2), _drawAnchor.y, startZ);
@@ -74,7 +74,7 @@ public class Bone : Part
 
         try
         {
-            float offset = GetComponent<BoxCollider2D>().bounds.size.x / 4;
+            float offset = GetComponent<Collider2D>().bounds.size.x / 4;
             Transform oldTrans = transform;
             MyJoint[] oldJoints = gameObject.GetComponentsInChildren<MyJoint>();
             SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();
@@ -184,7 +184,7 @@ public class Bone : Part
 
                 GameObject parentBone = ClosestObject(bone1, bone2, m.connectedAnchorJoint.transform.position);
 
-                Physics2D.IgnoreCollision(parentBone.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+                Physics2D.IgnoreCollision(parentBone.GetComponent<Collider2D>(), m.GetComponent<Collider2D>());
 
                 spring.connectedBody = parentBone.GetComponent<Rigidbody2D>();
                 // spring.connectedAnchor =

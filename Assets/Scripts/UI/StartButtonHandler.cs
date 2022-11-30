@@ -39,7 +39,7 @@ public class StartButtonHandler : MonoBehaviour
             if (!part.CompareTag("Muscle"))
             {
                 part.GetComponent<Rigidbody2D>().gravityScale = gravity;
-                part.GetComponent<BoxCollider2D>().isTrigger = false;
+                part.GetComponent<Collider2D>().isTrigger = false;
             }
             else
             {

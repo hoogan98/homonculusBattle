@@ -300,7 +300,7 @@ public class Muscle : Part
         spring.frequency = _springStrengthDefault;
 
         //get rid of the collider you use to assign hits
-        Destroy(GetComponent<BoxCollider2D>());
+        Destroy(GetComponent<Collider2D>());
 
         //uncomment if you ever figure out how to balance the muscle tearing without any impacts
         //float springHealth = this.GetComponent<DamageCheck>().GetHealth();

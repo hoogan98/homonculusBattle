@@ -58,7 +58,7 @@ public class Brain : Part
     public override void Die()
     {
         Destroy(GetComponentInChildren<SpriteRenderer>());
-        Destroy(GetComponent<BoxCollider2D>());
+        Destroy(GetComponent<Collider2D>());
 
         int gibCount = Random.Range(maxGibs / 2, maxGibs + 1);
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
