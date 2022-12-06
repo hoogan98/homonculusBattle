@@ -593,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Hole in the Wall
+      value: Walk
       objectReference: {fileID: 0}
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -781,9 +781,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: holeInTheWall
+  sceneName: Walk
   levelType: 0
-  unlocksRequired: 1
+  unlocksRequired: 0
 --- !u!1 &301748686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Ladder
+      value: Hop
       objectReference: {fileID: 0}
     - target: {fileID: 7014073901148690345, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: ladder
+  sceneName: Hop
   levelType: 0
   unlocksRequired: 0
 --- !u!1001 &841342092
@@ -1794,7 +1794,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Small Wall
+      value: Leap
       objectReference: {fileID: 0}
     - target: {fileID: 7014073901148690345, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: smallWall
+  sceneName: Leap
   levelType: 0
   unlocksRequired: 0
 --- !u!1001 &1068574024
@@ -2451,7 +2451,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Walk
+      value: Slide
       objectReference: {fileID: 0}
     - target: {fileID: 8738774945414199044, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Walk
+  sceneName: Slide
   levelType: 0
   unlocksRequired: 0
 --- !u!1001 &1218266291
@@ -3769,7 +3769,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Incline
+      value: Run
       objectReference: {fileID: 0}
     - target: {fileID: 7014073901148690345, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -3947,6 +3947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: incline
+  sceneName: Run
   levelType: 0
   unlocksRequired: 0

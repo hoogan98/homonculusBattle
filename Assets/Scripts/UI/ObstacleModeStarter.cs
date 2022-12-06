@@ -57,7 +57,10 @@ public class ObstacleModeStarter : MonoBehaviour
             mover.enabled = true;
         }
 
-        drawer.GetPlayer().AddComponent<OnBrainDeath>();
+        if (drawer.GetPlayer().GetComponent<OnBrainDeath>() == null) {
+            drawer.GetPlayer().AddComponent<OnBrainDeath>();
+        }
+        
 
         drawer.SavePlayer();
 

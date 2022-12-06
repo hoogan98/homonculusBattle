@@ -19,7 +19,7 @@ public class GOList : Listable
 
     public override void GoPrevious()
     {
-        if (currentIndex - 1 <= 0) {
+        if (currentIndex <= 0) {
             currentIndex = objects.Length - 1;
         } else {
             currentIndex--;

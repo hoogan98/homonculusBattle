@@ -27,7 +27,7 @@ public class ImageList : Listable
 
     public override void GoPrevious()
     {
-        if (currentIndex - 1 <= 0) {
+        if (currentIndex <= 0) {
             currentIndex = images.Length - 1;
         } else {
             currentIndex--;
