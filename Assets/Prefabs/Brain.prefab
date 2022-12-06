@@ -111,7 +111,7 @@ MonoBehaviour:
   sizeMax: 1
   connectedJoints: []
   connectedMuscles: []
-  baseHealth: 10
+  baseHealth: 50
   brainConnected: 0
   visited: 0
   creationSound: {fileID: 8300000, guid: 4dbd17921ff4bb444a0a2769bd196d74, type: 3}

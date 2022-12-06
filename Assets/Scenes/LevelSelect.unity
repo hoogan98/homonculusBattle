@@ -2451,7 +2451,7 @@ PrefabInstance:
     - target: {fileID: 6821514627375699205, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
       propertyPath: m_Text
-      value: Gap
+      value: Walk
       objectReference: {fileID: 0}
     - target: {fileID: 8738774945414199044, guid: 63bcb24b17cf29945aabc527fc384478,
         type: 3}
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c929e9c41a3547b778e2052052294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: gap
+  sceneName: Walk
   levelType: 0
   unlocksRequired: 0
 --- !u!1001 &1218266291

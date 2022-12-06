@@ -96,8 +96,8 @@ MonoBehaviour:
   uniqueLightHits: []
   uniqueBigHits: []
   useSound: {fileID: 8300000, guid: 9112f6bafdbcb964c883182dbc31af3c, type: 3}
-  strength: 2
-  yStrengthScale: 8
+  strength: 1.5
+  yStrengthScale: 6
   anchorJoint: {fileID: 0}
   connectedAnchorJoint: {fileID: 0}
   spring: {fileID: 0}

@@ -72,8 +72,8 @@ public class Bone : Part
         }
 
 
-        try
-        {
+        // try
+        // {
             float offset = GetComponent<Collider2D>().bounds.size.x / 4;
             Transform oldTrans = transform;
             MyJoint[] oldJoints = gameObject.GetComponentsInChildren<MyJoint>();
@@ -184,7 +184,7 @@ public class Bone : Part
 
                 GameObject parentBone = ClosestObject(bone1, bone2, m.connectedAnchorJoint.transform.position);
 
-                Physics2D.IgnoreCollision(parentBone.GetComponent<Collider2D>(), m.GetComponent<Collider2D>());
+                //Physics2D.IgnoreCollision(parentBone.GetComponent<Collider2D>(), m.GetComponent<Collider2D>());
 
                 spring.connectedBody = parentBone.GetComponent<Rigidbody2D>();
                 // spring.connectedAnchor =
@@ -206,11 +206,11 @@ public class Bone : Part
             }
 
             homonculus.ReportDestroyedPartAndRecalc(this);
-        }
-        catch
-        {
-            Debug.Log("bone breaking error");
-        }
+        // }
+        // catch
+        // {
+        //     Debug.Log("bone breaking error");
+        // }
 
         //make sure the base object dies no matter what
         Destroy(gameObject);
