@@ -44,7 +44,7 @@ public class Bone : Part
         transform.position = new Vector3(transform.position.x, transform.position.y, startZ);
 
 
-        baseHealth = yHealthScale * transform.lossyScale.y;
+        baseHealth = yHealthScale * transform.lossyScale.y;        
 
         drawingHandler.EndDraw();
     }
@@ -74,7 +74,8 @@ public class Bone : Part
 
         // try
         // {
-            float offset = GetComponent<Collider2D>().bounds.size.x / 4;
+            Collider2D col = GetComponent<Collider2D>();
+            float offset = Vector3.Distance(col.bounds.center + col.bounds.extents, col.bounds.center) / 2;
             Transform oldTrans = transform;
             MyJoint[] oldJoints = gameObject.GetComponentsInChildren<MyJoint>();
             SpringJoint2D[] oldSprings = gameObject.GetComponents<SpringJoint2D>();

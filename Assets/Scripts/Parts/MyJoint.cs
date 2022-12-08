@@ -22,7 +22,7 @@ public class MyJoint : Part
         // Vector2 mousePos = Input.mousePosition;
         // transform.position = new Vector3(mousePos.x, mousePos.y, startZ);
 
-        GameObject.Instantiate(spinner, transform.position, transform.rotation);
+        GameObject.Instantiate(spinner, transform.position - new Vector3(0,0,1), transform.rotation);
 
         ratio = GetComponent<Transform>().localScale.x /
                     GetComponentInChildren<Renderer>().bounds.size.x;

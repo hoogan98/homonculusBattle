@@ -81,23 +81,24 @@ MonoBehaviour:
   m_Text: 'Tips:
 
 
-    In singleplayer mode, you will not be timed while drawing,
-    and have to overcome an obstacle or kill a boss.
+    You can change the size and strength of parts by scrolling
+    the mouse wheel while clicking and dragging to place them.
 
 
-    All of your parts can
-    break.
+    All of your
+    parts can break.
 
 
-    Muscles that are not connected to your brain will flail randomly.
+    Muscles that are not connected to your brain will flail
+    randomly.
 
 
-    There
-    are walls of spikes that slowly enclose the arena. These spikes will kill you,
-    so try to win quickly.
+    There are walls of spikes that slowly enclose the arena. These
+    spikes will kill you, so try to win quickly.
 
 
-    Falling off the arena will kill you.'
+    Falling off the arena will
+    kill you.'
 --- !u!1 &6624717985983907722
 GameObject:
   m_ObjectHideFlags: 0
