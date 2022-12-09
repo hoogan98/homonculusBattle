@@ -41,7 +41,7 @@ public class OnBrainDeath : MonoBehaviour
 
     public void DisplayWinText() {
         winText.text = "You are the " + winGenerator.GetTitle();
-        self.PlaySound(winSound);
+        canvas.GetComponent<AudioSource>().PlayOneShot(winSound);
         
         Instantiate(againButton, canvas.transform);
         Instantiate(menuButton, canvas.transform);

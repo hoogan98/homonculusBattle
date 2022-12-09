@@ -2783,7 +2783,7 @@ PrefabInstance:
     - target: {fileID: 6829689755049650606, guid: e79bafbb301a59a4f94f4e13ba7fb23d,
         type: 3}
       propertyPath: m_Name
-      value: BossFightCanvas
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 6829689755049650607, guid: e79bafbb301a59a4f94f4e13ba7fb23d,
         type: 3}
