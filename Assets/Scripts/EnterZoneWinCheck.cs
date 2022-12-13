@@ -17,6 +17,7 @@ public class EnterZoneWinCheck : MonoBehaviour
             other.gameObject.GetComponentInParent<Homonculus>().PlaySound(winSound);
             Instantiate(againButton, canvas.transform);
             Instantiate(menuButton, canvas.transform);
+            Destroy(gameObject.GetComponent<Collider2D>());
 
             try
             {

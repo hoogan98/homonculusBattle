@@ -51,6 +51,12 @@ public class ObstacleModeStarter : MonoBehaviour
             return;
         }
         
+        UIClear clear = GetComponent<UIClear>();
+
+        if (clear != null) {
+            clear.Clear();
+        }
+        
         DrawParts drawer = p1DrawZone.GetComponent<DrawParts>();
 
         foreach (DeathWallMover mover in GameObject.Find("edgeBarriers").GetComponentsInChildren<DeathWallMover>()) {
