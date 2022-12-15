@@ -2892,6 +2892,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829689756620831596, guid: e79bafbb301a59a4f94f4e13ba7fb23d,
         type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 8899514303684420904, guid: c63cdcb5a2490954c9111ce0ebf1c7c6,
+        type: 3}
+    - target: {fileID: 6829689756620831596, guid: e79bafbb301a59a4f94f4e13ba7fb23d,
+        type: 3}
       propertyPath: barriers
       value: 
       objectReference: {fileID: 823545783}
