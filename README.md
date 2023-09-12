@@ -1,2 +1,2 @@
 # homonculusBattle
-slappin time
+builds.zip contains a built version of the game
